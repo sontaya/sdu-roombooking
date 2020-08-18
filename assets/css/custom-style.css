@@ -1,0 +1,11 @@
+.custom-error{
+	color:red;
+}
+
+label .custom-error{
+	color:red;
+}
+
+label .is-invalid {
+	color: #F64E60;
+}
