@@ -58,7 +58,7 @@
 
 									<div class="form-group row">
 											<div class="col-lg-6">
-											<label>อีเมล์สำหรับติดต่อ:</label>
+											<label>อีเมลสำหรับติดต่อ:</label>
 												<input type="email" class="form-control" placeholder="" id="booking_email" name="booking_email" value="<?= $val_booking_email; ?>" />
 											</div>
 											<div class="col-lg-6">

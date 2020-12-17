@@ -9,101 +9,109 @@
 
 					</div>
 					<div class="card-body">
-						<div class="table-responsive">
-							<table class="table table-hover">
-								<thead>
-									<tr>
-										<th scope="col">#</th>
-										<th scope="col">ชื่อห้อง</th>
-										<th scope="col">ลักษณะการใช้งาน</th>
-										<th scope="col">วันที่เริ่มต้น</th>
-										<th scope="col">วันที่สิ้นสุด</th>
-										<th scope="col">ACTIONS</th>
-									</tr>
-								</thead>
-								<tbody>
-									<?php
-										$i = 0;
-										foreach ($booking_lists as $booking) {
-											$i++;
-									?>
+						<?php if($booking_lists != false){ ?>
+
+							<div class="table-responsive">
+								<table class="table table-hover">
+									<thead>
 										<tr>
-											<th scope="row">
-												<div class="symbol symbol-40 symbol-light-success flex-shrink-0">
-														<span class="symbol-label font-size-h4 font-weight-bold"><?= $booking["room_id"] ?></span>
-												</div>
-
-											</th>
-											<td class="align-middle"><?= $booking["room_name"] ?></td>
-											<td class="align-middle"><?= $booking["usage_category_desc"] ?></td>
-											<td class="align-middle"><?= get_thai_datetime($booking["booking_date_start"],1,true); ?></td>
-											<td class="align-middle"><?= get_thai_datetime($booking["booking_date_end"],1,true); ?></td>
-											<td class="text-right">
-												<?php
-
-													switch ($booking['booking_status']) {
-														case 'pending':
-															$label_class = "label-light-warning";
-															break;
-														case 'approved':
-															$label_class = "label-light-success";
-															break;
-														case 'rejected':
-															$label_class = "label-light-danger";
-															break;
-
-													}
-												?>
-												<span class="label label-inline <?php echo $label_class; ?> font-weight-bold">
-													<?= $booking["booking_status"] ?>
-												</span>
-
-												<div class="dropdown dropdown-inline">
-													<a href="javascript:;" class="btn btn-sm btn-clean btn-icon mr-2" data-toggle="dropdown">
-														<span class="flaticon2-gear"></span>
-													</a>
-													<div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-														<ul class="navi flex-column navi-hover py-2">
-															<li class="navi-header font-weight-bolder text-uppercase font-size-xs text-primary pb-2"> Choose an action:
-															</li>
-															<li class="navi-item">
-															<a href="javascript:;" onclick="booking_view('<?php echo $booking['id']; ?>');return false;" data-id="<?php echo $booking['id'] ?>" class="navi-link booking-view">
-																	<span class="navi-icon"><i class="flaticon-eye"></i></span>
-																	<span class="navi-text">View</span>
-																</a>
-															</li>
-
-															<?php
-																if($booking['booking_status'] != 'approved'){
-															?>
-																<li class="navi-item">
-																	<a href="<?php echo base_url('booking/form/').$booking["id"]; ?>" data-id="<?= $booking["id"] ?>" class="navi-link booking-edit">
-																		<span class="navi-icon"><i class="la la-edit text-primary"></i></span>
-																		<span class="navi-text">Edit</span>
-																	</a>
-																</li>
-																<li class="navi-item">
-																	<a href="javascript:;" data-id="<?= $booking["id"] ?>" class="navi-link booking-delete">
-																		<span class="navi-icon"><i class="la la-trash text-danger"></i></span>
-																		<span class="navi-text">Delete</span>
-																	</a>
-																</li>
-															<?php
-																}
-															?>
-														</ul>
-													</div>
-												</div>
-
-											</td>
+											<th scope="col">#</th>
+											<th scope="col">ชื่อห้อง</th>
+											<th scope="col">ลักษณะการใช้งาน</th>
+											<th scope="col">วันที่เริ่มต้น</th>
+											<th scope="col">วันที่สิ้นสุด</th>
+											<th scope="col">ACTIONS</th>
 										</tr>
-									<?php
-										}
-									?>
+									</thead>
+									<tbody>
+										<?php
+											$i = 0;
+											foreach ($booking_lists as $booking) {
+												$i++;
+										?>
+											<tr>
+												<th scope="row">
+													<div class="symbol symbol-40 symbol-light-success flex-shrink-0">
+															<span class="symbol-label font-size-h4 font-weight-bold"><?= $booking["room_id"] ?></span>
+													</div>
 
-								</tbody>
-							</table>
-						</div>
+												</th>
+												<td class="align-middle"><?= $booking["room_name"] ?></td>
+												<td class="align-middle"><?= $booking["usage_category_desc"] ?></td>
+												<td class="align-middle"><?= get_thai_datetime($booking["booking_date_start"],1,true); ?></td>
+												<td class="align-middle"><?= get_thai_datetime($booking["booking_date_end"],1,true); ?></td>
+												<td class="text-right">
+													<?php
+
+														switch ($booking['booking_status']) {
+															case 'pending':
+																$label_class = "label-light-warning";
+																break;
+															case 'approved':
+																$label_class = "label-light-success";
+																break;
+															case 'rejected':
+																$label_class = "label-light-danger";
+																break;
+
+														}
+													?>
+													<span class="label label-inline <?php echo $label_class; ?> font-weight-bold">
+														<?= $booking["booking_status"] ?>
+													</span>
+
+													<div class="dropdown dropdown-inline">
+														<a href="javascript:;" class="btn btn-sm btn-clean btn-icon mr-2" data-toggle="dropdown">
+															<span class="flaticon2-gear"></span>
+														</a>
+														<div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+															<ul class="navi flex-column navi-hover py-2">
+																<li class="navi-header font-weight-bolder text-uppercase font-size-xs text-primary pb-2"> Choose an action:
+																</li>
+																<li class="navi-item">
+																<a href="javascript:;" onclick="booking_view('<?php echo $booking['id']; ?>');return false;" data-id="<?php echo $booking['id'] ?>" class="navi-link booking-view">
+																		<span class="navi-icon"><i class="flaticon-eye"></i></span>
+																		<span class="navi-text">View</span>
+																	</a>
+																</li>
+
+																<?php
+																	if($booking['booking_status'] != 'approved'){
+																?>
+																	<li class="navi-item">
+																		<a href="<?php echo base_url('booking/form/').$booking["id"]; ?>" data-id="<?= $booking["id"] ?>" class="navi-link booking-edit">
+																			<span class="navi-icon"><i class="la la-edit text-primary"></i></span>
+																			<span class="navi-text">Edit</span>
+																		</a>
+																	</li>
+																	<li class="navi-item">
+																		<a href="javascript:;" data-id="<?= $booking["id"] ?>" class="navi-link booking-delete">
+																			<span class="navi-icon"><i class="la la-trash text-danger"></i></span>
+																			<span class="navi-text">Delete</span>
+																		</a>
+																	</li>
+																<?php
+																	}
+																?>
+															</ul>
+														</div>
+													</div>
+
+												</td>
+											</tr>
+										<?php
+											}
+										?>
+
+									</tbody>
+								</table>
+							</div>
+
+						<?php }else{ ?>
+
+							<div class="alert alert-danger text-center">ไม่พบข้อมูลการจอง</div>
+
+						<?php } ?>
 					</div>
 
 				</div>

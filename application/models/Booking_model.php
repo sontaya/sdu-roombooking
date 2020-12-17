@@ -98,7 +98,7 @@ class Booking_model extends CI_Model {
         //     $this->db->where('CATEGORY', $params['conditions']['CATEGORY']);
         //   }
 
-        //   $this->db->order_by('REMARK', 'ASC');
+          $this->db->order_by('b.booking_date_start', 'ASC');
         //   $this->db->order_by('FILENAME_PDF', 'ASC');
 
           $query = $this->db->get();
