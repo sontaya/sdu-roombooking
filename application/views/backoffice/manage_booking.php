@@ -113,7 +113,7 @@
 											<tr>
 												<th scope="row">
 													<div class="symbol symbol-40 symbol-light-success flex-shrink-0">
-														<span class="symbol-label font-size-h4 font-weight-bold"><?= $booking["room_id"] ?></span>
+														<span class="symbol-label font-size-h5 font-weight-bold"><?= $booking["room_tag"] ?></span>
 													</div>
 
 												</th>

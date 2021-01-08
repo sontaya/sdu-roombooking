@@ -43,34 +43,38 @@
 
 									<?php
 										// $room_info1 = get_room_bytype('1');
-                                        foreach ($room_info1 as $r1) {
-                                            ?>
-											<li class="navi-item">
-												<a href="<?php echo base_url('booking/view/'). $r1["id"] ?>" class="navi-link">
-													<span class="navi-icon">
-														<i class="flaticon-technology-2"></i>
-													</span>
-													<span class="navi-text"><?= $r1["name"] ?></span>
-												</a>
-											</li>
+										if($room_info1 != false){
+                                            foreach ($room_info1 as $r1) {
+                                                ?>
+												<li class="navi-item">
+													<a href="<?php echo base_url('backoffice/booking_calendar/'). $r1["id"] ?>" class="navi-link">
+														<span class="navi-icon">
+															<i class="flaticon-technology-2"></i>
+														</span>
+														<span class="navi-text"><?= $r1["name"] ?></span>
+													</a>
+												</li>
 									<?php
+                                            }
                                         }
 									?>
 									<div class="separator separator-dashed my-7"></div>
 
 									<?php
 										// $room_info2 = get_room_bytype('2');
-                                        foreach ($room_info2 as $r2) {
-                                            ?>
-											<li class="navi-item">
-												<a href="<?php echo base_url('booking/view/'). $r2["id"] ?>" class="navi-link">
-													<span class="navi-icon">
-														<i class="flaticon-technology-2"></i>
-													</span>
-													<span class="navi-text"><?= $r2["name"] ?></span>
-												</a>
-											</li>
+										if($room_info2 != false){
+                                            foreach ($room_info2 as $r2) {
+                                                ?>
+												<li class="navi-item">
+													<a href="<?php echo base_url('backoffice/booking_calendar/'). $r2["id"] ?>" class="navi-link">
+														<span class="navi-icon">
+															<i class="flaticon-technology-2"></i>
+														</span>
+														<span class="navi-text"><?= $r2["name"] ?></span>
+													</a>
+												</li>
 									<?php
+                                            }
                                         }
 									?>
 								</ul>

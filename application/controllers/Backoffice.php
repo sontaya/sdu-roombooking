@@ -144,7 +144,9 @@ class Backoffice extends MY_Controller
 			$search_date_end = $this->input->post('end');
 
 			$criterias = array(
+				'user_role' => $this->session->userdata('auth')['role'],
 				'room_id' => $this->input->post('bm_search_room'),
+				'room_in' => $this->session->userdata('auth')['manage_room'],
 				'booking_status' => $this->input->post('bm_search_status'),
 				'booking_date_start' => $search_date_start,
 				'booking_date_end' => $search_date_end
@@ -158,6 +160,8 @@ class Backoffice extends MY_Controller
 			$search_date_end = date("d/m/Y",$next7day);
 
 			$criterias = array(
+				'user_role' => $this->session->userdata('auth')['role'],
+				'room_in' => $this->session->userdata('auth')['manage_room'],
 				'room_id' => "",
 				'booking_status' => "",
 				'booking_date_start' => $search_date_start,
@@ -177,6 +181,9 @@ class Backoffice extends MY_Controller
 		$this->data = $data;
 		$this->content = 'backoffice/manage_booking';
 		$this->render();
+
+		// 	header('Content-Type: application/json');
+    	// echo json_encode($data);
 
 	}
 
@@ -226,8 +233,12 @@ class Backoffice extends MY_Controller
 
 
 		$this->data = $data;
+
 		$this->content = 'backoffice/manage_booking_calendar';
 		$this->render();
+
+		// header('Content-Type: application/json');
+    	// echo json_encode($data);
 	}
 
 	function get_booking_request(){

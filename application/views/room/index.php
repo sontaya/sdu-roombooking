@@ -53,7 +53,11 @@
 											</div>
 											<div class="d-flex justify-content-between align-items-cente my-1">
 												<span class="text-dark-75 font-weight-bolder mr-2">เจ้าหน้าที่ประจำห้อง:</span>
-												<a href="#" class="text-muted text-hover-primary"></a>
+
+													<?php
+														echo $r1["room_staff"];
+													?>
+
 											</div>
 
 										</div>
@@ -76,6 +80,7 @@
 					<?php
 						$room_info2 = get_room_bytype('2');
 						foreach ($room_info2 as $r2) {
+
 					?>
 
 							<!--begin::Col-->
@@ -119,9 +124,16 @@
 												<span class="text-dark-75 font-weight-bolder mr-2">ความจุห้อง:</span>
 												<a href="#" class="text-muted text-hover-primary"><?= $r2["capacity"] ?></a>
 											</div>
+											<div class="d-flex justify-content-between align-items-center">
+												<span class="text-dark-75 font-weight-bolder mr-2">HUB500 Account:</span>
+												<a href="#" class="text-muted text-hover-primary"><?= $r2["hub500_account"] ?></a>
+											</div>
 											<div class="d-flex justify-content-between align-items-cente my-1">
 												<span class="text-dark-75 font-weight-bolder mr-2">เจ้าหน้าที่ประจำห้อง:</span>
-												<a href="#" class="text-muted text-hover-primary"></a>
+												<!-- <a href="#" class="text-muted text-hover-primary"></a> -->
+												<?php
+													echo $r2["room_staff"];
+												?>
 											</div>
 
 										</div>

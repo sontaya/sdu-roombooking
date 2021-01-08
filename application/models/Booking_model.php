@@ -42,7 +42,7 @@ class Booking_model extends CI_Model {
         $this->db->limit($params['limit']);
       }
 
-	  	$this->db->select('b.*, rm.name as room_name, u.name, u.surname, u.name_faculty, u.name_department,
+	  	$this->db->select('b.*, rm.room_tag, rm.name as room_name, u.name, u.surname, u.name_faculty, u.name_department,
 	  			(
 					case
 						when b.usage_category = "1" then "ออนไลน์ - การสอน (Live)"
@@ -70,7 +70,17 @@ class Booking_model extends CI_Model {
 
       if (!empty($params['conditions']['room_id'])){
         	$this->db->where('b.room_id', $params['conditions']['room_id']);
-		  }
+			}else{
+				if (!empty($params['conditions']['room_in'])){
+					$this->db->where_in('b.room_id', $params['conditions']['room_in']);
+				}
+			}
+
+			// if (!empty($params['conditions']['room_in'])){
+			// 	$this->db->where_in('b.room_id', $params['conditions']['room_in']);
+			// }else if($params['conditions']['user_role'] != "admin"){
+			// 	$this->db->where('b.room_id', $params['conditions']['room_id']);
+			// }
 
       if (!empty($params['conditions']['not_user_id'])){
 
@@ -83,20 +93,6 @@ class Booking_model extends CI_Model {
 			$this->db->where('b.booking_date_end <= ', date2_formatdb($params['conditions']['booking_date_end']));
 	}
 
-
-		//   if (!empty($params['conditions']['generalSearch'])){
-		// 	$where_like = "(firstname LIKE '%".$params['conditions']['generalSearch']."%'
-		// 					  OR lastname LIKE '%".$params['conditions']['generalSearch']."%'
-		// 					  OR email LIKE '%".$params['conditions']['generalSearch']."%'
-		// 					)";
-		// 	$this->db->where($where_like);
-
-		//   }
-
-
-        //   if (!empty($params['conditions']['CATEGORY'])){
-        //     $this->db->where('CATEGORY', $params['conditions']['CATEGORY']);
-        //   }
 
           $this->db->order_by('b.booking_date_start', 'ASC');
         //   $this->db->order_by('FILENAME_PDF', 'ASC');
