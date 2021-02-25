@@ -39,6 +39,7 @@
 												<!--begin::Content-->
 												<div class="d-flex flex-column">
 													<a href="#" class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">คู่มือการใช้งานระบบ</a>
+													<a href="<?php echo base_url('assets/documents/sduonline-usermanual.pdf'); ?>" target="_blank" class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">คู่มือการใช้งานห้องสอนออนไลน์</a>
 												</div>
 												<!--end::Content-->
 											</div>
@@ -50,7 +51,7 @@
 									<!--begin::Callout-->
 									<div class="card card-custom wave wave-animate-slow wave-danger mb-8 mb-lg-0">
 										<div class="card-body">
-											<div class="d-flex align-items-center p-5">
+											<div class="d-flex align-items-center pt-5 pb-5 pl-2 pr-2con">
 												<!--begin::Icon-->
 												<div class="mr-6">
 													<span class="svg-icon svg-icon-danger svg-icon-4x">
@@ -68,7 +69,7 @@
 												<!--end::Icon-->
 												<!--begin::Content-->
 												<div class="d-flex flex-column">
-													<a href="<?php echo base_url('assets/documents/sduonline-usermanual.pdf'); ?>" target="_blank" class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">คู่มือการใช้งานห้องสอนออนไลน์</a>
+													<a href="https://www.youtube.com/playlist?list=PLSPmkufYd1wbJ44hIDYgvWuSAFB32K4Z0" target="_blank" class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">นโยบาย คำแนะนำ ในการใช้และจองห้อง SDU online Learning</a>
 												</div>
 												<!--end::Content-->
 											</div>

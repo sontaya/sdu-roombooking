@@ -17,6 +17,7 @@
 									$val_booking_faculty = "";
 									$val_booking_email = "";
 									$val_booking_phone = "";
+									$val_internal_phone = "";
 									$val_room_id = "";
 									$val_usage_category = "";
 									$val_objective = "";
@@ -32,6 +33,7 @@
 									$val_booking_faculty = $booking["name_faculty"];
 									$val_booking_email = $booking["booking_email"];
 									$val_booking_phone = $booking["booking_phone"];
+									$val_internal_phone = $booking["internal_phone"];
 									$val_room_id = $booking["room_id"];
 									$val_usage_category = $booking["usage_category"];
 									$val_objective = $booking["objective"];
@@ -83,10 +85,15 @@
 											<label>อีเมล์สำหรับติดต่อ:</label>
 												<input type="email" class="form-control" placeholder="" id="booking_email" name="booking_email" value="<?= $val_booking_email; ?>" />
 											</div>
-											<div class="col-lg-6">
-											<label>เบอร์โทรศัพท์สำหรับติดต่อ: <span id="booking_phone_Error" ></span></label>
+											<div class="col-lg-2">
+												<label>เบอร์โทรศัพท์มือถือ: <span id="booking_phone_Error" ></span></label>
 												<input type="text" class="form-control" placeholder="" id="booking_phone" name="booking_phone"
 													value="<?= $val_booking_phone; ?>" data-error="#booking_phone_Error" />
+											</div>
+											<div class="col-lg-3">
+												<label>เบอร์โทรศัพท์ภายใน: <span id="internal_phone_Error" ></span></label>
+												<input type="text" class="form-control" placeholder="" id="internal_phone" name="internal_phone"
+													value="<?= $val_internal_phone; ?>" data-error="#internal_phone_Error" />
 											</div>
 									</div>
 

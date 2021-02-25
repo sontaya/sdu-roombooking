@@ -35,14 +35,14 @@ class Booking_model extends CI_Model {
     }
 
 	public function list($params = array())
-    {
+  {
       if(array_key_exists("start",$params) && array_key_exists("limit",$params)){
         $this->db->limit($params['limit'],$params['start']);
       }elseif(!array_key_exists("start",$params) && array_key_exists("limit",$params)){
         $this->db->limit($params['limit']);
       }
 
-	  	$this->db->select('b.*, rm.room_tag, rm.name as room_name, u.name, u.surname, u.name_faculty, u.name_department,
+	  	$this->db->select('b.*, rm.room_tag, rm.name as room_name, rm.shortname as room_shortname , u.name, u.surname, u.name_faculty, u.name_department,
 	  			(
 					case
 						when b.usage_category = "1" then "ออนไลน์ - การสอน (Live)"
@@ -76,11 +76,6 @@ class Booking_model extends CI_Model {
 				}
 			}
 
-			// if (!empty($params['conditions']['room_in'])){
-			// 	$this->db->where_in('b.room_id', $params['conditions']['room_in']);
-			// }else if($params['conditions']['user_role'] != "admin"){
-			// 	$this->db->where('b.room_id', $params['conditions']['room_id']);
-			// }
 
       if (!empty($params['conditions']['not_user_id'])){
 
@@ -89,17 +84,60 @@ class Booking_model extends CI_Model {
 
       if (!empty($params['conditions']['booking_date_start'])){
 
-			$this->db->where('b.booking_date_start >= ', date2_formatdb($params['conditions']['booking_date_start']));
-			$this->db->where('b.booking_date_end <= ', date2_formatdb($params['conditions']['booking_date_end']));
-	}
+				$this->db->where('b.booking_date_start >= ', date2_formatdb($params['conditions']['booking_date_start']));
+				$this->db->where('b.booking_date_end <= ', date2_formatdb($params['conditions']['booking_date_end']));
 
+				// $this->db->where('b.booking_date_start BETWEEN "'. date('Y-m-d', strtotime($params['conditions']['booking_date_start'])). '" and "'. date('Y-m-d', strtotime($params['conditions']['booking_date_end'])).'"');
+				// $this->db->or_where('b.booking_date_end BETWEEN "'. date('Y-m-d', strtotime($params['conditions']['booking_date_start'])). '" and "'. date('Y-m-d', strtotime($params['conditions']['booking_date_end'])).'"');
+
+	}
 
           $this->db->order_by('b.booking_date_start', 'ASC');
         //   $this->db->order_by('FILENAME_PDF', 'ASC');
 
           $query = $this->db->get();
           return ($query->num_rows() > 0)?$query->result_array():FALSE;
-        //   echo $this->db->get_compiled_select();
+          // echo $this->db->get_compiled_select();
+
+
+		}
+
+
+		public function check_freeroom_list($params = array())
+  {
+      if(array_key_exists("start",$params) && array_key_exists("limit",$params)){
+        $this->db->limit($params['limit'],$params['start']);
+      }elseif(!array_key_exists("start",$params) && array_key_exists("limit",$params)){
+        $this->db->limit($params['limit']);
+      }
+
+	  	$query = $this->db->query("select b.*, rm.room_tag, rm.name as room_name, u.name, u.surname, u.name_faculty, u.name_department,
+														(
+															case
+																when b.usage_category = '1' then 'ออนไลน์ - การสอน (Live)'
+																when b.usage_category = '2' then 'ออนไลน์ - การประชุม (Live)'
+																when b.usage_category = '3' then 'ออนแอร์ (ถ่ายทำรายการในสตูดิโอ)'
+																else ''
+															end
+														) as usage_category_desc
+													from rb_booking_info b
+														inner join rb_room_master rm on b.room_id = rm.id
+														inner join rb_users u on u.user_id = b.user_id
+													where booking_status = 'approved'
+															and b.room_id = '".$params['conditions']['room_id']."'
+															and (
+																	(b.booking_date_start between '".$params['conditions']['free_date_start']."' and '".$params['conditions']['free_date_end']."')
+																	or
+																	(b.booking_date_end between '".$params['conditions']['free_date_start']."' and '".$params['conditions']['free_date_end']."')
+																)"
+														);
+
+
+
+          // $query = $this->db->get();
+          return ($query->num_rows() > 0)?$query->result_array():FALSE;
+					// echo $this->db->get_compiled_select();
+					// return $query->result_array();
 
 
     }

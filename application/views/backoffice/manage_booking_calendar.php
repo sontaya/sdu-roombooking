@@ -124,11 +124,14 @@
 							</div>
 
 							<div class="row">
-									<div class="col-lg-6">
-										<label>อีเมล์สำหรับติดต่อ: <span id="md_booking_email"></span></label>
+									<div class="col-lg-5">
+										<label>อีเมล์: <span id="md_booking_email"></span></label>
 									</div>
-									<div class="col-lg-6">
-										<label>เบอร์โทรศัพท์สำหรับติดต่อ: <span id="md_booking_phone"></span></label>
+									<div class="col-lg-4">
+										<label>เบอร์โทรศัพท์มือถือ: <span id="md_booking_phone"></span></label>
+									</div>
+									<div class="col-lg-3">
+										<label>เบอร์โทรศัพท์ภายใน: <span id="md_internal_phone"></span></label>
 									</div>
 							</div>
 
@@ -164,11 +167,11 @@
 						</div>
 						<div class="card-footer">
 							<div class="form-group row">
-								<div class="col-lg-8">
+								<div class="col-lg-7">
 									<input type="text" class="form-control" name="md_reason" id="md_reason" value="" placeholder="ระบุเหตุผลในการยกเลิก/ไม่อนุมัติ">
 								</div>
-								<div class="col-lg-4">
-									<button type="button" id="md_button_reject" class="btn btn-lg btn-default disabled">ไม่อนุมัติ</button>
+								<div class="col-lg-5">
+									<button type="button" id="md_button_reject" class="btn btn-lg btn-default disabled">ไม่อนุมัติ/ยกเลิก</button>
 									<button type="button" id="md_button_approve" class="btn btn-success btn-lg mr-2">อนุมัติ</button>
 									<input type="hidden" name="md_id" id="md_id" value="">
 								</div>

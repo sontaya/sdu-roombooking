@@ -84,6 +84,36 @@ var KTCalendarListView = function() {
 					console.log('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
 					console.log('View: ' + info.view.type);
 
+
+					var getTargetURL = BASE_URL + 'backoffice/get_booking_info/'+info.event.id;
+					// console.log(getTargetURL);
+
+					jQuery.get(getTargetURL , function (data) {
+
+						console.log(data);
+
+						jQuery("#md_booking_name").html(data[0].name+ " " + data[0].surname);
+						jQuery("#md_room_name").html(data[0].room_name);
+						jQuery("#md_booking_email").html(data[0].booking_email);
+						jQuery("#md_booking_phone").html(data[0].booking_phone);
+						jQuery("#md_internal_phone").html(data[0].internal_phone);
+						jQuery("#md_objective").html(data[0].objective);
+						jQuery("#md_participant").html(data[0].participant);
+						if(data[0].require_staff == "Y"){
+							jQuery("#md_require_staff").html("ต้องการ");
+						}else{
+							jQuery("#md_require_staff").html("ไม่ต้องการ");
+						}
+						jQuery("#md_booking_date_range").html(data[0].booking_date_start+ " ถึง " + data[0].booking_date_end);
+						jQuery("#md_reason").val(data[0].booking_status_reason);
+						jQuery("#md_id").val(data[0].id);
+
+						// jQuery.noConflict();
+						jQuery("#bookingInfoModal").modal('show');
+
+					});
+
+
 					// change the border color just for fun
 					// info.el.style.borderColor = 'red';
 				},

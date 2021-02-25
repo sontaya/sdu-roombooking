@@ -97,10 +97,12 @@
 									<thead>
 										<tr>
 											<th scope="col">#</th>
+											<th scope="col">ตำแหน่งที่ตั้ง</th>
 											<th scope="col">ข้อมูลผู้จอง</th>
 											<th scope="col">ลักษณะการใช้งาน</th>
 											<th scope="col">วันที่เริ่มต้น</th>
 											<th scope="col">วันที่สิ้นสุด</th>
+											<th scope="col">วันที่ทำรายการ</th>
 											<th scope="col">ACTIONS</th>
 										</tr>
 									</thead>
@@ -117,10 +119,12 @@
 													</div>
 
 												</th>
+												<td class="align-middle"><?= $booking["room_shortname"] ?></td>
 												<td class="align-middle"><?= $booking["name"] ?>&nbsp;<?= $booking["surname"] ?></td>
 												<td class="align-middle"><?= $booking["usage_category_desc"] ?></td>
 												<td class="align-middle"><?= get_thai_datetime($booking["booking_date_start"],1,true); ?></td>
 												<td class="align-middle"><?= get_thai_datetime($booking["booking_date_end"],1,true); ?></td>
+												<td class="align-middle"><?= get_thai_datetime($booking["created_at"],1,true); ?></td>
 												<td class="text-right">
 													<?php
 
@@ -230,11 +234,14 @@
 							</div>
 
 							<div class="row">
-									<div class="col-lg-6">
-										<label>อีเมล์สำหรับติดต่อ: <span id="md_booking_email"></span></label>
+									<div class="col-lg-5">
+										<label>อีเมล์: <span id="md_booking_email"></span></label>
 									</div>
-									<div class="col-lg-6">
-										<label>เบอร์โทรศัพท์สำหรับติดต่อ: <span id="md_booking_phone"></span></label>
+									<div class="col-lg-4">
+										<label>เบอร์โทรศัพท์มือถือ: <span id="md_booking_phone"></span></label>
+									</div>
+									<div class="col-lg-3">
+										<label>เบอร์โทรศัพท์ภายใน: <span id="md_internal_phone"></span></label>
 									</div>
 							</div>
 

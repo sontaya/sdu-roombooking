@@ -179,5 +179,60 @@ class User extends MY_Controller
 	}
 
 
+	public function profile()
+	{
+		$data['title'] = "ข้อมูลช่องทางสำหรับติดต่อ";
+
+		$data['cssSrc'] = array();
+
+		$data['jsSrc'] = array(
+			'assets/js/user-profile.js'
+		);
+
+		// if($id != null){
+
+		// 	$conditions = array(
+		// 		'id'=> $id
+		// 	);
+		// 	$data['booking'] = $this->Booking_model->list(array('conditions'=>  $conditions))[0];
+		// 	$data['form_mode'] = "update";
+
+		// }else{
+		// 	$data['form_mode'] = "insert";
+		// }
+
+		$data['profile'] = $this->User_model->list(array('conditions'=>  array('user_id' => $this->global_data['user_id']) ))[0];
+
+		$this->data = $data;
+		$this->content = 'user/profile';
+		$this->render();
+	}
+
+
+	public function profile_store()
+	{
+
+		$user_id = $this->global_data['user_id'];
+		$email_default = $this->input->post("email_default");
+		$mobile_phone_default = $this->input->post("mobile_phone_default");
+		$internal_phone_default = $this->input->post("internal_phone_default");
+
+
+		//--Store local users
+		$user = $this->User_model->list(array('conditions'=>array('user_id'=>$user_id)));
+		if($user != false){
+			$userdata = array(
+				'email_default' => $email_default,
+				'mobile_phone_default' => $mobile_phone_default,
+				'internal_phone_default' => $internal_phone_default,
+				'modified_at' => $this->global_data['timestamp'],
+				'modified_by_ip' => $this->global_data['client_ip']
+			);
+			$this->User_model->update($user_id,$userdata);
+		}
+
+		header('Content-Type: application/json');
+		echo json_encode($userdata);
+	}
 
 }

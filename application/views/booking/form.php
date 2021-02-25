@@ -15,8 +15,9 @@
 									$val_user_id = $this->session->userdata('auth')['hrcode'];
 									$val_booking_name = $this->session->userdata('auth')['displayname'];
 									$val_booking_faculty = $this->session->userdata('auth')['name_faculty'];
-									$val_booking_email = "";
-									$val_booking_phone = "";
+									$val_booking_email = $default_contact["email_default"];
+									$val_booking_phone = $default_contact["mobile_phone_default"];
+									$val_internal_phone = $default_contact["internal_phone_default"];
 									$val_room_id = "";
 									$val_usage_category = "";
 									$val_objective = "";
@@ -31,6 +32,7 @@
 									$val_booking_faculty = $booking["name_faculty"];
 									$val_booking_email = $booking["booking_email"];
 									$val_booking_phone = $booking["booking_phone"];
+									$val_internal_phone = $booking["internal_phone"];
 									$val_room_id = $booking["room_id"];
 									$val_usage_category = $booking["usage_category"];
 									$val_objective = $booking["objective"];
@@ -61,10 +63,15 @@
 											<label>อีเมลสำหรับติดต่อ:</label>
 												<input type="email" class="form-control" placeholder="" id="booking_email" name="booking_email" value="<?= $val_booking_email; ?>" />
 											</div>
-											<div class="col-lg-6">
-											<label>เบอร์โทรศัพท์สำหรับติดต่อ: <span id="booking_phone_Error" ></span></label>
+											<div class="col-lg-3">
+												<label>เบอร์โทรศัพท์มือถือ: <span id="booking_phone_Error" ></span></label>
 												<input type="text" class="form-control" placeholder="" id="booking_phone" name="booking_phone"
 													value="<?= $val_booking_phone; ?>" data-error="#booking_phone_Error" />
+											</div>
+											<div class="col-lg-3">
+												<label>เบอร์โทรศัพท์ภายใน: <span id="internal_phone_Error" ></span></label>
+												<input type="text" class="form-control" placeholder="" id="internal_phone" name="internal_phone"
+													value="<?= $val_internal_phone; ?>" data-error="#internal_phone_Error" />
 											</div>
 									</div>
 

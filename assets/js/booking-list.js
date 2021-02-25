@@ -1,4 +1,35 @@
+"use strict";
+
 jQuery(document).ready(function() {
+
+		var arrows;
+		if (KTUtil.isRTL()) {
+			arrows = {
+				leftArrow: '<i class="la la-angle-right"></i>',
+				rightArrow: '<i class="la la-angle-left"></i>'
+			}
+		} else {
+			arrows = {
+				leftArrow: '<i class="la la-angle-left"></i>',
+				rightArrow: '<i class="la la-angle-right"></i>'
+			}
+		}
+
+
+		jQuery('#bm_search_date').datepicker({
+			// todayHighlight: true,
+			// autoclose: true,
+			// pickerPosition: 'bottom-left',
+			// todayBtn: true,
+			// format: 'yyyy/mm/dd'
+			rtl: KTUtil.isRTL(),
+			todayHighlight: true,
+			templates: arrows,
+			format: 'dd/mm/yyyy'
+		});
+
+
+
 
 
 
@@ -85,6 +116,7 @@ function booking_view(id){
 		jQuery("#md_room_name").html(data[0].room_name);
 		jQuery("#md_booking_email").html(data[0].booking_email);
 		jQuery("#md_booking_phone").html(data[0].booking_phone);
+		jQuery("#md_internal_phone").html(data[0].internal_phone);
 		jQuery("#md_usage_category").html(data[0].usage_category_desc);
 		jQuery("#md_objective").html(data[0].objective);
 		jQuery("#md_participant").html(data[0].participant);

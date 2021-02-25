@@ -137,10 +137,11 @@ if(!function_exists('get_thai_datetime')){
   function get_thai_datetime($datetime,$format,$clock){
 
     list($date,$time) = explode (' ',$datetime);
-   // list($H,$i,$s) = explode (':',$time);
+   list($H,$i,$s) = explode (':',$time);
     list($Y,$m,$d) = explode ('-',$date);
     $Y = $Y+543;
-    $shortYear = ($Y - 2500);
+		$shortYear = ($Y - 2500);
+		$shortTime = $H.":".$i;
 
     $month = array(
      '0' => array('01'=>'มกราคม','02'=>'กุมภาพันธ์','03'=>'มีนาคม','04'=>'เมษายน','05'=>'พฤษภาคม','06'=>'มิถุนายน','07'=>'กรกฏาคม','08'=>'สิงหาคม','09'=>'กันยายน','10'=>'ตุลาคม','11'=>'พฤษจิกายน','12'=>'ธันวาคม'),
@@ -149,7 +150,7 @@ if(!function_exists('get_thai_datetime')){
     if ($clock == false)
      return $d.' '.$month[$format][$m].' '.$Y;
     else
-     return $d.' '.$month[$format][$m].' '.$shortYear.' '.$time;
+     return $d.' '.$month[$format][$m].' '.$shortYear.' '.$shortTime;
    }
 }
 

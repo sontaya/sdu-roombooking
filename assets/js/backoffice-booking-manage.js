@@ -44,6 +44,7 @@ function booking_view(id){
 		jQuery("#md_room_name").html(data[0].room_name);
 		jQuery("#md_booking_email").html(data[0].booking_email);
 		jQuery("#md_booking_phone").html(data[0].booking_phone);
+		jQuery("#md_internal_phone").html(data[0].internal_phone);
 		jQuery("#md_usage_category").html(data[0].usage_category_desc);
 		jQuery("#md_objective").html(data[0].objective);
 		jQuery("#md_participant").html(data[0].participant);

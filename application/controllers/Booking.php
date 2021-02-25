@@ -8,12 +8,13 @@ class Booking extends MY_Controller
 		parent::__construct();
 
 		$this->load->model('Booking_model');
+		$this->load->model('User_model');
 		$this->load->model('Room_model');
 		// $this->load->library('encryption');
 
         if(! $this->session->userdata('auth')['uid'])
         {
-          $allowed = array('view_json');
+          $allowed = array('view_json','check_free_room');
           if(! in_array($this->router->fetch_method(), $allowed))
           {
             redirect('backoffice');
@@ -78,6 +79,8 @@ class Booking extends MY_Controller
 			$data['form_mode'] = "update";
 
 		}else{
+
+			$data['default_contact'] = $this->User_model->list(array('conditions'=>array('user_id'=>$this->global_data['user_id'])))[0];
 			$data['form_mode'] = "insert";
 		}
 
@@ -92,8 +95,6 @@ class Booking extends MY_Controller
 
 	public function form_store(){
 
-
-
 		// $bds = explode('/', $this->input->post('booking_date_start'));
 		// $booking_date_start_db = $bds[2]."-".$bds[0]."-".$bds[1];
 
@@ -106,6 +107,7 @@ class Booking extends MY_Controller
 				'user_id' => $this->global_data['user_id'],
 				'booking_email' => $this->input->post('booking_email'),
 				'booking_phone' => $this->input->post('booking_phone'),
+				'internal_phone' => $this->input->post('internal_phone'),
 				'room_id' => $this->input->post('room_id'),
 				'participant' => $this->input->post('participant'),
 				'usage_category' => $this->input->post('usage_category'),
@@ -122,7 +124,7 @@ class Booking extends MY_Controller
 			$res = $this->Booking_model->save($data);
 			if($res != false){
 				redirect('booking/list');
-		  	}
+			}
 
 		}
 		if($this->input->post('form_mode') == "update"){
@@ -131,6 +133,7 @@ class Booking extends MY_Controller
 				'user_id' => $this->input->post('user_id'),
 				'booking_email' => $this->input->post('booking_email'),
 				'booking_phone' => $this->input->post('booking_phone'),
+				'internal_phone' => $this->input->post('internal_phone'),
 				'room_id' => $this->input->post('room_id'),
 				'participant' => $this->input->post('participant'),
 				'usage_category' => $this->input->post('usage_category'),
@@ -162,12 +165,45 @@ class Booking extends MY_Controller
 			'assets/js/booking-list.js'
 		);
 
+		if($this->input->post('md_search') == '1'){
+
+			$search_date_start = $this->input->post('start');
+			$search_date_end = $this->input->post('end');
+
+			$criterias = array(
+
+				'room_id' => $this->input->post('bm_search_room'),
+				'booking_status' => $this->input->post('bm_search_status'),
+				'booking_date_start' => $search_date_start,
+				'booking_date_end' => $search_date_end
+			);
+
+
+		}else{
+
+			$next14day = strtotime("+14 day");
+			$search_date_start = date("d/m/Y");
+			$search_date_end = date("d/m/Y",$next14day);
+
+			$criterias = array(
+				'room_id' => "",
+				'booking_status' => "",
+				'booking_date_start' => $search_date_start,
+				'booking_date_end' => $search_date_end
+			);
+
+		}
+
+
 		$conditions = array(
 			'user_id'=>$this->global_data['user_id']
 		);
+		$data['room_info'] = $this->Room_model->list(array());
+
 		// $data['rooms'] = $this->db->get('room_master')->result_array();
-		$booking_lists = $this->Booking_model->list(array('conditions'=>  $conditions));
+		$booking_lists = $this->Booking_model->list(array('conditions'=> $criterias));
 		$data['booking_lists'] = $booking_lists;
+		$data['criterias'] = $criterias;
 
 		// print_r($booking_lists);
 		$this->data = $data;
@@ -175,6 +211,21 @@ class Booking extends MY_Controller
 		$this->render();
 	}
 
+	public function check_free_room(){
+			$room_id = $this->input->post('room_id');
+			$free_date_start = $this->input->post('free_date_start');
+			$free_date_end = $this->input->post('free_date_end');
+
+			$conditions = array(
+				'room_id'=> $room_id,
+				'free_date_start' => $free_date_start,
+				'free_date_end' => $free_date_end
+			);
+			$booking_lists = $this->Booking_model->check_freeroom_list(array('conditions'=> $conditions));
+
+			header('Content-Type: application/json');
+			echo json_encode($booking_lists);
+	}
 
 	public function event_update(){
 
@@ -210,7 +261,6 @@ class Booking extends MY_Controller
 		echo json_encode($results);
 
 	}
-
 
 	public function view_all_approved_json(){
 
@@ -271,7 +321,6 @@ class Booking extends MY_Controller
 		}
 
 	}
-
 
 	public function view_approved_json(){
 
@@ -400,6 +449,7 @@ class Booking extends MY_Controller
 		}
 
 	}
+
 
 
 }

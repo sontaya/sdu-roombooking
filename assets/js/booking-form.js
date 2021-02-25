@@ -50,30 +50,130 @@ jQuery(document).ready(function() {
 	} );
 
 
+	// $("#FormBooking").validate({
+	//   errorClass: 'custom-error',
+	//   rules: {
+	// 	room_id: "required",
+	// 	booking_phone: "required",
+	// 	booking_name: "required",
+	// 	objective: "required",
+	// 	participant: "required",
+	// 	booking_date_start: "required",
+	// 	booking_date_end: "required"
+
+	//   },
+	//   messages:{
+
+	//   },
+	//   errorPlacement: function(error, element) {
+	// 	var placement = $(element).data('error');
+	// 	if (placement) {
+	// 	  $(placement).append(error)
+	// 	} else {
+	// 	  error.insertAfter(element);
+	// 	}
+	//   }
+	// });
+
+
 	$("#FormBooking").validate({
-	  errorClass: 'custom-error',
-	  rules: {
-		room_id: "required",
-		booking_phone: "required",
-		booking_name: "required",
-		objective: "required",
-		participant: "required",
-		booking_date_start: "required",
-		booking_date_end: "required"
+		onkeyup: false,
+		onclick: false,
+		onfocusout: false,
+		errorClass: 'custom-error',
+		rules:{
+			room_id: "required",
+			booking_phone: "required",
+			booking_name: "required",
+			objective: "required",
+			participant: "required",
+			booking_date_start: "required",
+			booking_date_end: "required"
+		},
+		messages:{
 
-	  },
-	  messages:{
+		},
+		invalidHandler: function(form, validator) {
+		  submitted = true;
+		},
+		errorPlacement: function(error, element) {
+			var placement = $(element).data('error');
+			if (placement) {
+			$(placement).append(error)
+			} else {
+				error.insertAfter(element);
+			}
+		},
+		submitHandler: function(form, event) {
 
-	  },
-	  errorPlacement: function(error, element) {
-		var placement = $(element).data('error');
-		if (placement) {
-		  $(placement).append(error)
-		} else {
-		  error.insertAfter(element);
+		  console.log("[debug] submitHandler");
+
+		  event.preventDefault();
+
+
+		//   var formFields = jQuery("#FormBooking").serializeArray();
+
+		//   var form_data = new FormData();
+		//   $.each(formFields, function( i, field ) {
+		// 	form_data.append(field.name, field.value);
+		// 	console.log(field.name + ' : ' + field.value);
+		//   });
+
+
+		  var freeroomConditionData = {
+			'room_id': jQuery("#room_id").val(),
+			'free_date_start': jQuery("#booking_date_start").val(),
+			'free_date_end': jQuery("#booking_date_end").val()
+		 }
+
+		 console.log(freeroomConditionData);
+
+		  $.ajax({
+			url: BASE_URL + 'booking/check_free_room',
+			dataType: 'json',
+			data: freeroomConditionData,
+			type: 'post',
+			success: function (res)
+			{
+				console.log(res);
+				if (res !== false){
+					toastr['error']("ไม่สามารถจองห้องในช่วงเวลานี้ได้", "Booking notification");
+				}else{
+					form.submit();
+				}
+			},
+			error: function (request, status, message) {
+				console.log('Ajax Error!! ' + status + ' : ' + message);
+			},
+	  	});
+
+
+		//   form.submit();
+
+
+			//   var file_data = $('#chf_file1').prop('files')[0];
+			//   form_data.append('chf_file1', file_data);
+
+			//   $.ajax({
+			// 	  url: 'contract_history_file_save.php',
+			// 	  dataType: 'text',
+			// 	  cache: false,
+			// 	  contentType: false,
+			// 	  processData: false,
+			// 	  data: form_data,
+			// 	  type: 'post',
+			// 	  success: function (ReturnData)
+			// 	  {
+
+			// 	  },
+			// 	  error: function (request, status, message) {
+			// 		  console.log('Ajax Error!! ' + status + ' : ' + message);
+			// 	  },
+			//   });
+
 		}
-	  }
-	});
+	  });
 
 });
+
 

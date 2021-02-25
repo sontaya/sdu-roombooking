@@ -119,9 +119,11 @@ var KTCalendarListView = function() {
 
 						console.log(data);
 
+						jQuery("#md_booking_name").html(data[0].name + " " + data[0].surname);
 						jQuery("#md_room_name").html(data[0].room_name);
 						jQuery("#md_booking_email").html(data[0].booking_email);
 						jQuery("#md_booking_phone").html(data[0].booking_phone);
+						jQuery("#md_internal_phone").html(data[0].internal_phone);
 						jQuery("#md_objective").html(data[0].objective);
 						jQuery("#md_participant").html(data[0].participant);
 						if(data[0].require_staff == "Y"){
