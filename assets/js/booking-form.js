@@ -136,11 +136,11 @@ jQuery(document).ready(function() {
 			success: function (res)
 			{
 				console.log(res);
-				if (res !== false){
-					toastr['error']("ไม่สามารถจองห้องในช่วงเวลานี้ได้", "Booking notification");
-				}else{
-					form.submit();
-				}
+				// if (res !== false){
+				// 	toastr['error']("ไม่สามารถจองห้องในช่วงเวลานี้ได้", "Booking notification");
+				// }else{
+				// 	form.submit();
+				// }
 			},
 			error: function (request, status, message) {
 				console.log('Ajax Error!! ' + status + ' : ' + message);

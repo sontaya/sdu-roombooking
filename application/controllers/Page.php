@@ -26,8 +26,35 @@ class Page extends MY_Controller
 
 		$data['title'] = "Home";
 		$this->data = $data;
-		$this->content = 'home/index';
+		$this->content = 'home/index-ol';
 		$this->render();
+	}
+
+	function landing(){
+		// $this->set_active_menu('100');
+		$data['title'] = "Landing";
+		$this->data = $data;
+		$this->content = 'home/landing';
+		$this->render_nomenu();
+	}
+
+	function set_active_template($template){
+		//--Store session
+		$session_template = array(
+			'template' => $template
+		);
+		$this->session->set_userdata('template',$session_template);
+
+		if($template == "OL"){
+			redirect('booking/index');
+		}
+
+		if($template == "DP"){
+			redirect('dp/index');
+		}
+
+		// echo $template;
+
 	}
 
 

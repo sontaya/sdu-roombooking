@@ -41,4 +41,20 @@ class MY_Controller extends CI_Controller
 		$this->load->view('template/index', $this->aTemplate);
     }
 
+	public function render_nomenu()
+	{
+		$this->aTemplate['header'] = $this->load->view('template/header', $this->data, true);
+		$this->aTemplate['content'] = $this->load->view($this->content, $this->data, true);
+		$this->aTemplate['footer'] = $this->load->view('template/footer', $this->data, true);
+		$this->load->view('template/index-nomenu', $this->aTemplate);
+    }
+
+	public function render_dp()
+	{
+		$this->aTemplate['header'] = $this->load->view('template/header', $this->data, true);
+		$this->aTemplate['content'] = $this->load->view($this->content, $this->data, true);
+		$this->aTemplate['footer'] = $this->load->view('template/footer', $this->data, true);
+		$this->load->view('template/index-dp', $this->aTemplate);
+    }
+
 }

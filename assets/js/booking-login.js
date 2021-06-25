@@ -140,7 +140,8 @@ var KTLogin = function() {
 
 													console.log("user/do_login_session : [success]");
 													console.log(resSession);
-													window.location.href = BASE_URL;
+													console.log(BASE_URL);
+													window.location.href = BASE_URL + 'page/landing';
 
 												}
 											});

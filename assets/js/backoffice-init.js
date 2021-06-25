@@ -70,8 +70,34 @@ function booking_approve(id,status,reason=""){
 		dataType: 'json',
 		data: formData,
 		success: function (res){
-
+			// console.log(res);
+			booking_line_notify(id);
 			location.reload();
+			// setTimeout(function(){
+			// 	toastr['success']("ทำรายการเรียบร้อย", "Booking notification");
+			// 	location.reload();
+			// },3000);
+		}
+	});
+
+}
+
+function booking_line_notify(id){
+
+	console.log('[debug] function booking_line_notify()');
+
+	var formData = {
+		'booking_info_id': id,
+	}
+	console.log(formData);
+
+	$.ajax({
+		url:  BASE_URL + "api/bot_notify_user",
+		type: 'POST',
+		dataType: 'json',
+		data: formData,
+		success: function (res){
+			console.log(res);
 		}
 	});
 
@@ -108,6 +134,4 @@ function booking_delete(id){
 
 		}
 	});
-
-
 }

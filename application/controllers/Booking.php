@@ -14,7 +14,7 @@ class Booking extends MY_Controller
 
         if(! $this->session->userdata('auth')['uid'])
         {
-          $allowed = array('view_json','check_free_room');
+          $allowed = array('view_json','check_free_room','debug');
           if(! in_array($this->router->fetch_method(), $allowed))
           {
             redirect('backoffice');
@@ -221,6 +221,7 @@ class Booking extends MY_Controller
 				'free_date_start' => $free_date_start,
 				'free_date_end' => $free_date_end
 			);
+
 			$booking_lists = $this->Booking_model->check_freeroom_list(array('conditions'=> $conditions));
 
 			header('Content-Type: application/json');
@@ -450,6 +451,39 @@ class Booking extends MY_Controller
 
 	}
 
+	public function debug(){
+		// $conditions = array(
+		// 	'free_date_end'=> '2021-05-19 11:10',
+		// 	'free_date_start'=> '2021-05-19 08:40',
+		// 	'room_id'=> '01'
+		// );
+		// $booking_lists = $this->Booking_model->check_freeroom_list(array('conditions'=> $conditions));
+
+		//--working hours
+		$start = '06:00:00';
+		$end = '20:00:00';
+		$start = strtotime($start);
+		$end = strtotime($end);
+
+		//--end-start divided by 300 sec to create a 5 min block
+		$timesegments = ($end-$start)/300;
+		$block=array_fill_keys(range(0,$timesegments,5),0);
+
+		//-- an appointment
+		$app_start = '11:00:00';
+		$app_end = '12:00:00';
+
+		//-- make 5 minute blocks (note that workday start is 0!)
+		$app_start = (strtotime($app_start)-$start)/300;
+		$app_end = (strtotime($app_end)-$start)/300;
+
+		//-- put it in the blocks-array (+2 for 10 minute break)
+		for($i = $app_start; $i<$app_end+2; ++$i){
+			$block[$i] = 1;
+		}
+
+		echo '<pre>'. print_r($block, true).'</pre>';
+	}
 
 
 }

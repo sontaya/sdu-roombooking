@@ -18,6 +18,9 @@
 									$val_email_default = $profile["email_default"];
 									$val_mobile_phone_default = $profile["mobile_phone_default"];
 									$val_internal_phone_default = $profile["internal_phone_default"];
+									$val_line_sub = $profile["line_sub"];
+									$val_line_iat = $profile["line_iat"];
+									$val_line_exp = $profile["line_exp"];
 
 
 							?>
@@ -54,12 +57,37 @@
 											</div>
 									</div>
 
+									<div class="form-group row">
+											<div class="col-lg-6">
+											<label>line.sub:</label>
+												<input type="text" class="form-control" placeholder="" id="line_sub" name="line_sub"
+													value="<?= $val_line_sub; ?>" disabled="disabled" />
+											</div>
+											<div class="col-lg-3">
+												<label>line.iat: <span id="line_iat_Error" ></span></label>
+												<input type="text" class="form-control" placeholder="" id="line_iat" name="line_iat"
+													value="<?= $val_line_iat; ?>" data-error="#line_iat_Error" disabled="disabled" />
+											</div>
+											<div class="col-lg-3">
+												<label>line.exp: <span id="line_exp_Error" ></span></label>
+												<input type="text" class="form-control" placeholder="" id="line_exp" name="line_exp"
+													value="<?= $val_line_exp; ?>" data-error="#line_exp_Error" disabled="disabled" />
+											</div>
+									</div>
+
 
 								</div>
 								<div class="card-footer">
 									<div class="row">
 										<div class="col-lg-6">
 											<button type="button" id="submit_button" class="btn btn-primary mr-2">บันทึก</button>
+											<button type="button" id="linelogin_button" class="btn btn-info mr-2">Line Connect</button>
+
+											<a href="<?php echo base_url('lineapi/login'); ?>" class="btn btn-success font-weight-bold mr-2">
+												<i class="fab fa-line"></i> Line Connect
+											</a>
+
+
 										</div>
 									</div>
 								</div>

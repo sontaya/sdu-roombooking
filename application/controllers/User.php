@@ -86,6 +86,7 @@ class User extends MY_Controller
 			$sessiondata = array(
 				'uid' => $uid,
 				'hrcode' => $user_id,
+				// 'line_id' => null,
 				'citizencode' => $citizencode,
 				'displayname' => $name." ".$surname,
 				'name' => $name,
@@ -107,6 +108,7 @@ class User extends MY_Controller
 			$sessiondata = array(
 				'uid' => $uid,
 				'hrcode' => $user_id,
+				// 'line_id' => $user[0]["line_id"],
 				'citizencode' => $citizencode,
 				'displayname' => $name." ".$surname,
 				'name' => $name,
@@ -234,5 +236,71 @@ class User extends MY_Controller
 		header('Content-Type: application/json');
 		echo json_encode($userdata);
 	}
+
+
+	public function external_profile_store()
+	{
+
+		// $user_id = $this->input->post("user_id");
+		$name = $this->input->post("mod_user_name");
+		$surname = $this->input->post("mod_user_surname");
+		$name_faculty = $this->input->post("mod_user_faculty");
+		$email_default = $this->input->post("mod_email_default");
+		$mobile_phone_default = $this->input->post("mod_mobile_phone_default");
+		$internal_phone_default = $this->input->post("mod_internal_phone_default_default");
+
+
+		//--Store new external users
+		$new_running_code = $this->User_model->new_external_id();
+		$running = $new_running_code["0"];
+		$user_id = "dpu-".$running["new_running_code"];
+
+			$userdata = array(
+				'user_id' => $user_id,
+				'name' => $name,
+				'surname' => $surname,
+				'name_faculty' => $name_faculty,
+				'mobile_phone_default' => $mobile_phone_default,
+				'internal_phone_default' => $internal_phone_default,
+				'email_default' => $email_default,
+				'external_user' => 'Y',
+				'status' => '1'
+			);
+			$save_result = $this->User_model->save($userdata);
+
+			return $userdata;
+
+
+
+	}
+
+	public function demo(){
+		$this->load->view('user/login_demo');
+	}
+
+	public function debug(){
+		$new_running_code = $this->User_model->new_external_id();
+		$running = $new_running_code["0"];
+		$user_id = "dpu-".$running["new_running_code"];
+		echo $user_id;
+		// echo $new_running_code[0]->new_running_code;
+	}
+
+
+	public function list_external_json(){
+
+		$conditions = array(
+			'user_id' => $this->input->post('user_id'),
+			'search_key'=> $this->input->post('search_key'),
+			'external_user' => 'Y'
+		);
+		$user_lists = $this->User_model->list(array('conditions'=>  $conditions));
+
+		header('Content-Type: application/json');
+		echo json_encode($user_lists);
+
+	}
+
+
 
 }

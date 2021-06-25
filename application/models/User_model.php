@@ -34,8 +34,7 @@ class User_model extends CI_Model {
         }
     }
 
-	public function list($params = array())
-    {
+	public function list($params = array()){
       if(array_key_exists("start",$params) && array_key_exists("limit",$params)){
         $this->db->limit($params['limit'],$params['start']);
       }elseif(!array_key_exists("start",$params) && array_key_exists("limit",$params)){
@@ -49,11 +48,26 @@ class User_model extends CI_Model {
             $this->db->where('u.user_id', $params['conditions']['user_id']);
 		  }
 
+          if (!empty($params['conditions']['external_user'])){
+            $this->db->where('u.external_user', $params['conditions']['external_user']);
+		  }
+
+		  if (!empty($params['conditions']['search_key'])){
+			  $where_like = "(name like '%".$params['conditions']['search_key']."%'
+			  	or surname like '%".$params['conditions']['search_key']."%'
+			  	or name_faculty like '%".$params['conditions']['search_key']."%'
+			  )";
+            $this->db->where($where_like);
+		  }
+
           $query = $this->db->get();
           return ($query->num_rows() > 0)?$query->result_array():FALSE;
 		//   echo $this->db->get_compiled_select();
-
-
     }
+
+	public function new_external_id(){
+		$query = $this->db->query("SELECT right(concat('0000',max(CAST(right(user_id,4) as unsigned)) + 1),4) as new_running_code FROM rb_users WHERE external_user = 'Y'");
+		return ($query->num_rows() > 0)?$query->result_array():FALSE;
+	}
 }
 
