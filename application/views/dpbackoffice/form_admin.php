@@ -18,10 +18,13 @@
 									$val_booking_email = "";
 									$val_booking_phone = "";
 									$val_internal_phone = "";
+									$val_billing_name = "";
+									$val_billing_faculty = "";
 
 									$val_room_id = "";
 									$val_usage_format = "";
 									$val_usage_scale = "";
+									$val_usage_person = "";
 									$val_event_option1 = "";
 									$val_event_option2 = "";
 									$val_event_option3 = "";
@@ -46,9 +49,12 @@
 									$val_booking_email = $booking["booking_email"];
 									$val_booking_phone = $booking["booking_phone"];
 									$val_internal_phone = $booking["internal_phone"];
+									$val_billing_name = $booking["billing_name"];
+									$val_billing_faculty = $booking["billing_faculty"];
 									$val_room_id = $booking["room_id"];
 									$val_usage_format = $booking["usage_format"];
 									$val_usage_scale = $booking["usage_scale"];
+									$val_usage_person = $booking["usage_person"];
 									$val_event_option1 = $booking["event_option1"];
 									$val_event_option2 = $booking["event_option2"];
 									$val_event_option3 = $booking["event_option3"];
@@ -64,13 +70,19 @@
 									$val_booking_date_start = $booking["booking_date_start"];
 									$val_booking_date_end = $booking["booking_date_end"];
 									$val_booking_status = $booking["booking_status"];
+									$val_require_staff = $booking["require_staff"];
 
 								}
 							?>
 							<form class="form" id="FormBookingAdmin" action="<?php echo base_url('dpbackoffice/form_admin_store'); ?>" method="post" accept-charset="utf-8">
 								<div class="card-body">
-
-									<div class="form-group row">
+										<div class="row">
+												<div class="col-lg-12">
+													<h5 class="text-info">ข้อมูลผู้จอง</h5>
+												</div>
+										</div>
+										<hr>
+										<div class="form-group row">
 											<div class="col-lg-4">
 												<label>ชื่อผู้จอง:</label>
 												<input type="text" class="form-control" placeholder="" id="booking_name" name="booking_name" value="<?= $val_booking_name ?>" disabled="disabled" />
@@ -137,11 +149,33 @@
 											</div>
 									</div>
 
+									<div class="row mt-2">
+											<div class="col-lg-12">
+												<h5 class="text-info">ข้อมูลสำหรับออกใบเสร็จ</h5>
+											</div>
+									</div>
 									<hr>
 
+									<div class="form-group row">
+											<div class="col-lg-6">
+												<label>ชื่อ-นามสกุล:</label>
+												<input type="text" class="form-control" placeholder="" id="billing_name" name="billing_name" value="<?= $val_billing_name ?>"  />
+											</div>
+											<div class="col-lg-6">
+												<label>หน่วยงาน:</label>
+												<input type="text" class="form-control" placeholder="" id="billing_faculty" name="billing_faculty" value="<?= $val_billing_faculty ?>"  />
+											</div>
+									</div>
+
+									<div class="row mt-2">
+											<div class="col-lg-12">
+												<h5 class="text-info">ข้อมูลการจอง</h5>
+											</div>
+									</div>
+									<hr>
 
 									<div class="form-group row">
-										<div class="col-lg-6">
+										<div class="col-lg-4">
 											<label for="exampleSelect1">ชื่อห้อง <span id="room_id_Error" ></span></label>
 											<select class="form-control" id="room_id" name="room_id" data-error="#room_id_Error">
 												<option value="">กรุณาเลือกห้อง</option>
@@ -158,7 +192,7 @@
 											</select>
 										</div>
 										<div class="col-lg-3">
-											<label for="usage_scale">จำนวนผู้ใช้ <span id="usage_scale_Error" ></span></label>
+											<label for="usage_scale">จำนวนผู้ใช้ (ช่วง) <span id="usage_scale_Error" ></span></label>
 											<select class="form-control" id="usage_scale" name="usage_scale" data-error="#usage_scale_Error">
 
 											</select>
@@ -168,6 +202,10 @@
 											<select class="form-control" id="usage_format" name="usage_format" data-error="#usage_format_Error">
 
 											</select>
+										</div>
+										<div class="col-lg-2">
+												<label>จำนวนผู้ใช้งาน <span id="usage_person_Error" ></span></label>
+												<input type="text" class="form-control" placeholder="" id="usage_person" name="usage_person" value="<?= $val_usage_person ?>" data-error="#usage_person_Error" />
 										</div>
 									</div>
 
@@ -295,9 +333,22 @@
 											</div>
 										</div>
 
+										<div class="col-lg-4 col-md-9 col-sm-12">
+											<label>เจ้าหน้าที่ประจำห้อง:</label>
+											<div class="radio-inline">
+												<label class="radio radio-solid">
+												<input type="radio" name="require_staff"  value="Y"  <?php if($val_require_staff == "Y"){echo "checked";} ?> />ต้องการ
+												<span></span></label>
+												<label class="radio radio-solid">
+												<input type="radio" name="require_staff" value="N"  <?php if($val_require_staff == "N"){echo "checked";} ?>/>ไม่ต้องการ
+												<span></span></label>
+											</div>
 
+										</div>
 
 									</div>
+
+
 
 									<div class="form-group row">
 										<div class="col-lg-4 col-md-9 col-sm-12">

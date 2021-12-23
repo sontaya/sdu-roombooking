@@ -153,7 +153,11 @@
 				<div class="d-flex align-items-center mt-5">
 					<div class="symbol symbol-100 mr-5">
 						<?php
-							$profile_url = "https://personnel.dusit.ac.th/eprofile/main/files/bio_data_file/". $this->session->userdata('auth')['bio_pic_file'];
+							if($this->session->userdata('auth')['bio_pic_file'] == ""){
+								$profile_url = base_url('assets/images/default-profile-avatar.png');
+							}else{
+								$profile_url = "https://personnel.dusit.ac.th/eprofile/main/files/bio_data_file/". $this->session->userdata('auth')['bio_pic_file'];
+							}
 						?>
 						<div class="symbol-label" style="background-image:url('<?php echo $profile_url; ?>'); background-position-y:top;"></div>
 						<!-- <div class="symbol-label" style="background-color:darkgoldenrod"></div> -->

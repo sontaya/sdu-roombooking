@@ -58,6 +58,8 @@ jQuery(document).ready(function() {
 		booking_name: "required",
 		objective: "required",
 		participant: "required",
+		usage_software: "required",
+		usage_category: "required",
 		booking_date_start: "required",
 		booking_date_end: "required"
 

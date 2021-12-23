@@ -33,6 +33,23 @@ class Page extends MY_Controller
 	function landing(){
 		// $this->set_active_menu('100');
 		$data['title'] = "Landing";
+
+		$data['ol_summary'] = $this->db->query("SELECT COUNT(*) AS count_all
+															,COUNT(CASE WHEN booking_status = 'approved' THEN 1 END) AS count_approved
+															,COUNT(CASE WHEN booking_status = 'pending' THEN 1 END) AS count_pending
+															,COUNT(CASE WHEN booking_status = 'rejected' THEN 1 END) AS count_rejected
+														FROM rb_booking_info
+														WHERE user_id = '". $this->global_data['user_id'] ."'
+							")->result();
+
+		$data['dp_summary'] = $this->db->query("SELECT COUNT(*) AS count_all
+															,COUNT(CASE WHEN booking_status = 'approved' THEN 1 END) AS count_approved
+															,COUNT(CASE WHEN booking_status = 'pending' THEN 1 END) AS count_pending
+															,COUNT(CASE WHEN booking_status = 'rejected' THEN 1 END) AS count_rejected
+														FROM dp_booking_info
+														WHERE user_id = '". $this->global_data['user_id'] ."'
+							")->result();
+
 		$this->data = $data;
 		$this->content = 'home/landing';
 		$this->render_nomenu();
@@ -46,11 +63,11 @@ class Page extends MY_Controller
 		$this->session->set_userdata('template',$session_template);
 
 		if($template == "OL"){
-			redirect('booking/index');
+			redirect('booking/list');
 		}
 
 		if($template == "DP"){
-			redirect('dp/index');
+			redirect('dp/list');
 		}
 
 		// echo $template;

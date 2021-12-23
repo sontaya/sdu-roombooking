@@ -50,32 +50,6 @@ jQuery(document).ready(function() {
 	} );
 
 
-	// $("#FormBooking").validate({
-	//   errorClass: 'custom-error',
-	//   rules: {
-	// 	room_id: "required",
-	// 	booking_phone: "required",
-	// 	booking_name: "required",
-	// 	objective: "required",
-	// 	participant: "required",
-	// 	booking_date_start: "required",
-	// 	booking_date_end: "required"
-
-	//   },
-	//   messages:{
-
-	//   },
-	//   errorPlacement: function(error, element) {
-	// 	var placement = $(element).data('error');
-	// 	if (placement) {
-	// 	  $(placement).append(error)
-	// 	} else {
-	// 	  error.insertAfter(element);
-	// 	}
-	//   }
-	// });
-
-
 	$("#FormBooking").validate({
 		onkeyup: false,
 		onclick: false,
@@ -87,6 +61,8 @@ jQuery(document).ready(function() {
 			booking_name: "required",
 			objective: "required",
 			participant: "required",
+			usage_software: "required",
+			usage_category: "required",
 			booking_date_start: "required",
 			booking_date_end: "required"
 		},
@@ -119,7 +95,7 @@ jQuery(document).ready(function() {
 		// 	console.log(field.name + ' : ' + field.value);
 		//   });
 
-
+ 
 		  var freeroomConditionData = {
 			'room_id': jQuery("#room_id").val(),
 			'free_date_start': jQuery("#booking_date_start").val(),
@@ -135,12 +111,12 @@ jQuery(document).ready(function() {
 			type: 'post',
 			success: function (res)
 			{
-				console.log(res);
-				// if (res !== false){
-				// 	toastr['error']("ไม่สามารถจองห้องในช่วงเวลานี้ได้", "Booking notification");
-				// }else{
-				// 	form.submit();
-				// }
+				// console.log('check_free_room response: ' + res);
+				if (res !== false){
+					toastr['error']("ไม่สามารถจองห้องในช่วงเวลานี้ได้", "Booking notification");
+				}else{
+					form.submit();
+				}
 			},
 			error: function (request, status, message) {
 				console.log('Ajax Error!! ' + status + ' : ' + message);

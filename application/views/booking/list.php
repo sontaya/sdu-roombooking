@@ -85,7 +85,6 @@
 			</div>
 			<!--end::Card-->
 
-
 				<!--begin::Card-->
 				<div class="card card-custom">
 					<div class="card-header">
@@ -102,6 +101,7 @@
 											<th scope="col">#</th>
 											<th scope="col">ชื่อห้อง</th>
 											<th scope="col">ลักษณะการใช้งาน</th>
+											<th scope="col">ซอฟต์แวร์ที่ใช้งาน</th>
 											<th scope="col">วันที่เริ่มต้น</th>
 											<th scope="col">วันที่สิ้นสุด</th>
 											<th scope="col">ACTIONS</th>
@@ -122,6 +122,7 @@
 												</th>
 												<td class="align-middle"><?= $booking["room_name"] ?></td>
 												<td class="align-middle"><?= $booking["usage_category_desc"] ?></td>
+												<td class="align-middle"><?= $booking["usage_software_desc"] ?></td>
 												<td class="align-middle"><?= get_thai_datetime($booking["booking_date_start"],1,true); ?></td>
 												<td class="align-middle"><?= get_thai_datetime($booking["booking_date_end"],1,true); ?></td>
 												<td class="text-right">
@@ -160,7 +161,10 @@
 																</li>
 
 																<?php
-																	if($booking['booking_status'] != 'approved'){
+																	if($booking['booking_status'] != 'approved'
+																		and $booking['booking_status'] != 'rejected'
+																		and $this->session->userdata('auth')['hrcode']=$booking['user_id']
+																	){
 																?>
 																	<li class="navi-item">
 																		<a href="<?php echo base_url('booking/form/').$booking["id"]; ?>" data-id="<?= $booking["id"] ?>" class="navi-link booking-edit">
@@ -168,6 +172,15 @@
 																			<span class="navi-text">Edit</span>
 																		</a>
 																	</li>
+																<?php
+																	}
+																?>
+																<?php
+																	if($booking['booking_status'] != 'approved'
+																		and $booking['booking_status'] != 'rejected'
+																		and $this->session->userdata('auth')['hrcode']=$booking['user_id']
+																	){
+																?>
 																	<li class="navi-item">
 																		<a href="javascript:;" data-id="<?= $booking["id"] ?>" class="navi-link booking-delete">
 																			<span class="navi-icon"><i class="la la-trash text-danger"></i></span>
@@ -243,8 +256,11 @@
 									<hr>
 
 									<div class="row">
-										<div class="col-lg-12">
-											<label>ลักษณะการใช้งาน	: <span id="md_usage_category"></span> </label>
+										<div class="col-lg-6">
+											<label>ลักษณะการใช้งาน: <span id="md_usage_category"></span> </label>
+										</div>
+										<div class="col-lg-6">
+											<label>ซอฟต์แวร์ที่ใช้งาน: <span id="md_usage_software"></span> </label>
 										</div>
 									</div>
 

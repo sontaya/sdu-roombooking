@@ -99,6 +99,8 @@ var KTCalendarListView = function() {
 						jQuery("#md_internal_phone").html(data[0].internal_phone);
 						jQuery("#md_objective").html(data[0].objective);
 						jQuery("#md_participant").html(data[0].participant);
+						jQuery("#md_usage_category").html(data[0].usage_category_desc);
+						jQuery("#md_usage_software").html(data[0].usage_software_desc);
 						if(data[0].require_staff == "Y"){
 							jQuery("#md_require_staff").html("ต้องการ");
 						}else{

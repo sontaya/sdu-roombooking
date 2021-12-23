@@ -38,8 +38,8 @@
 												<!--end::Icon-->
 												<!--begin::Content-->
 												<div class="d-flex flex-column">
-													<a href="#" class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">คู่มือการใช้งานระบบ</a>
-													<a href="<?php echo base_url('assets/documents/sduonline-usermanual.pdf'); ?>" target="_blank" class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">คู่มือการใช้งานห้องสอนออนไลน์</a>
+													<a href="<?php echo base_url('assets/documents/online-classroom_manual-v1.pdf'); ?>" target="_blank"  class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">คู่มือการใช้งานระบบห้องสอน Virtual Instruction</a>
+													<a href="<?php echo base_url('assets/documents/sduonline-usermanual-v101.pdf'); ?>" target="_blank" class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">คู่มือการใช้งานห้องสอนออนไลน์</a>
 												</div>
 												<!--end::Content-->
 											</div>

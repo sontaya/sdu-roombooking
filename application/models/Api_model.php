@@ -24,13 +24,13 @@ class Api_model extends CI_Model{
     if($auth_info != null)
     {
       $auth['uid'] = $auth_info["uid"]["0"];
-      // $auth['mail'] = $auth_info["mail"]["0"];
-      // $auth['title'] = $auth_info["title"]["0"];
       $auth['hrcode'] = $auth_info["hrcode"]["0"];
       $auth['citizencode'] = $auth_info["idcardno"]["0"];
       $auth['name'] = $auth_info["thcn"]["0"];
       $auth['surname'] = $auth_info["thsn"]["0"];
       $auth['displayname'] = $auth_info["displayname"]["0"];
+      $auth['facultyou'] = $auth_info["facultyou"]["0"];
+      $auth['employeetype'] = $auth_info["employeetype"]["0"];
 
       return $auth;
 
@@ -41,6 +41,8 @@ class Api_model extends CI_Model{
       $auth['name'] = "";
       $auth['surname'] = "";
       $auth['displayname'] = "";
+      $auth['facultyou'] = "";
+      $auth['employeetype'] = "";
 
       return $auth;
     }

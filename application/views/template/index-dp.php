@@ -9,7 +9,7 @@
 	<body id="kt_body" class="header-fixed header-mobile-fixed page-loading">
 		<!--begin::Main-->
 		<!--begin::Header Mobile-->
-		<div id="kt_header_mobile" class="header-mobile bg-primary header-mobile-fixed">
+		<div id="kt_header_mobile" class="header-mobile bg-success header-mobile-fixed">
 			<!--begin::Logo-->
 			<a href="<?php echo base_url('page/landing'); ?>">
 				<img alt="Logo" src="<?= base_url('assets/themes/metronic7/assets/media/logos/logo-letter-9.png'); ?>" class="max-h-30px" />
@@ -45,7 +45,7 @@
 					<!--begin::Header-->
 					<div id="kt_header" class="header flex-column header-fixed">
 						<!--begin::Top-->
-						<div class="header-top">
+						<div class="header-top bg-success">
 							<!--begin::Container-->
 							<div class="container">
 								<!--begin::Left-->
@@ -98,7 +98,7 @@
 								</div>
 								<!--end::Left-->
 								<!--begin::Topbar-->
-								<div class="topbar bg-primary">
+								<div class="topbar bg-success">
 
 
 									<!--begin::User-->
@@ -106,7 +106,7 @@
 										if($this->session->userdata('auth')['uid'] != null){
 									?>
 											<div class="topbar-item">
-												<a href="#" class="btn btn-success font-weight-bold mr-2">The Suandusit Place</a>
+												<a href="#" class="btn btn-secondary font-weight-bold mr-2">The Suandusit Place</a>
 											</div>
 											<div class="topbar-item">
 												<div class="btn btn-icon btn-hover-transparent-white w-auto d-flex align-items-center btn-lg px-2" id="kt_quick_user_toggle">
@@ -182,7 +182,7 @@
 												<ul class="menu-nav">
 
 													<li class="menu-item" aria-haspopup="true">
-														<a href="<?php echo base_url('dp/form') ?>" class="menu-link ">
+														<a href="#" class="menu-link ">
 															<span class="menu-text">จองห้อง</span>
 															<span class="menu-desc"></span>
 															<i class="menu-arrow"></i>
@@ -341,7 +341,12 @@
 				<div class="d-flex align-items-center mt-5">
 					<div class="symbol symbol-100 mr-5">
 						<?php
-							$profile_url = "https://personnel.dusit.ac.th/eprofile/main/files/bio_data_file/". $this->session->userdata('auth')['bio_pic_file'];
+
+							if($this->session->userdata('auth')['bio_pic_file'] == ""){
+								$profile_url = base_url('assets/images/default-profile-avatar.png');
+							}else{
+								$profile_url = "https://personnel.dusit.ac.th/eprofile/main/files/bio_data_file/". $this->session->userdata('auth')['bio_pic_file'];
+							}
 						?>
 						<div class="symbol-label" style="background-image:url('<?php echo $profile_url; ?>'); background-position-y:top;"></div>
 						<!-- <div class="symbol-label" style="background-color:darkgoldenrod"></div> -->

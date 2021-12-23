@@ -27,20 +27,15 @@ class Lineapi extends MY_Controller
 		// print_r($get);
 		$code = $get['code'];
 		$state = $get['state'];
-		$token = $this->linelogin->token($code,$state); // curl เพื่อขอ id_token
-		$objToken = json_decode($token);
-		// header('Content-Type: application/json');
-    	// echo json_encode($objToken);
 
-		// $objToken = json_decode($token);
-		//  echo $objToken->id_token;
+		// curl เพื่อขอ id_token
+		$token = $this->linelogin->token($code,$state);
+		$objToken = json_decode($token);
 
 		$resJson = $this->linelogin->decode_token($objToken->id_token);
 		$res = json_decode($resJson);
 
-		// header('Content-Type: application/json');
-		// echo json_encode($res);
-		// echo $res->sub;
+		// print_r($resJson);
 
 		$user_id = $this->global_data['user_id'];
 		$line_sub = $res->sub;
@@ -48,9 +43,9 @@ class Lineapi extends MY_Controller
 		$line_exp = $res->exp;
 
 
-		//--Update line profile to user
+		// --Update line profile to user
 		$user = $this->User_model->list(array('conditions'=>array('user_id'=>$user_id)));
-		if($user != false){
+
 			$userdata = array(
 				'line_sub' => $line_sub,
 				'line_iat' => $line_iat,
@@ -58,13 +53,16 @@ class Lineapi extends MY_Controller
 				'modified_at' => $this->global_data['timestamp'],
 				'modified_by_ip' => $this->global_data['client_ip']
 			);
+			// print_r($userdata);
 
 		  $update_res =	$this->User_model->update($user_id,$userdata);
-		  echo $user_id . "->" . $update_res;
+		//   echo $user_id . "->" . $update_res;
 
-		}
+		redirect('user/profile');
 
-		// redirect('user/profile');
+		// header('Content-Type: application/json');
+		// echo json_encode($res);
+		// echo $res;
 
 	}
 
@@ -148,7 +146,8 @@ class Lineapi extends MY_Controller
 				'id' => $booking_info_id
 			);
 			$info = $this->Booking_model->list(array('conditions'=>$conditions))[0];
-			if($info["line_id"] != ""){
+
+			if($info["line_sub"] != ""){
 
 				if($info["booking_status"] == "rejected"){
 					$reason = "(". $info["booking_status_reason"] .")";
@@ -156,7 +155,7 @@ class Lineapi extends MY_Controller
 					$reason = "";
 				}
 
-				$user_line_id = $info["line_id"];
+				$user_line_id = $info["line_sub"];
 				$user_message = "รายการจองห้อง: ".$info["room_name"]."\n".
 									"กิจกรรม: " .$info["objective"]."\n".
 									"วันที่ เวลา: ".get_thai_datetime($info["booking_date_start"],1,true)." ถึง ". get_thai_datetime($info["booking_date_end"],1,true)."\n".

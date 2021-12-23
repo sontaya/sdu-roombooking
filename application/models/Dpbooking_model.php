@@ -54,9 +54,9 @@ class Dpbooking_model extends CI_Model {
 						) as booking_status_desc
 				', false);
 		$this->db->from('dp_booking_info b');
-		$this->db->join('dp_room_master rm', 'b.room_id = rm.id');
-		$this->db->join('rb_users u', 'u.user_id = b.user_id');
-		$this->db->join('dp_room_scale rs', 'rs.id = b.usage_scale');
+		$this->db->join('dp_room_master rm', 'b.room_id = rm.id', 'left');
+		$this->db->join('rb_users u', 'u.user_id = b.user_id', 'left');
+		$this->db->join('dp_room_scale rs', 'rs.id = b.usage_scale', 'left');
 
 
       if (!empty($params['conditions']['id'])){
@@ -100,7 +100,7 @@ class Dpbooking_model extends CI_Model {
 
           $query = $this->db->get();
           return ($query->num_rows() > 0)?$query->result_array():FALSE;
-          // echo $this->db->get_compiled_select();
+        //  echo $this->db->get_compiled_select();
 
 
 		}
@@ -128,7 +128,7 @@ class Dpbooking_model extends CI_Model {
 
 
 
-          // $query = $this->db->get();
+        //  $query = $this->db->get();
           return ($query->num_rows() > 0)?$query->result_array():FALSE;
 					// echo $this->db->get_compiled_select();
 					// return $query->result_array();

@@ -73,20 +73,12 @@
 										</li>
 										<!--end::Item-->
 
-										<!--begin::Item-->
-										<!--
-										<li class="nav-item mr-3">
-											<a href="<?php echo base_url("page/contact_staff"); ?>" class="nav-link py-4 px-6 <?php if($this->session->userdata('menu')['active'] == '400'){ echo "active";} ?>" >ติดต่อเจ้าหน้าที่</a>
-										</li>
-										-->
-										<!--end::Item-->
-
 										<?php
 											 if(($this->session->userdata('auth')['role'] == "admin") || ($this->session->userdata('auth')['role'] == "delegate_admin")){
 										?>
 											<!--begin::Item-->
 											<li class="nav-item mr-2">
-												<a href="#" class="nav-link py-4 px-6 <?php if($this->session->userdata('menu')['active'] == '500'){ echo "active";} ?>" data-toggle="tab" data-target="#kt_header_tab_admin" role="tab">สำหรับเจ้าหน้าที่</a>
+												<a href="#" class="nav-link py-4 px-6 <?php if($this->session->userdata('menu')['active'] == '500'){ echo "active";} ?>" data-toggle="tab" data-target="#kt_header_tab_bookingadmin" role="tab">สำหรับเจ้าหน้าที่</a>
 											</li>
 											<!--end::Item-->
 										<?php
@@ -153,17 +145,35 @@
 											<a href="<?php echo base_url("page/room_info"); ?>" class="nav-link btn btn-clean" >รายละเอียดห้อง</a>
 										</li>
 										<!--end::Item-->
-										<!--begin::Item-->
-										<li class="nav-item mr-2">
-											<a href="#" class="nav-link btn btn-clean" data-toggle="tab" data-target="#kt_header_tab_booking" role="tab">จองห้อง</a>
-										</li>
-										<!--end::Item-->
+										<!--begin::จองห้อง-->
+										<?php
+											 if(($this->session->userdata('auth')['role'] != "admin") && ($this->session->userdata('auth')['role'] != "delegate_admin")){
+										?>
+											<li class="nav-item mr-2">
+												<a href="#" class="nav-link btn btn-clean" data-toggle="tab" data-target="#kt_header_tab_booking" role="tab">จองห้อง</a>
+											</li>
+										<?php
+											 }
+										?>
+										<!--end::จองห้อง-->
+
+
+										<!--begin::จองโดยเจ้าหน้าที่-->
+										<?php
+											 if(($this->session->userdata('auth')['role'] == "admin") || ($this->session->userdata('auth')['role'] == "delegate_admin")){
+										?>
+											<li class="nav-item mr-2">
+												<a href="#" class="nav-link btn btn-clean" data-toggle="tab" data-target="#kt_header_tab_bookingadmin" role="tab">จองโดยเจ้าหน้าที่</a>
+											</li>
+										<?php
+											 }
+										?>
+										<!--end::จองโดยเจ้าหน้าที่-->
 									</ul>
 									<!--begin::Tab Navs-->
 
 									<!--begin::Tab Content-->
 									<div class="tab-content">
-
 
 										<!--begin::Tab header_tab_home-->
 										<div class="tab-pane py-5 p-lg-0 <?php if($this->session->userdata('menu')['active'] == '100'){ echo "show active";} ?>" id="kt_header_tab_home">
@@ -174,92 +184,93 @@
 										</div>
 										<!--end::Tab header_tab_home-->
 
+
+
 										<!--begin::Tab header_tab_booking-->
-										<div class="tab-pane py-5 p-lg-0 <?php if($this->session->userdata('menu')['active'] == '300'){ echo "show active";} ?>" id="kt_header_tab_booking">
-											<!--begin::Menu-->
-											<div id="kt_header_menu_booking" class="header-menu header-menu-mobile header-menu-layout-default">
 
-												<!--begin::Nav-->
-												<ul class="menu-nav">
+											<div class="tab-pane py-5 p-lg-0 <?php if($this->session->userdata('menu')['active'] == '300'){ echo "show active";} ?>" id="kt_header_tab_booking">
+												<!--begin::Menu-->
+												<div id="kt_header_menu_booking" class="header-menu header-menu-mobile header-menu-layout-default">
 
-													<li class="menu-item" aria-haspopup="true">
-														<a href="<?php echo base_url('booking/form') ?>" class="menu-link ">
-															<span class="menu-text">จองห้อง</span>
-															<span class="menu-desc"></span>
-															<i class="menu-arrow"></i>
-														</a>
-													</li>
-													<li class="menu-item" aria-haspopup="true">
-														<a href="<?php echo base_url('booking/list') ?>" class="menu-link ">
-															<span class="menu-text">รายการจองห้อง</span>
-															<span class="menu-desc"></span>
-															<i class="menu-arrow"></i>
-														</a>
-													</li>
-													<li class="menu-item" aria-haspopup="true">
-														<a href="<?php echo base_url('booking/view') ?>" class="menu-link ">
-															<span class="menu-text">มุมมองปฏิทิน</span>
-															<span class="menu-desc"></span>
-															<i class="menu-arrow"></i>
-														</a>
-													</li>
+													<!--begin::Nav-->
+													<ul class="menu-nav">
 
-												</ul>
-												<!--end::Nav-->
+														<li class="menu-item" aria-haspopup="true">
+															<a href="<?php echo base_url('booking/form') ?>" class="menu-link ">
+																<span class="menu-text">จองห้อง</span>
+																<span class="menu-desc"></span>
+																<i class="menu-arrow"></i>
+															</a>
+														</li>
+														<li class="menu-item" aria-haspopup="true">
+															<a href="<?php echo base_url('booking/list') ?>" class="menu-link ">
+																<span class="menu-text">รายการจองห้อง</span>
+																<span class="menu-desc"></span>
+																<i class="menu-arrow"></i>
+															</a>
+														</li>
+														<li class="menu-item" aria-haspopup="true">
+															<a href="<?php echo base_url('booking/view') ?>" class="menu-link ">
+																<span class="menu-text">มุมมองปฏิทิน</span>
+																<span class="menu-desc"></span>
+																<i class="menu-arrow"></i>
+															</a>
+														</li>
+
+													</ul>
+													<!--end::Nav-->
+												</div>
+												<!--end::Menu-->
 											</div>
-											<!--end::Menu-->
-										</div>
+
 										<!--end::Tab header_tab_booking-->
 
-										<!--begin::Tab header_tab_staff-->
-										<div class="tab-pane p-5 p-lg-0 justify-content-end <?php if($this->session->userdata('menu')['active'] == '400'){ echo "show active";} ?>" id="kt_header_tab_staff">
 
-											<div class="d-flex align-items-center">
-												<!--begin::Actions-->
-												<a href="javascript:;" class="btn btn-danger font-weight-bold my-2 my-lg-0">แจ้งปัญหาการใช้งาน #5234</a>
-												<!--end::Actions-->
+										<!--begin::Tab header_tab_bookingadmin-->
+										<?php
+											 if(($this->session->userdata('auth')['role'] == "admin") || ($this->session->userdata('auth')['role'] == "delegate_admin")){
+										?>
+											<div class="tab-pane py-5 p-lg-0 <?php if($this->session->userdata('menu')['active'] == '500'){ echo "show active";} ?>" id="kt_header_tab_bookingadmin">
+												<!--begin::Menu-->
+												<div id="kt_header_menu_bookingadmin" class="header-menu header-menu-mobile header-menu-layout-default">
+
+													<!--begin::Nav-->
+													<ul class="menu-nav">
+
+
+														<li class="menu-item" aria-haspopup="true">
+															<a href="<?php echo base_url('backoffice/booking_manage') ?>" class="menu-link ">
+																<span class="menu-text">รายการจองห้อง</span>
+																<span class="menu-desc"></span>
+																<i class="menu-arrow"></i>
+															</a>
+														</li>
+														<li class="menu-item" aria-haspopup="true">
+															<a href="<?php echo base_url('backoffice/booking_calendar') ?>" class="menu-link ">
+																<span class="menu-text">มุมมองปฏิทิน</span>
+																<span class="menu-desc"></span>
+																<i class="menu-arrow"></i>
+															</a>
+														</li>
+														<li class="menu-item" aria-haspopup="true">
+															<a href="<?php echo base_url('backoffice/form_admin') ?>" class="menu-link ">
+																<span class="menu-text">จองโดยเจ้าหน้าที่</span>
+																<span class="menu-desc"></span>
+																<i class="menu-arrow"></i>
+															</a>
+														</li>
+
+													</ul>
+													<!--end::Nav-->
+												</div>
+												<!--end::Menu-->
 											</div>
-										</div>
-										<!--end::Tab header_tab_staff-->
+										<?php
+											 }
+										?>
+										<!--end::Tab header_tab_booking-->
 
-										<!--begin::Tab header_tab_admin-->
-										<div class="tab-pane p-5 p-lg-0 justify-content-between <?php if($this->session->userdata('menu')['active'] == '500'){ echo "show active";} ?>" id="kt_header_tab_admin">
 
-											<!--begin::Menu-->
-											<div id="kt_header_menu_admin" class="header-menu header-menu-mobile header-menu-layout-default">
-
-												<!--begin::Nav-->
-												<ul class="menu-nav">
-
-													<li class="menu-item" aria-haspopup="true">
-														<a href="<?php echo base_url('backoffice/booking_manage') ?>" class="menu-link ">
-															<span class="menu-text">รายการจองห้อง</span>
-															<span class="menu-desc"></span>
-															<i class="menu-arrow"></i>
-														</a>
-													</li>
-													<li class="menu-item" aria-haspopup="true">
-														<a href="<?php echo base_url('backoffice/booking_calendar') ?>" class="menu-link ">
-															<span class="menu-text">มุมมองปฏิทิน</span>
-															<span class="menu-desc"></span>
-															<i class="menu-arrow"></i>
-														</a>
-													</li>
-													<li class="menu-item" aria-haspopup="true">
-														<a href="<?php echo base_url('backoffice/form_admin') ?>" class="menu-link ">
-															<span class="menu-text">จองโดยเจ้าหน้าที่</span>
-															<span class="menu-desc"></span>
-															<i class="menu-arrow"></i>
-														</a>
-													</li>
-
-												</ul>
-												<!--end::Nav-->
-											</div>
-											<!--end::Menu-->
-
-										</div>
-										<!--end::Tab header_tab_admin-->
 
 										<!--begin::Tab Pane-->
 										<div class="tab-pane py-5 p-lg-0" id="kt_header_tab_1">
@@ -305,17 +316,10 @@
 						<div class="container d-flex flex-column flex-md-row align-items-center justify-content-between">
 							<!--begin::Copyright-->
 							<div class="text-dark order-2 order-md-1">
-								<span class="text-muted font-weight-bold mr-2">2020©</span>
+								<span class="text-muted font-weight-bold mr-2">2021©</span>
 								<a href="http://www.dusit.ac.th" target="_blank" class="text-dark-75 text-hover-primary">มหาวิทยาลัยสวนดุสิต</a>
 							</div>
-							<!--end::Copyright-->
-							<!--begin::Nav-->
-							<!-- <div class="nav nav-dark order-1 order-md-2">
-								<a href="http://keenthemes.com/metronic" target="_blank" class="nav-link pr-3 pl-0">About</a>
-								<a href="http://keenthemes.com/metronic" target="_blank" class="nav-link px-3">Team</a>
-								<a href="http://keenthemes.com/metronic" target="_blank" class="nav-link pl-3 pr-0">Contact</a>
-							</div> -->
-							<!--end::Nav-->
+
 						</div>
 						<!--end::Container-->
 					</div>
@@ -326,6 +330,7 @@
 			<!--end::Page-->
 		</div>
 		<!--end::Main-->
+
 		<!-- begin::User Panel-->
 		<div id="kt_quick_user" class="offcanvas offcanvas-right p-10">
 			<!--begin::Header-->
@@ -342,7 +347,11 @@
 				<div class="d-flex align-items-center mt-5">
 					<div class="symbol symbol-100 mr-5">
 						<?php
-							$profile_url = "https://personnel.dusit.ac.th/eprofile/main/files/bio_data_file/". $this->session->userdata('auth')['bio_pic_file'];
+							if($this->session->userdata('auth')['bio_pic_file'] == ""){
+								$profile_url = base_url('assets/images/default-profile-avatar.png');
+							}else{
+								$profile_url = "https://personnel.dusit.ac.th/eprofile/main/files/bio_data_file/". $this->session->userdata('auth')['bio_pic_file'];
+							}
 						?>
 						<div class="symbol-label" style="background-image:url('<?php echo $profile_url; ?>'); background-position-y:top;"></div>
 						<!-- <div class="symbol-label" style="background-color:darkgoldenrod"></div> -->

@@ -57,9 +57,15 @@ class Room_model extends CI_Model {
               $this->db->where('r.active', $params['conditions']['active']);
 		  }
 
+          if (!empty($params['conditions']['active_in'])) {
+              $this->db->where_in('r.active', $params['conditions']['active_in']);
+		  }
+
           if (!empty($params['conditions']['room_in'])){
             $this->db->where_in('r.id', $params['conditions']['room_in']);
 		  }
+
+		  $this->db->order_by('display_order', 'ASC');
 
           $query = $this->db->get();
           return ($query->num_rows() > 0)?$query->result_array():FALSE;

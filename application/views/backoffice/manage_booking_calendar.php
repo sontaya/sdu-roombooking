@@ -138,6 +138,15 @@
 							<hr>
 
 							<div class="row">
+									<div class="col-lg-6">
+										<label>ลักษณะการใช้งาน: <span id="md_usage_category"></span> </label>
+									</div>
+									<div class="col-lg-6">
+										<label>ซอฟต์แวร์ที่ใช้งาน: <span id="md_usage_software"></span> </label>
+									</div>
+							</div>
+
+							<div class="row">
 								<div class="col-lg-12">
 									<label>วัตถุประสงค์ในการใช้งาน:</label>
 									<div class="alert alert-custom alert-default" id="md_objective"></div>

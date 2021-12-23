@@ -73,6 +73,7 @@ var KTLogin = function() {
 							console.log("user/do_login : [success]");
 							console.log(resLogin);
 
+
 							if(resLogin.uid == ""){
 
 								swal.fire({
@@ -90,68 +91,116 @@ var KTLogin = function() {
 
 							}else{
 
-								var apiFormData = {
-									'code_person': resLogin.hrcode
-								}
-								jQuery.ajax({
-									url:  "https://personnel.dusit.ac.th/app/api/get_personnel_profile",
-									header:{
-										'Access-Control-Allow-Origin': '*',
-										'Access-Control-Allow-Methods' : 'GET, POST, OPTIONS, PUT, DELETE',
-									},
-									type: 'POST',
-									dataType: 'json',
-									data: apiFormData,
-									success: function (resProfile){
 
+								//--::Begin check employeetype
+								if(resLogin.employeetype == "Affairs"){
 
-										console.log("api->get_personnel_profile : [success]");
+										//--::Begin Store Session Affairs group
+										var FormLoginData = {
 
-										var profile = resProfile['profile'][0];
-										console.log(profile);
+											'uid' : resLogin.uid,
+											'user_id' : 'af-'+resLogin.hrcode,
+											'citizencode' : resLogin.citizencode,
+											'name' : resLogin.name,
+											'surname' : resLogin.surname,
+											'employee_type' : resLogin.employeetype,
+											'staff_type' : '',
+											'staff_type_name' : '',
+											'substaff_type' : '',
+											'substaff_type_name' : '',
+											'code_faculty' : 'AF01',
+											'name_faculty' : 'สำนักกิจการพิเศษ',
+											'code_department' : '',
+											'name_department' : '',
+											'code_site' : '',
+											'name_site' : '',
+											'bio_pic_file' : ''
 
-										//--::Begin Store Session
-											var FormLoginData = {
+										}
+										jQuery.ajax({
+											url:  BASE_URL + "user/do_login_session",
+											type: 'POST',
+											dataType: 'json',
+											data: FormLoginData,
+											success: function (resSession){
 
-												'uid' : resLogin.uid,
-												'user_id' : resLogin.hrcode,
-												'citizencode' : resLogin.citizencode,
-												'name' : resLogin.name,
-												'surname' : resLogin.surname,
-												'staff_type' : profile.STAFF_TYPE,
-												'staff_type_name' : profile.STAFF_TYPE_NAME,
-												'substaff_type' : profile.SUBSTAFF_TYPE,
-												'substaff_type_name' : profile.SUBSTAFF_TYPE_NAME,
-												'code_faculty' : profile.CODE_FACULTY,
-												'name_faculty' : profile.NAME_FACULTY,
-												'code_department' : profile.CODE_DEPARTMENT,
-												'name_department' : profile.NAME_DEPARTMENT,
-												'code_site' : profile.CODE_SITE,
-												'name_site' : profile.NAME_SITE,
-												'bio_pic_file' : profile.BIO_PIC_FILE
+												console.log("user/do_login_session : [success]");
+												console.log(resSession);
+												console.log(BASE_URL);
+												window.location.href = BASE_URL + 'page/landing';
 
 											}
-											jQuery.ajax({
-												url:  BASE_URL + "user/do_login_session",
-												type: 'POST',
-												dataType: 'json',
-												data: FormLoginData,
-												success: function (resSession){
+										});
+									//--::End Store Session
 
-													console.log("user/do_login_session : [success]");
-													console.log(resSession);
-													console.log(BASE_URL);
-													window.location.href = BASE_URL + 'page/landing';
+
+								}else{
+
+									//--::Begin Store Session Personnel group
+									var apiFormData = {
+										'code_person': resLogin.hrcode
+									}
+									jQuery.ajax({
+										url:  "https://personnel.dusit.ac.th/app/api/get_personnel_profile",
+										header:{
+											'Access-Control-Allow-Origin': '*',
+											'Access-Control-Allow-Methods' : 'GET, POST, OPTIONS, PUT, DELETE',
+										},
+										type: 'POST',
+										dataType: 'json',
+										data: apiFormData,
+										success: function (resProfile){
+
+
+											console.log("api->get_personnel_profile : [success]");
+
+											var profile = resProfile['profile'][0];
+											console.log(profile);
+
+											//--::Begin Store Session Personnel group
+												var FormLoginData = {
+
+													'uid' : resLogin.uid,
+													'user_id' : resLogin.hrcode,
+													'citizencode' : resLogin.citizencode,
+													'name' : resLogin.name,
+													'surname' : resLogin.surname,
+													'staff_type' : profile.STAFF_TYPE,
+													'staff_type_name' : profile.STAFF_TYPE_NAME,
+													'substaff_type' : profile.SUBSTAFF_TYPE,
+													'substaff_type_name' : profile.SUBSTAFF_TYPE_NAME,
+													'code_faculty' : profile.CODE_FACULTY,
+													'name_faculty' : profile.NAME_FACULTY,
+													'code_department' : profile.CODE_DEPARTMENT,
+													'name_department' : profile.NAME_DEPARTMENT,
+													'code_site' : profile.CODE_SITE,
+													'name_site' : profile.NAME_SITE,
+													'bio_pic_file' : profile.BIO_PIC_FILE
 
 												}
-											});
-										//--::End Store Session
+												jQuery.ajax({
+													url:  BASE_URL + "user/do_login_session",
+													type: 'POST',
+													dataType: 'json',
+													data: FormLoginData,
+													success: function (resSession){
+
+														console.log("user/do_login_session : [success]");
+														console.log(resSession);
+														console.log(BASE_URL);
+														window.location.href = BASE_URL + 'page/landing';
+
+													}
+												});
+											//--::End Store Session
 
 
 
-									}
-								});
+										}
+									});
 
+								}
+								//--::End check employeetype
 
 							}
 						}

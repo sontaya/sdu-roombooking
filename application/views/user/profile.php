@@ -74,6 +74,15 @@
 													value="<?= $val_line_exp; ?>" data-error="#line_exp_Error" disabled="disabled" />
 											</div>
 									</div>
+									<?php
+										if($val_line_sub != ""){
+									?>
+										<div class="form-group row">
+											<div class="col-lg-12">
+												<img src="<?php echo base_url('assets/images/linebot-banner.jpg'); ?>" alt="" class="img-fluid" >
+											</div>
+										</div>
+									<?php } ?>
 
 
 								</div>
@@ -81,13 +90,17 @@
 									<div class="row">
 										<div class="col-lg-6">
 											<button type="button" id="submit_button" class="btn btn-primary mr-2">บันทึก</button>
-											<button type="button" id="linelogin_button" class="btn btn-info mr-2">Line Connect</button>
-
+											<?php
+												if($val_line_sub == ""){
+											?>
 											<a href="<?php echo base_url('lineapi/login'); ?>" class="btn btn-success font-weight-bold mr-2">
 												<i class="fab fa-line"></i> Line Connect
 											</a>
-
-
+											<?php }else{ ?>
+											<a href="<?php echo base_url('user/line_disconnect'); ?>" class="btn btn-danger font-weight-bold mr-2">
+												<i class="fab fa-line"></i> Line Disconnect
+											</a>
+											<?php } ?>
 										</div>
 									</div>
 								</div>

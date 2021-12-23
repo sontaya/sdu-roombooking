@@ -100,6 +100,7 @@
 											<th scope="col">ตำแหน่งที่ตั้ง</th>
 											<th scope="col">ข้อมูลผู้จอง</th>
 											<th scope="col">ลักษณะการใช้งาน</th>
+											<th scope="col">ซอฟต์แวร์ที่ใช้งาน</th>
 											<th scope="col">วันที่เริ่มต้น</th>
 											<th scope="col">วันที่สิ้นสุด</th>
 											<th scope="col">วันที่ทำรายการ</th>
@@ -122,6 +123,7 @@
 												<td class="align-middle"><?= $booking["room_shortname"] ?></td>
 												<td class="align-middle"><?= $booking["name"] ?>&nbsp;<?= $booking["surname"] ?></td>
 												<td class="align-middle"><?= $booking["usage_category_desc"] ?></td>
+												<td class="align-middle"><?= $booking["usage_software_desc"] ?></td>
 												<td class="align-middle"><?= get_thai_datetime($booking["booking_date_start"],1,true); ?></td>
 												<td class="align-middle"><?= get_thai_datetime($booking["booking_date_end"],1,true); ?></td>
 												<td class="align-middle"><?= get_thai_datetime($booking["created_at"],1,true); ?></td>
@@ -248,8 +250,11 @@
 							<hr>
 
 							<div class="row">
-								<div class="col-lg-12">
+								<div class="col-lg-6">
 									<label>ลักษณะการใช้งาน	: <span id="md_usage_category"></span> </label>
+								</div>
+								<div class="col-lg-6">
+									<label>ซอฟต์แวร์ที่ใช้งาน: <span id="md_usage_software"></span> </label>
 								</div>
 							</div>
 

@@ -20,6 +20,13 @@
 			var BASE_URL = "<?php echo base_url(); ?>";
 		</script>
 
+		<script>
+			const env = '<?php echo ENVIRONMENT; ?>';
+			if(env === 'production'){
+				console.log = function() {};
+			}
+		</script>
+
 		<?php if(isset($jsSrc)){ ?>
             <?php foreach($jsSrc as $js): ?>
                 <script src="<?= base_url(); ?><?= $js ?>"></script>

@@ -10,7 +10,7 @@
 
 		$conditions = array(
 			'room_type'=>$roomtype,
-			'active'=> 'Y'
+			'active_in'=> array('Y','C')
 
 		);
 		// $data['rooms'] = $this->db->get('room_master')->result_array();

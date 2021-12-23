@@ -229,6 +229,14 @@
 
 					<form class="form" id="FormBookingModal"  method="post" accept-charset="utf-8">
 						<div class="card-body">
+
+							<div class="row">
+									<div class="col-lg-12">
+										<h5 class="text-info">ข้อมูลผู้จอง</h5>
+									</div>
+							</div>
+							<hr>
+
 							<div class="row">
 									<div class="col-lg-6">
 										<label>ชื่อผู้จอง: <span id="md_booking_name"></span></label>
@@ -247,16 +255,40 @@
 									</div>
 							</div>
 
+							<div class="row mt-2">
+									<div class="col-lg-12">
+										<h5 class="text-info">ข้อมูลสำหรับออกใบเสร็จ</h5>
+									</div>
+							</div>
+							<hr>
+
+							<div class="row">
+									<div class="col-lg-6">
+										<label>ชื่อ - นามสกุล: <span id="md_billing_name"></span></label>
+									</div>
+									<div class="col-lg-6">
+										<label>หน่วยงาน: <span id="md_billing_faculty"></span></label>
+									</div>
+							</div>
+
+							<div class="row mt-2">
+								<div class="col-lg-12">
+									<h5 class="text-info">ข้อมูลการจอง</h5>
+								</div>
+							</div>
 							<hr>
 
 
 							<div class="row">
 
-								<div class="col-lg-6">
-									<label>จำนวนผู้เข้าร่วม: <span id="md_usage_scale"></span></label>
+								<div class="col-lg-4">
+									<label>จำนวนผู้เข้าร่วม (ช่วง): <span id="md_usage_scale"></span></label>
 								</div>
-								<div class="col-lg-6">
+								<div class="col-lg-4">
 									<label>รูปแบบห้อง: <span id="md_usage_format"></span></label>
+								</div>
+								<div class="col-lg-4">
+									<label>จำนวนคน: <span id="md_usage_person"></span></label>
 								</div>
 
 							</div>
@@ -358,6 +390,11 @@
 								</div>
 
 							</div>
+							<div class="row">
+								<div class="col-lg-12">
+									<label>เจ้าหน้าที่ประจำห้อง: <span id="md_require_staff"></span></label>
+								</div>
+							</div>
 
 
 						</div>
@@ -379,4 +416,10 @@
 				</div>
 			</div>
 		</div>
+</div>
+
+<div>
+	<pre>
+		<?php print_r($criterias); ?>
+	</pre>
 </div>

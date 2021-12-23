@@ -20,6 +20,7 @@
 									$val_internal_phone = $default_contact["internal_phone_default"];
 									$val_room_id = "";
 									$val_usage_category = "";
+									$val_usage_software = "";
 									$val_objective = "";
 									$val_participant = "";
 									$val_booking_date_start = "";
@@ -35,6 +36,7 @@
 									$val_internal_phone = $booking["internal_phone"];
 									$val_room_id = $booking["room_id"];
 									$val_usage_category = $booking["usage_category"];
+									$val_usage_software = $booking["usage_software"];
 									$val_objective = $booking["objective"];
 									$val_participant = $booking["participant"];
 									$val_booking_date_start = $booking["booking_date_start"];
@@ -94,7 +96,7 @@
 												?>
 											</select>
 										</div>
-										<div class="col-lg-6">
+										<div class="col-lg-3">
 											<label for="exampleSelect1">ลักษณะการใช้งาน <span id="usage_category_Error" ></span></label>
 											<select class="form-control" id="usage_category" name="usage_category" data-error="#usage_category_Error">
 												<option value="">กรุณาเลือกลักษณะการใช้งาน</option>
@@ -107,6 +109,32 @@
 													</option>
 													<option value="3" <?php if($val_usage_category == 3){echo "selected";} ?>>
 														ออนแอร์ (ถ่ายทำรายการในสตูดิโอ)
+													</option>
+
+											</select>
+										</div>
+										<div class="col-lg-3">
+											<label for="exampleSelect1">ซอฟต์แวร์ที่ต้องการใช้งาน <span id="usage_software_Error" ></span></label>
+											<select class="form-control" id="usage_software" name="usage_software" data-error="#usage_software_Error">
+												<option value="">กรุณาเลือกซอฟต์แวร์ที่ต้องการใช้งาน</option>
+
+													<option value="None" <?php if($val_usage_software == 'None'){echo "selected";} ?>>
+														ไม่ได้ใช้งาน
+													</option>
+													<option value="Team" <?php if($val_usage_software == 'Team'){echo "selected";} ?>>
+														Microsoft Team
+													</option>
+													<option value="Zoom" <?php if($val_usage_software == 'Zoom'){echo "selected";} ?>>
+														Zoom
+													</option>
+													<option value="DingTalk" <?php if($val_usage_software == 'DingTalk'){echo "selected";} ?>>
+														DingTalk
+													</option>
+													<option value="Meet" <?php if($val_usage_software == 'Meet'){echo "selected";} ?>>
+														Google Meet
+													</option>
+													<option value="WebEx" <?php if($val_usage_software == 'WebEx'){echo "selected";} ?>>
+														WebEx
 													</option>
 
 											</select>

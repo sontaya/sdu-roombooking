@@ -94,11 +94,13 @@ var KTCalendarListView = function() {
 
 						jQuery("#md_booking_name").html(data[0].name + " " + data[0].surname);
 						jQuery("#md_room_name").html(data[0].room_name);
+						jQuery("#md_billing_name").html(data[0].billing_name);
+						jQuery("#md_billing_faculty").html(data[0].billing_faculty);
 						jQuery("#md_booking_email").html(data[0].booking_email);
 						jQuery("#md_booking_phone").html(data[0].booking_phone);
 						jQuery("#md_internal_phone").html(data[0].internal_phone);
 						jQuery("#md_usage_format").html(data[0].usage_format);
-						jQuery("#md_usage_format").html(data[0].usage_format);
+						jQuery("#md_usage_person").html(data[0].usage_person);
 						jQuery("#md_usage_scale").html(data[0].usage_scale_desc);
 						jQuery("#md_booking_date_range").html(data[0].booking_date_start+ " ถึง " + data[0].booking_date_end);
 						jQuery("#md_id").val(data[0].id);
@@ -148,6 +150,12 @@ var KTCalendarListView = function() {
 						}
 						if(data[0].snack == '2'){
 							jQuery('#snack2').prop('checked', true);
+						}
+
+						if(data[0].require_staff == "Y"){
+							jQuery("#md_require_staff").html("ต้องการ");
+						}else{
+							jQuery("#md_require_staff").html("ไม่ต้องการ");
 						}
 
 						// jQuery.noConflict();

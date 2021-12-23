@@ -81,8 +81,11 @@ class Dpbackoffice extends MY_Controller
 				'booking_phone' => $this->input->post('booking_phone'),
 				'internal_phone' => $this->input->post('internal_phone'),
 				'room_id' => $this->input->post('room_id'),
+				'billing_name' => $this->input->post('billing_name'),
+				'billing_faculty' => $this->input->post('billing_faculty'),
 				'usage_scale' => $this->input->post('usage_scale'),
 				'usage_format' => $this->input->post('usage_format'),
+				'usage_person' => $this->input->post('usage_person'),
 				'event_option1' => $this->input->post('event_option1'),
 				'event_option2' => $this->input->post('event_option2'),
 				'event_option3' => $this->input->post('event_option3'),
@@ -95,6 +98,7 @@ class Dpbackoffice extends MY_Controller
 				'snack' => $this->input->post('snack'),
 				'booking_date_start' => $this->input->post('booking_date_start'),
 				'booking_date_end' => $this->input->post('booking_date_end'),
+				'require_staff' => $this->input->post('require_staff'),
 				'booking_status' => $this->input->post('booking_status'),
 				'approved_by' => $this->global_data['user_id'],
 				'approved_date' => $this->global_data['timestamp'],
@@ -117,8 +121,11 @@ class Dpbackoffice extends MY_Controller
 				'booking_phone' => $this->input->post('booking_phone'),
 				'internal_phone' => $this->input->post('internal_phone'),
 				'room_id' => $this->input->post('room_id'),
+				'billing_name' => $this->input->post('billing_name'),
+				'billing_faculty' => $this->input->post('billing_faculty'),
 				'usage_format' => $this->input->post('usage_format'),
 				'usage_scale' => $this->input->post('usage_scale'),
+				'usage_person' => $this->input->post('usage_person'),
 				'event_option1' => $this->input->post('event_option1'),
 				'event_option2' => $this->input->post('event_option2'),
 				'event_option3' => $this->input->post('event_option3'),
@@ -131,6 +138,7 @@ class Dpbackoffice extends MY_Controller
 				'snack' => $this->input->post('snack'),
 				'booking_date_start' => $this->input->post('booking_date_start'),
 				'booking_date_end' => $this->input->post('booking_date_end'),
+				'require_staff' => $this->input->post('require_staff'),
 				'booking_status' => $this->input->post('booking_status'),
 				'modified_at' => $this->global_data['timestamp'],
 				'modified_by' =>  $this->session->userdata('auth')['displayname'],
@@ -198,8 +206,8 @@ class Dpbackoffice extends MY_Controller
 		$this->content = 'dpbackoffice/manage_booking';
 		$this->render_dp();
 
-		// 	header('Content-Type: application/json');
-    	// echo json_encode($data);
+		// header('Content-Type: application/json');
+		// echo json_encode($data['criterias']);
 
 	}
 
@@ -324,14 +332,20 @@ class Dpbackoffice extends MY_Controller
 	}
 
 	function debug(){
-		// $conditions = array(
-		// 	'active' => 'Y',
-		// 	'room_in' => $this->session->userdata('auth')['manage_room']
-		// );
-		// $room_info = $this->Dproom_model->list(array('conditions'=> $conditions));
-
-		$rooms = $this->session->userdata('auth')['manage_room'];
-		echo $rooms[0];
+		$criterias = array(
+			'user_role' => 'admin',
+			'room_id' => '',
+			'room_in' => '',
+			'booking_status' => '',
+			'booking_date_start' => '01/10/2021',
+			'booking_date_end' => '04/11/2021',
+			'debug_start' => date('Y-m-d', strtotime('01/10/2021')),
+			'debug_end' => date2_formatdb('04/11/2021'),
+		);
+		$data['criterias'] = $criterias;
+		$data['booking_lists'] = $this->Dpbooking_model->list(array('conditions'=> $criterias));
+		header('Content-Type: application/json');
+    	echo json_encode($data);
 	}
 
 

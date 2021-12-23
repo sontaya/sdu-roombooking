@@ -7,6 +7,16 @@
 					<?php
 						$room_info1 = get_room_bytype('1');
 						foreach ($room_info1 as $r1) {
+							if($r1["active"]=="Y"){
+								$style_icon1 = "flaticon-technology-2";
+								$style_color1= "#1BC5BD";
+							}elseif($r1["active"]=="C"){
+								$style_icon1 = "flaticon-close";
+								$style_color1= "#FFA800";
+							}else{
+								$style_icon1 = "flaticon-technology-2";
+								$style_color1= "#1BC5BD";
+							}
 					?>
 
 							<!--begin::Col-->
@@ -20,8 +30,8 @@
 											<!--begin::Pic-->
 											<div class="flex-shrink-0 mr-4">
 												<div class="symbol symbol-circle symbol-lg-75">
-													<div class="symbol-label">
-														<span class="flaticon-technology-2 icon-xl"></span>
+													<div class="symbol-label" style="background-color: <?= $style_color1 ?>;">
+														<span class="<?= $style_icon1 ?> icon-xl"></span>
 													</div>
 
 												</div>
@@ -51,7 +61,7 @@
 												<span class="text-dark-75 font-weight-bolder mr-2">ความจุห้อง:</span>
 												<a href="#" class="text-muted text-hover-primary"><?= $r1["capacity"] ?></a>
 											</div>
-											<div class="d-flex justify-content-between align-items-cente my-1">
+											<div class="d-flex justify-content-between align-items-center my-1">
 												<span class="text-dark-75 font-weight-bolder mr-2">เจ้าหน้าที่ประจำห้อง:</span>
 
 													<?php
@@ -59,6 +69,11 @@
 													?>
 
 											</div>
+											<?php if($r1["active"]!="Y"){ ?>
+												<div class="d-flex justify-content-center align-items-center ">
+													<span class="font-weight-bolder" style="color: <?= $style_color1 ?>;" ><?= $r1["active_desc"] ?></span>
+												</div>
+											<?php } ?>
 
 										</div>
 										<!--end::Info-->
@@ -80,6 +95,16 @@
 					<?php
 						$room_info2 = get_room_bytype('2');
 						foreach ($room_info2 as $r2) {
+							if($r2["active"]=="Y"){
+								$style_icon2 = "flaticon-technology-2";
+								$style_color2= "#1BC5BD";
+							}elseif($r2["active"]=="C"){
+								$style_icon2 = "flaticon-close";
+								$style_color2= "#FFA800";
+							}else{
+								$style_icon2 = "flaticon-technology-2";
+								$style_color2= "#1BC5BD";
+							}
 
 					?>
 
@@ -94,8 +119,8 @@
 											<!--begin::Pic-->
 											<div class="flex-shrink-0 mr-4">
 												<div class="symbol symbol-circle symbol-lg-75">
-													<div class="symbol-label">
-														<span class="flaticon-technology-2 icon-xl"></span>
+													<div class="symbol-label" style="background-color: <?= $style_color2 ?>;">
+														<span class="<?= $style_icon2 ?> icon-xl"></span>
 													</div>
 
 												</div>
@@ -128,13 +153,19 @@
 												<span class="text-dark-75 font-weight-bolder mr-2">HUB500 Account:</span>
 												<a href="#" class="text-muted text-hover-primary"><?= $r2["hub500_account"] ?></a>
 											</div>
-											<div class="d-flex justify-content-between align-items-cente my-1">
+											<div class="d-flex justify-content-between align-items-center my-1">
 												<span class="text-dark-75 font-weight-bolder mr-2">เจ้าหน้าที่ประจำห้อง:</span>
 												<!-- <a href="#" class="text-muted text-hover-primary"></a> -->
 												<?php
 													echo $r2["room_staff"];
 												?>
 											</div>
+
+											<?php if($r2["active"]!="Y"){ ?>
+												<div class="d-flex justify-content-center align-items-center ">
+													<span class="font-weight-bolder" style="color: <?= $style_color2 ?>;" ><?= $r2["active_desc"] ?></span>
+												</div>
+											<?php } ?>
 
 										</div>
 										<!--end::Info-->

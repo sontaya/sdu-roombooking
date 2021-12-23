@@ -52,6 +52,12 @@ class Backoffice extends MY_Controller
 			$data['form_mode'] = "insert";
 		}
 
+		$room_master_conditions = array(
+			'active' => 'Y',
+			'room_in' => $this->session->userdata('auth')['manage_room']
+		);
+		$data['room_info'] = $this->Room_model->list(array('conditions'=> $room_master_conditions));
+
 		$this->data = $data;
 		$this->content = 'backoffice/form_admin';
 		$this->render();
@@ -59,7 +65,6 @@ class Backoffice extends MY_Controller
 		// header('Content-Type: application/json');
     	// echo json_encode($booking);
 	}
-
 
 	public function form_admin_store(){
 
@@ -81,6 +86,7 @@ class Backoffice extends MY_Controller
 				'room_id' => $this->input->post('room_id'),
 				'participant' => $this->input->post('participant'),
 				'usage_category' => $this->input->post('usage_category'),
+				'usage_software' => $this->input->post('usage_software'),
 				'objective' => $this->input->post('objective'),
 				'booking_date_start' => $this->input->post('booking_date_start'),
 				'booking_date_end' => $this->input->post('booking_date_end'),
@@ -108,6 +114,7 @@ class Backoffice extends MY_Controller
 				'room_id' => $this->input->post('room_id'),
 				'participant' => $this->input->post('participant'),
 				'usage_category' => $this->input->post('usage_category'),
+				'usage_software' => $this->input->post('usage_software'),
 				'objective' => $this->input->post('objective'),
 				'booking_date_start' => $this->input->post('booking_date_start'),
 				'booking_date_end' => $this->input->post('booking_date_end'),
@@ -125,9 +132,6 @@ class Backoffice extends MY_Controller
 		}
 
 	}
-
-
-
 
 	function booking_manage(){
 		//
@@ -171,7 +175,7 @@ class Backoffice extends MY_Controller
 		}
 
 		$room_master_conditions = array(
-			'active' => 'Y',
+			'active_in' => array('Y','C'),
 			'room_in' => $this->session->userdata('auth')['manage_room']
 		);
 		$data['room_info'] = $this->Room_model->list(array('conditions'=> $room_master_conditions));
@@ -216,14 +220,14 @@ class Backoffice extends MY_Controller
 		//--Begin:: เงื่อนไขในการเลือกห้อง
 
 			$room_master_conditions1 = array(
-				'active' => 'Y',
+				'active_in' => array('Y','C'),
 				'room_type' => '1',
 				'room_in' => $this->session->userdata('auth')['manage_room']
 			);
 			$data['room_info1'] = $this->Room_model->list(array('conditions'=> $room_master_conditions1));
 
 			$room_master_conditions2 = array(
-				'active' => 'Y',
+				'active_in' => array('Y','C'),
 				'room_type' => '2',
 				'room_in' => $this->session->userdata('auth')['manage_room']
 			);
@@ -321,8 +325,12 @@ class Backoffice extends MY_Controller
 		// );
 		// $room_info = $this->Room_model->list(array('conditions'=> $conditions));
 
-		$rooms = $this->session->userdata('auth')['manage_room'];
-		echo $rooms[0];
+		// $rooms = $this->session->userdata('auth')['manage_room'];
+		// echo $rooms[0];
+
+
+
+
 	}
 
 

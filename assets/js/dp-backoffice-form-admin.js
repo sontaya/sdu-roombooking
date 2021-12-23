@@ -13,6 +13,22 @@ jQuery(document).ready(function() {
         }
     }
 
+
+	$("#event_option8_ext").prop('disabled', true);
+	$("input[name='event_option8']").change(function(){
+
+		if( $('#event_option8').is(':checked')  ){
+		  $("#event_option8_ext").fadeIn('slow');
+		  $('#event_option8_ext').val("");
+		  $("#event_option8_ext").prop('disabled', false);
+		  $('#event_option8_ext').focus();
+		}else{
+		  $("#event_option8_ext").prop('disabled', true);
+		  $('#event_option8_ext').val("");
+
+		}
+	});
+
 	$('#booking_date_start').datetimepicker({
 		todayHighlight: true,
 		autoclose: true,
@@ -58,6 +74,7 @@ jQuery(document).ready(function() {
 		booking_name: "required",
 		objective: "required",
 		participant: "required",
+		usage_software: "required",
 		booking_date_start: "required",
 		booking_date_end: "required"
 

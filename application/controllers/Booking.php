@@ -14,7 +14,7 @@ class Booking extends MY_Controller
 
         if(! $this->session->userdata('auth')['uid'])
         {
-          $allowed = array('view_json','check_free_room','debug');
+          $allowed = array('view_json','check_free_room','debug','debug_freeroom');
           if(! in_array($this->router->fetch_method(), $allowed))
           {
             redirect('backoffice');
@@ -92,7 +92,6 @@ class Booking extends MY_Controller
     	// echo json_encode($booking);
 	}
 
-
 	public function form_store(){
 
 		// $bds = explode('/', $this->input->post('booking_date_start'));
@@ -111,6 +110,7 @@ class Booking extends MY_Controller
 				'room_id' => $this->input->post('room_id'),
 				'participant' => $this->input->post('participant'),
 				'usage_category' => $this->input->post('usage_category'),
+				'usage_software' => $this->input->post('usage_software'),
 				'objective' => $this->input->post('objective'),
 				'booking_date_start' => $this->input->post('booking_date_start'),
 				'booking_date_end' => $this->input->post('booking_date_end'),
@@ -137,6 +137,7 @@ class Booking extends MY_Controller
 				'room_id' => $this->input->post('room_id'),
 				'participant' => $this->input->post('participant'),
 				'usage_category' => $this->input->post('usage_category'),
+				'usage_software ' => $this->input->post('usage_software '),
 				'objective' => $this->input->post('objective'),
 				'booking_date_start' => $this->input->post('booking_date_start'),
 				'booking_date_end' => $this->input->post('booking_date_end'),
@@ -154,7 +155,6 @@ class Booking extends MY_Controller
 		}
 
 	}
-
 
 	public function list(){
 		$data['title'] = "Booking list";
@@ -175,7 +175,9 @@ class Booking extends MY_Controller
 				'room_id' => $this->input->post('bm_search_room'),
 				'booking_status' => $this->input->post('bm_search_status'),
 				'booking_date_start' => $search_date_start,
-				'booking_date_end' => $search_date_end
+				'booking_date_end' => $search_date_end,
+				'user_id' => $this->global_data['user_id'],
+				'not_user_id' => $this->global_data['user_id']
 			);
 
 
@@ -189,7 +191,9 @@ class Booking extends MY_Controller
 				'room_id' => "",
 				'booking_status' => "",
 				'booking_date_start' => $search_date_start,
-				'booking_date_end' => $search_date_end
+				'booking_date_end' => $search_date_end,
+				'user_id' => $this->global_data['user_id'],
+				'not_user_id' => $this->global_data['user_id']
 			);
 
 		}
@@ -201,11 +205,10 @@ class Booking extends MY_Controller
 		$data['room_info'] = $this->Room_model->list(array());
 
 		// $data['rooms'] = $this->db->get('room_master')->result_array();
-		$booking_lists = $this->Booking_model->list(array('conditions'=> $criterias));
+		$booking_lists = $this->Booking_model->list_by_user(array('conditions'=> $criterias));
 		$data['booking_lists'] = $booking_lists;
 		$data['criterias'] = $criterias;
 
-		// print_r($booking_lists);
 		$this->data = $data;
 		$this->content = 'booking/list';
 		$this->render();
@@ -265,10 +268,17 @@ class Booking extends MY_Controller
 
 	public function view_all_approved_json(){
 
+		$calendar_start =  $this->input->post('start');
+		$calendar_end = $this->input->post('end');
+
+		$calendar_start_criteria = date('Y-m-d', strtotime(substr($calendar_start,0,10)));
+		$calendar_end_criteria = date('Y-m-d', strtotime(substr($calendar_end,0,10)));
 
 		$conditions = array(
 			'room_id'=> $this->input->post('room_id'),
-			'booking_status' => 'approved'
+			'booking_status' => 'approved',
+			'calendar_start' => $calendar_start_criteria,
+			'calendar_end' => $calendar_end_criteria
 		);
 
 		$booking_lists = $this->Booking_model->list(array('conditions'=>  $conditions));
@@ -296,9 +306,17 @@ class Booking extends MY_Controller
 
 	public function view_all_pending_json(){
 
+		$calendar_start =  $this->input->post('start');
+		$calendar_end = $this->input->post('end');
+
+		$calendar_start_criteria = date('Y-m-d', strtotime(substr($calendar_start,0,10)));
+		$calendar_end_criteria = date('Y-m-d', strtotime(substr($calendar_end,0,10)));
+
 		$conditions = array(
 			'room_id'=> $this->input->post('room_id'),
-			'booking_status' => 'pending'
+			'booking_status' => 'pending',
+			'calendar_start' => $calendar_start_criteria,
+			'calendar_end' => $calendar_end_criteria
 		);
 		$booking_lists = $this->Booking_model->list(array('conditions'=>  $conditions));
 
@@ -329,10 +347,18 @@ class Booking extends MY_Controller
 		// $events = DateTime::createFromFormat('Y-m-d\TH:i:sO', '2020-07-03\T09:30:00');
 		// $events = date('Y-m-d\TH:i:sO');
 
+		$calendar_start =  $this->input->post('start');
+		$calendar_end = $this->input->post('end');
+
+		$calendar_start_criteria = date('Y-m-d', strtotime(substr($calendar_start,0,10)));
+		$calendar_end_criteria = date('Y-m-d', strtotime(substr($calendar_end,0,10)));
+
 		$conditions = array(
 			'room_id'=> $this->input->post('room_id'),
 			'booking_status' => 'approved',
-			'user_id' => $this->session->userdata('auth')['hrcode']
+			'user_id' => $this->session->userdata('auth')['hrcode'],
+			'calendar_start' => $calendar_start_criteria,
+			'calendar_end' => $calendar_end_criteria
 		);
 		// $data['rooms'] = $this->db->get('room_master')->result_array();
 		$booking_lists = $this->Booking_model->list(array('conditions'=>  $conditions));
@@ -387,10 +413,19 @@ class Booking extends MY_Controller
 
 	public function view_pending_json(){
 
+		$calendar_start =  $this->input->post('start');
+		$calendar_end = $this->input->post('end');
+
+		$calendar_start_criteria = date('Y-m-d', strtotime(substr($calendar_start,0,10)));
+		$calendar_end_criteria = date('Y-m-d', strtotime(substr($calendar_end,0,10)));
+
+
 		$conditions = array(
 			'room_id'=> $this->input->post('room_id'),
 			'booking_status' => 'pending',
-			'user_id' => $this->session->userdata('auth')['hrcode']
+			'user_id' => $this->session->userdata('auth')['hrcode'],
+			'calendar_start' => $calendar_start_criteria,
+			'calendar_end' => $calendar_end_criteria
 		);
 		$booking_lists = $this->Booking_model->list(array('conditions'=>  $conditions));
 
@@ -421,10 +456,19 @@ class Booking extends MY_Controller
 		// $events = DateTime::createFromFormat('Y-m-d\TH:i:sO', '2020-07-03\T09:30:00');
 		// $events = date('Y-m-d\TH:i:sO');
 
+		$calendar_start =  $this->input->post('start');
+		$calendar_end = $this->input->post('end');
+
+		$calendar_start_criteria = date('Y-m-d', strtotime(substr($calendar_start,0,10)));
+		$calendar_end_criteria = date('Y-m-d', strtotime(substr($calendar_end,0,10)));
+
+
 		$conditions = array(
 			'room_id'=> $this->input->post('room_id'),
 			'booking_status' => 'approved',
-			'not_user_id' => $this->session->userdata('auth')['hrcode']
+			'not_user_id' => $this->session->userdata('auth')['hrcode'],
+			'calendar_start' => $calendar_start_criteria,
+			'calendar_end' => $calendar_end_criteria
 		);
 		// print_r($conditions);
 		// $data['rooms'] = $this->db->get('room_master')->result_array();
@@ -453,15 +497,15 @@ class Booking extends MY_Controller
 
 	public function debug(){
 		// $conditions = array(
-		// 	'free_date_end'=> '2021-05-19 11:10',
-		// 	'free_date_start'=> '2021-05-19 08:40',
+		// 	'free_date_end'=> '2021-10-01 11:10',
+		// 	'free_date_start'=> '2021-10-01 08:40',
 		// 	'room_id'=> '01'
 		// );
 		// $booking_lists = $this->Booking_model->check_freeroom_list(array('conditions'=> $conditions));
 
 		//--working hours
-		$start = '06:00:00';
-		$end = '20:00:00';
+		$start = '07:00:00';
+		$end = '08:00:00';
 		$start = strtotime($start);
 		$end = strtotime($end);
 
@@ -470,20 +514,97 @@ class Booking extends MY_Controller
 		$block=array_fill_keys(range(0,$timesegments,5),0);
 
 		//-- an appointment
-		$app_start = '11:00:00';
-		$app_end = '12:00:00';
+		$app_start = '07:30:00';
+		$app_end = '09:30:00';
+
+		$obj['stt_start'] = $start;
+		$obj['stt_end'] = $end;
+		$obj['timesegments'] = $timesegments;
+		$obj['stt_app_start'] = strtotime($app_start);
+		$obj['stt_app_end'] = strtotime($app_end);
 
 		//-- make 5 minute blocks (note that workday start is 0!)
 		$app_start = (strtotime($app_start)-$start)/300;
 		$app_end = (strtotime($app_end)-$start)/300;
 
+
 		//-- put it in the blocks-array (+2 for 10 minute break)
 		for($i = $app_start; $i<$app_end+2; ++$i){
 			$block[$i] = 1;
+			$iloop[$i] = $i;
 		}
 
-		echo '<pre>'. print_r($block, true).'</pre>';
+
+		$obj['block'] = $block;
+		$obj['iloop'] = $iloop;
+
+		header('Content-Type: application/json');
+		echo json_encode($obj);
+
+		// echo '<pre>'. print_r($block, true).'</pre>';
 	}
 
+
+	public function debug_freeroom(){
+
+		// $conditions = array(
+		// 	'free_date_end'=> '2021-07-20 08:00',
+		// 	'free_date_start'=> '2021-07-20 12:00',
+		// 	'room_id'=> '01'
+		// );
+		// $booking_lists = $this->Booking_model->check_freeroom_list(array('conditions'=> $conditions));
+
+
+		$booking_date_start = '2021-10-01';
+		$booking_date_end = '2021-10-01';
+		$conditions = array(
+
+			'calendar_start' => $booking_date_start,
+			'calendar_end' => $booking_date_end,
+			'booking_status' => 'approved',
+			'room_id'=> '01'
+		);
+
+		$booking_lists = $this->Booking_model->list(array('conditions'=> $conditions));
+		// 	'free_date_start'=> '2021-07-20 12:00',
+		// date('Y-m-d', strtotime($params['conditions']['calendar_start']))
+
+		header('Content-Type: application/json');
+		echo json_encode($booking_lists);
+	}
+
+	public function debug2(){
+
+		$date = '2021-09-26T00:00:00+07:00';
+
+		$fixed = date('Y-m-d', strtotime(substr($date,0,10)));
+		echo $fixed;
+
+		// $conditions = array(
+		// 	'room_id'=> '01',
+		// 	'booking_status' => 'approved'
+		// );
+
+		// $booking_lists = $this->Booking_model->list(array('conditions'=>  $conditions));
+
+		// if($booking_lists !== false){
+		// 	$events = array();
+		// 	foreach ($booking_lists as $booking) {
+
+		// 		$datestart = new DateTime($booking["booking_date_start"]);
+		// 		$dateend = new DateTime($booking["booking_date_end"]);
+		// 		$obj = array(
+		// 			"id"=> $booking["id"],
+		// 			"title"=> $booking["booking_org"]."-".$booking["objective"],
+		// 			"start"=> $datestart->format(DateTime::ATOM),
+		// 			"end"=> $dateend->format(DateTime::ATOM)
+		// 		);
+		// 		array_push($events,$obj);
+		// 	}
+
+		// 	header('Content-Type: application/json');
+		// 	echo json_encode($events);
+		// }
+	}
 
 }

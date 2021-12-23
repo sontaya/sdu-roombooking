@@ -44,6 +44,7 @@ class User extends MY_Controller
 		$citizencode = $this->input->post("citizencode");
 		$name = $this->input->post("name");
 		$surname = $this->input->post("surname");
+		$employee_type = $this->input->post("employee_type");
 		$staff_type = $this->input->post("staff_type");
 		$staff_type_name = $this->input->post("staff_type_name");
 		$substaff_type = $this->input->post("substaff_type");
@@ -65,6 +66,7 @@ class User extends MY_Controller
 				'citizencode' => $citizencode,
 				'name' => $name,
 				'surname' => $surname,
+				'employee_type' => $employee_type,
 				'staff_type' => $staff_type,
 				'staff_type_name' => $staff_type_name,
 				'substaff_type' => $substaff_type,
@@ -92,6 +94,7 @@ class User extends MY_Controller
 				'name' => $name,
 				'surname' => $surname,
 				'name_faculty' => $name_faculty,
+				'employee_type' => $employee_type,
 				'bio_pic_file' => $bio_pic_file,
 				'role' => null,
 				'manage_room' => null
@@ -114,6 +117,7 @@ class User extends MY_Controller
 				'name' => $name,
 				'surname' => $surname,
 				'name_faculty' => $name_faculty,
+				'employee_type' => $employee_type,
 				'bio_pic_file' => $bio_pic_file,
 				'role' => $user[0]["role"],
 				'manage_room' => json_decode($user[0]["control_room_grant"], true)
@@ -191,18 +195,6 @@ class User extends MY_Controller
 			'assets/js/user-profile.js'
 		);
 
-		// if($id != null){
-
-		// 	$conditions = array(
-		// 		'id'=> $id
-		// 	);
-		// 	$data['booking'] = $this->Booking_model->list(array('conditions'=>  $conditions))[0];
-		// 	$data['form_mode'] = "update";
-
-		// }else{
-		// 	$data['form_mode'] = "insert";
-		// }
-
 		$data['profile'] = $this->User_model->list(array('conditions'=>  array('user_id' => $this->global_data['user_id']) ))[0];
 
 		$this->data = $data;
@@ -263,6 +255,7 @@ class User extends MY_Controller
 				'mobile_phone_default' => $mobile_phone_default,
 				'internal_phone_default' => $internal_phone_default,
 				'email_default' => $email_default,
+				'employee_type' => 'External',
 				'external_user' => 'Y',
 				'status' => '1'
 			);
@@ -276,14 +269,6 @@ class User extends MY_Controller
 
 	public function demo(){
 		$this->load->view('user/login_demo');
-	}
-
-	public function debug(){
-		$new_running_code = $this->User_model->new_external_id();
-		$running = $new_running_code["0"];
-		$user_id = "dpu-".$running["new_running_code"];
-		echo $user_id;
-		// echo $new_running_code[0]->new_running_code;
 	}
 
 
@@ -301,6 +286,45 @@ class User extends MY_Controller
 
 	}
 
+	public function line_disconnect()
+	{
+
+		$user_id = $this->global_data['user_id'];
+
+		//--Store local users
+		$user = $this->User_model->list(array('conditions'=>array('user_id'=>$user_id)));
+		if($user != false){
+			$userdata = array(
+				'line_sub' => '',
+				'line_iat' => '',
+				'line_exp' => '',
+				'modified_at' => $this->global_data['timestamp'],
+				'modified_by_ip' => $this->global_data['client_ip']
+			);
+			$this->User_model->update($user_id,$userdata);
+		}
+
+		redirect('user/profile');
+
+
+	}
+
+	public function access_grant()
+	{
+		$data['title'] = "access grant";
+
+		$data['cssSrc'] = array();
+
+		$data['jsSrc'] = array(
+			//'assets/js/user-profile.js'
+		);
+
+		//$data['profile'] = $this->User_model->list(array('conditions'=>  array('user_id' => $this->global_data['user_id']) ))[0];
+
+		$this->data = $data;
+		$this->content = 'user/access_grant';
+		$this->render();
+	}
 
 
 }
