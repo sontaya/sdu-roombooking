@@ -47,7 +47,7 @@ class Dp extends MY_Controller
 
 		$data['jsSrc'] = array(
 			'assets/themes/metronic7/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js',
-			'assets/js/dp-booking-view.js'
+			'assets/js/dusitplace/dp-booking-view.js'
 		);
 
 		$room_conditions = array(
@@ -66,8 +66,8 @@ class Dp extends MY_Controller
 		$data['cssSrc'] = array();
 
 		$data['jsSrc'] = array(
-			'assets/js/dp-booking-init.js',
-			'assets/js/dp-booking-form.js',
+			'assets/js/dusitplace/dp-booking-init.js',
+			'assets/js/dusitplace/dp-booking-form.js',
 			'assets/vendors/jquery-validation/dist/jquery.validate.min.js'
 		);
 
@@ -188,7 +188,7 @@ class Dp extends MY_Controller
 		$data['cssSrc'] = array();
 
 		$data['jsSrc'] = array(
-			'assets/js/dp-booking-list.js'
+			'assets/js/dusitplace/dp-booking-list.js'
 		);
 
 		if($this->input->post('md_search') == '1'){

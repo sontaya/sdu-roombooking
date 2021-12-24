@@ -36,8 +36,8 @@ class Dpbackoffice extends MY_Controller
 		$data['cssSrc'] = array();
 
 		$data['jsSrc'] = array(
-			'assets/js/dp-booking-init.js',
-			'assets/js/dp-backoffice-form-admin.js',
+			'assets/js/dusitplace/dp-booking-init.js',
+			'assets/js/dusitplace/dp-backoffice-form-admin.js',
 			'assets/vendors/jquery-validation/dist/jquery.validate.min.js'
 		);
 
@@ -158,8 +158,8 @@ class Dpbackoffice extends MY_Controller
 		$data['title'] = "Booking Manage";
 
 		$data['jsSrc'] = array(
-			'assets/js/dp-backoffice-init.js',
-			'assets/js/dp-backoffice-booking-manage.js'
+			'assets/js/dusitplace/dp-backoffice-init.js',
+			'assets/js/dusitplace/dp-backoffice-booking-manage.js'
 		);
 
 		if($this->input->post('md_search') == '1'){
@@ -224,8 +224,8 @@ class Dpbackoffice extends MY_Controller
 
 		$data['jsSrc'] = array(
 			'assets/themes/metronic7/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js',
-			'assets/js/dp-backoffice-init.js',
-			'assets/js/dp-backoffice-booking-calendar.js'
+			'assets/js/dusitplace/dp-backoffice-init.js',
+			'assets/js/dusitplace/dp-backoffice-booking-calendar.js'
 		);
 
 		//--Begin:: รายละเอียดห้อง

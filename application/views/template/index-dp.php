@@ -182,7 +182,7 @@
 												<ul class="menu-nav">
 
 													<li class="menu-item" aria-haspopup="true">
-														<a href="#" class="menu-link ">
+														<a href="<?php echo base_url('dp/form') ?>" class="menu-link ">
 															<span class="menu-text">จองห้อง</span>
 															<span class="menu-desc"></span>
 															<i class="menu-arrow"></i>
