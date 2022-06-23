@@ -175,6 +175,12 @@
 																	</a>
 																</li>
 																<li class="navi-item">
+																	<a href="<?php echo base_url('dpbackoffice/form_admin/').$booking["id"]; ?>" data-id="<?= $booking["id"] ?>" class="navi-link booking-edit">
+																		<span class="navi-icon"><i class="la la-edit text-primary"></i></span>
+																		<span class="navi-text">Edit</span>
+																	</a>
+																</li>
+																<li class="navi-item">
 																	<a href="javascript:;" onclick="booking_delete('<?php echo $booking['id']; ?>');return false;" data-id="<?php echo $booking['id']; ?>" class="navi-link booking-delete">
 																		<span class="navi-icon"><i class="flaticon-delete-1 text-danger"></i></span>
 																		<span class="navi-text">Delete</span>
@@ -278,6 +284,11 @@
 							</div>
 							<hr>
 
+							<div class="row">
+								<div class="col-lg-12">
+									<label>ชื่องานประชุม: <span id="md_event_name"></span></label>
+								</div>
+							</div>
 
 							<div class="row">
 
@@ -418,8 +429,3 @@
 		</div>
 </div>
 
-<div>
-	<pre>
-		<?php print_r($criterias); ?>
-	</pre>
-</div>

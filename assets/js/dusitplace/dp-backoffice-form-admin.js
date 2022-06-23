@@ -13,6 +13,11 @@ jQuery(document).ready(function() {
         }
     }
 
+	if($("#form_mode").val() == "update"){
+		console.log("form_mode: " + $("#form_mode").val());
+		initUsageScaleFilter('usage_scale',$('#room_id').val(), $('#hid_usage_scale').val());
+		initUsageFormatFilter('usage_format',$('#hid_usage_scale').val(), $('#hid_usage_format').val());
+	}
 
 	$("#event_option8_ext").prop('disabled', true);
 	$("input[name='event_option8']").change(function(){
@@ -377,7 +382,7 @@ function modal_external_selected(user_id){
 		data: apiFormData,
 		success: function (resProfile){
 
-			// console.log(resProfile)
+			console.log(resProfile)
 
 			jQuery("#booking_name").val(resProfile[0].name + " " + resProfile[0].surname);
 			jQuery("#booking_faculty").val(resProfile[0].name_faculty);

@@ -80,6 +80,7 @@ class Dpbackoffice extends MY_Controller
 				'booking_email' => $this->input->post('booking_email'),
 				'booking_phone' => $this->input->post('booking_phone'),
 				'internal_phone' => $this->input->post('internal_phone'),
+				'event_name' => $this->input->post('event_name'),
 				'room_id' => $this->input->post('room_id'),
 				'billing_name' => $this->input->post('billing_name'),
 				'billing_faculty' => $this->input->post('billing_faculty'),
@@ -120,6 +121,7 @@ class Dpbackoffice extends MY_Controller
 				'booking_email' => $this->input->post('booking_email'),
 				'booking_phone' => $this->input->post('booking_phone'),
 				'internal_phone' => $this->input->post('internal_phone'),
+				'event_name' => $this->input->post('event_name'),
 				'room_id' => $this->input->post('room_id'),
 				'billing_name' => $this->input->post('billing_name'),
 				'billing_faculty' => $this->input->post('billing_faculty'),
@@ -214,7 +216,7 @@ class Dpbackoffice extends MY_Controller
 	function booking_calendar($room_id = null){
 
 		if($room_id == null){
-			$room_id = $this->global_data['default_room'];
+			$room_id = $this->global_data['default_dp_room'];
 		}
 
 		$data['title'] = "calendar view";

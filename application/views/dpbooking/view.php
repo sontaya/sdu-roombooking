@@ -146,6 +146,12 @@
 
 
 									<div class="row">
+										<div class="col-lg-12">
+											<label>ชื่องานประชุม: <span id="md_event_name"></span></label>
+										</div>
+									</div>
+
+									<div class="row">
 
 										<div class="col-lg-4">
 											<label>จำนวนผู้เข้าร่วม (ช่วง): <span id="md_usage_scale"></span></label>

@@ -51,7 +51,7 @@
 								<!--begin::Left-->
 								<div class="d-none d-lg-flex align-items-center mr-3">
 									<!--begin::Logo-->
-									<a href="i<?php echo base_url('page/home'); ?>" class="mr-20">
+									<a href="<?php echo base_url('page/landing'); ?>" class="mr-20">
 										<img alt="Logo" src="<?= base_url('assets/themes/metronic7/assets/media/logos/logo-letter-9.png'); ?>" class="max-h-35px" />
 									</a>
 									<!--end::Logo-->

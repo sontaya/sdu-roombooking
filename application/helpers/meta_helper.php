@@ -56,3 +56,21 @@
 
     }
 
+    function get_hbroom_all(){
+
+		// Get a reference to the controller object
+		$CI = get_instance();
+
+		// You may need to load the model if it hasn't been pre-loaded
+		$CI->load->model('Hybridroom_model');
+
+		$conditions = array(
+			'active'=> 'Y'
+		);
+		// $data['rooms'] = $this->db->get('room_master')->result_array();
+		$rooms = $CI->Hybridroom_model->list(array('conditions'=>  $conditions));
+
+		return $rooms;
+
+    }
+

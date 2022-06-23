@@ -72,7 +72,7 @@ function booking_approve(id,status,reason=""){
 		success: function (res){
 			// console.log(res);
 			booking_line_notify(id);
-			// location.reload();
+			location.reload();
 
 			// setTimeout(function(){
 			// 	toastr['success']("ทำรายการเรียบร้อย", "Booking notification");

@@ -50,15 +50,40 @@ class Page extends MY_Controller
 														WHERE user_id = '". $this->global_data['user_id'] ."'
 							")->result();
 
+		$data['hb_summary'] = $this->db->query("SELECT COUNT(*) AS count_all
+															,COUNT(CASE WHEN booking_status = 'approved' THEN 1 END) AS count_approved
+															,COUNT(CASE WHEN booking_status = 'pending' THEN 1 END) AS count_pending
+															,COUNT(CASE WHEN booking_status = 'rejected' THEN 1 END) AS count_rejected
+														FROM hb_booking_info
+														WHERE user_id = '". $this->global_data['user_id'] ."'
+							")->result();
+
 		$this->data = $data;
 		$this->content = 'home/landing';
 		$this->render_nomenu();
 	}
 
 	function set_active_template($template){
+
+		switch ($template) {
+			case 'OL':
+				$default_room = '01';
+				break;
+			case 'DP':
+				$default_room = '201';
+				break;
+			case 'HB':
+				$default_room = '301';
+				break;
+			default:
+				$default_room = '01';
+				break;
+		}
+
 		//--Store session
 		$session_template = array(
-			'template' => $template
+			'template' => $template,
+			'default_room' => $default_room
 		);
 		$this->session->set_userdata('template',$session_template);
 
@@ -68,6 +93,10 @@ class Page extends MY_Controller
 
 		if($template == "DP"){
 			redirect('dp/list');
+		}
+
+		if($template == "HB"){
+			redirect('hybrid/list');
 		}
 
 		// echo $template;

@@ -49,7 +49,10 @@ class User_model extends CI_Model {
 		  }
 
           if (!empty($params['conditions']['external_user'])){
-            $this->db->where('u.external_user', $params['conditions']['external_user']);
+			$this->db->group_start();
+            	$this->db->where('u.external_user', $params['conditions']['external_user']);
+            	$this->db->or_where('u.employee_type', 'Affairs');
+			$this->db->group_end();
 		  }
 
 		  if (!empty($params['conditions']['search_key'])){

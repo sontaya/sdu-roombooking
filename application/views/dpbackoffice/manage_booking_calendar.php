@@ -148,6 +148,11 @@
 							</div>
 							<hr>
 
+							<div class="row">
+								<div class="col-lg-4">
+									<label>ชื่องานประชุม: <span id="md_event_name"></span></label>
+								</div>
+							</div>
 
 							<div class="row">
 

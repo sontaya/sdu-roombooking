@@ -21,6 +21,7 @@
 									$val_billing_name = "";
 									$val_billing_faculty = "";
 
+									$val_event_name = "";
 									$val_room_id = "";
 									$val_usage_format = "";
 									$val_usage_scale = "";
@@ -51,6 +52,7 @@
 									$val_internal_phone = $booking["internal_phone"];
 									$val_billing_name = $booking["billing_name"];
 									$val_billing_faculty = $booking["billing_faculty"];
+									$val_event_name = $booking["event_name"];
 									$val_room_id = $booking["room_id"];
 									$val_usage_format = $booking["usage_format"];
 									$val_usage_scale = $booking["usage_scale"];
@@ -78,7 +80,7 @@
 								<div class="card-body">
 										<div class="row">
 												<div class="col-lg-12">
-													<h5 class="text-info">ข้อมูลผู้จอง</h5>
+													<h5 class="text-success">ข้อมูลผู้จอง</h5>
 												</div>
 										</div>
 										<hr>
@@ -151,7 +153,7 @@
 
 									<div class="row mt-2">
 											<div class="col-lg-12">
-												<h5 class="text-info">ข้อมูลสำหรับออกใบเสร็จ</h5>
+												<h5 class="text-success">ข้อมูลสำหรับออกใบเสร็จ</h5>
 											</div>
 									</div>
 									<hr>
@@ -169,10 +171,17 @@
 
 									<div class="row mt-2">
 											<div class="col-lg-12">
-												<h5 class="text-info">ข้อมูลการจอง</h5>
+												<h5 class="text-success">ข้อมูลการจอง</h5>
 											</div>
 									</div>
 									<hr>
+									<div class="form-group row">
+											<div class="col-lg-12">
+												<label>ชื่องานประชุม:<span id="event_name_Error" ></span></label>
+												<input type="text" class="form-control" placeholder="" id="event_name" name="event_name" value="<?= $val_event_name ?>" data-error="#event_name_Error" />
+											</div>
+									</div>
+
 
 									<div class="form-group row">
 										<div class="col-lg-4">
@@ -410,11 +419,11 @@
 					<div class="form-group row">
 						<div class="radio-inline">
 							<label class="radio">
-								<input type="radio" name="search_group" class="search_group"  value="1" checked="checked" /> บุคคลากรมหาวิทยาลัย
+								<input type="radio" name="search_group" class="search_group"  value="1" checked="checked" /> บุคลากรมหาวิทยาลัย (ฐานข้อมูลกองบริหารงานบุคคล)
 								<span></span>
 							</label>
 							<label class="radio">
-								<input type="radio" name="search_group" class="search_group"  value="2"/> บุคคลภายนอก
+								<input type="radio" name="search_group" class="search_group"  value="2"/> สำนักกิจการพิเศษ / บุคคลภายนอก
 								<span></span>
 							</label>
 						</div>

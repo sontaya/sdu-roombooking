@@ -21,7 +21,13 @@ class Dp extends MY_Controller
         //   }
 		// }
 
-		$this->set_active_menu('300');
+
+		if($this->session->userdata('auth')['role'] == "delegate_admin" or $this->session->userdata('auth')['role'] == "admin"){
+			$this->set_active_menu('500');
+		}else{
+			$this->set_active_menu('300');
+		}
+
 
 	}
 
@@ -38,7 +44,12 @@ class Dp extends MY_Controller
 		$this->render_dp();
 	}
 
-	function view($room_id = "01"){
+	function view($room_id = null){
+
+		if($room_id == null){
+			$room_id = $this->global_data['default_dp_room'];
+		}
+
 		$data['title'] = "Booking view";
 
 		$data['cssSrc'] = array(
@@ -111,6 +122,7 @@ class Dp extends MY_Controller
 				'billing_name' => $this->input->post('billing_name'),
 				'billing_faculty' => $this->input->post('billing_faculty'),
 				'internal_phone' => $this->input->post('internal_phone'),
+				'event_name' => $this->input->post('event_name'),
 				'room_id' => $this->input->post('room_id'),
 				'usage_scale' => $this->input->post('usage_scale'),
 				'usage_person' => $this->input->post('usage_person'),
@@ -149,6 +161,7 @@ class Dp extends MY_Controller
 				'billing_name' => $this->input->post('billing_name'),
 				'billing_faculty' => $this->input->post('billing_faculty'),
 				'internal_phone' => $this->input->post('internal_phone'),
+				'event_name' => $this->input->post('event_name'),
 				'room_id' => $this->input->post('room_id'),
 				'usage_format' => $this->input->post('usage_format'),
 				'usage_scale' => $this->input->post('usage_scale'),

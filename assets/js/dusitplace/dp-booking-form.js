@@ -79,6 +79,7 @@ jQuery(document).ready(function() {
 		errorClass: 'custom-error',
 		rules:{
 			room_id: "required",
+			event_name: "required",
 			booking_phone: "required",
 			booking_name: "required",
 			participant: "required",

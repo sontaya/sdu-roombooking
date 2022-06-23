@@ -190,6 +190,7 @@ class Booking_model extends CI_Model {
 			}
 
 
+
 		if (!empty($params['conditions']['not_user_id'])){
 
 			$this->db->group_start();
@@ -207,9 +208,6 @@ class Booking_model extends CI_Model {
 
 
 		}
-
-
-
 
           $this->db->order_by('b.booking_date_start', 'ASC');
         //   $this->db->order_by('FILENAME_PDF', 'ASC');
@@ -245,7 +243,7 @@ class Booking_model extends CI_Model {
 					// echo $this->db->get_compiled_select();
 					// return $query->result_array();
 
- 
+
     }
 
 	public function get_approved($params = array())

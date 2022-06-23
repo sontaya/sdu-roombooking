@@ -21,7 +21,13 @@ class Booking extends MY_Controller
           }
 		}
 
-		$this->set_active_menu('300');
+
+		if($this->session->userdata('auth')['role'] == "delegate_admin" or $this->session->userdata('auth')['role'] == "admin"){
+			$this->set_active_menu('500');
+		}else{
+			$this->set_active_menu('300');
+		}
+
 
 	}
 

@@ -52,7 +52,7 @@
 									<!--begin::Form group-->
 									<div class="form-group">
 										<label class="font-size-h6 font-weight-bolder text-dark">Username</label>
-										<input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg" type="text" id="input_username" name="input_username" autocomplete="off" value="" />
+										<input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg" type="text" id="input_username" name="input_username" autocomplete="off" value="sontaya_yam" />
 									</div>
 									<!--end::Form group-->
 									<!--begin::Form group-->
@@ -60,7 +60,7 @@
 										<div class="d-flex justify-content-between mt-n5">
 											<label class="font-size-h6 font-weight-bolder text-dark pt-5">Password</label>
 										</div>
-										<input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg" type="password" id="input_password" name="input_password" autocomplete="off" value="" />
+										<input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg" type="password" id="input_password" name="input_password" autocomplete="off" value="admin@sdu" />
 									</div>
 									<!--end::Form group-->
 									<!--begin::Action-->

@@ -43,7 +43,7 @@ class Dpbooking_model extends CI_Model {
 
 	  	$this->db->select('b.*, rm.room_tag, rm.name as room_name, rm.shortname as room_shortname , u.name, u.surname
 		  				, u.name_faculty, u.name_department, u.line_sub, u.line_iat, u.line_exp
-						, b.usage_scale, rs.room_scale as usage_scale_desc, b.usage_format,
+						, b.usage_scale, rs.room_scale as usage_scale_desc, b.usage_format, b.event_name,
 						(
 							case
 								when b.booking_status = "approved" then "อนุมัติ"

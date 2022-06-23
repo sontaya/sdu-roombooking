@@ -113,6 +113,7 @@ function booking_view(id){
 		console.log(data);
 
 						jQuery("#md_booking_name").html(data[0].name + " " + data[0].surname);
+						jQuery("#md_event_name").html(data[0].event_name);
 						jQuery("#md_room_name").html(data[0].room_name);
 						jQuery("#md_billing_name").html(data[0].billing_name);
 						jQuery("#md_billing_faculty").html(data[0].billing_faculty);

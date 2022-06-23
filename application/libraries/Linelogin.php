@@ -23,8 +23,8 @@ class Linelogin {
 
     // CHANGEME: Default Callback redirect link
     // private const REDIRECT_URL = 'https%3A%2F%2F9e679e8594c0.ngrok.io%2Froombooking%2Flogin%2Fline_login_callback';
-    // private const REDIRECT_URL = 'https://roombooking.dusit.ac.th/dev/lineapi/callback_login';
-    private const REDIRECT_URL = 'https://38e11c9494dc.ap.ngrok.io/lineapi/callback_login';
+    private const REDIRECT_URL = 'https://roombooking.dusit.ac.th/lineapi/callback_login';
+    // private const REDIRECT_URL = 'https://38e11c9494dc.ap.ngrok.io/lineapi/callback_login';
 
     // CHANGEME: Default value for CURLOPT_SSL_VERIFYHOST
     private const VERIFYHOST = false;

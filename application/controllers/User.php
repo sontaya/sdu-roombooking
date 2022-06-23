@@ -199,7 +199,7 @@ class User extends MY_Controller
 
 		$this->data = $data;
 		$this->content = 'user/profile';
-		$this->render();
+		$this->render_nomenu();
 	}
 
 

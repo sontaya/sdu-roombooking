@@ -72,15 +72,6 @@
 											<a href="#" class="nav-link py-4 px-6 <?php if($this->session->userdata('menu')['active'] == '300'){ echo "active";} ?>" data-toggle="tab" data-target="#kt_header_tab_booking" role="tab">จองห้อง</a>
 										</li>
 										<!--end::Item-->
-
-										<!--begin::Item-->
-										<!--
-										<li class="nav-item mr-3">
-											<a href="<?php echo base_url("page/contact_staff"); ?>" class="nav-link py-4 px-6 <?php if($this->session->userdata('menu')['active'] == '400'){ echo "active";} ?>" >ติดต่อเจ้าหน้าที่</a>
-										</li>
-										-->
-										<!--end::Item-->
-
 										<?php
 											 if(($this->session->userdata('auth')['role'] == "admin") || ($this->session->userdata('auth')['role'] == "delegate_admin")){
 										?>
@@ -99,7 +90,6 @@
 								<!--end::Left-->
 								<!--begin::Topbar-->
 								<div class="topbar bg-primary">
-
 
 									<!--begin::User-->
 									<?php

@@ -72,15 +72,6 @@
 											<a href="#" class="nav-link py-4 px-6 <?php if($this->session->userdata('menu')['active'] == '300'){ echo "active";} ?>" data-toggle="tab" data-target="#kt_header_tab_booking" role="tab">จองห้อง</a>
 										</li>
 										<!--end::Item-->
-
-										<!--begin::Item-->
-										<!--
-										<li class="nav-item mr-3">
-											<a href="<?php echo base_url("page/contact_staff"); ?>" class="nav-link py-4 px-6 <?php if($this->session->userdata('menu')['active'] == '400'){ echo "active";} ?>" >ติดต่อเจ้าหน้าที่</a>
-										</li>
-										-->
-										<!--end::Item-->
-
 										<?php
 											 if(($this->session->userdata('auth')['role'] == "admin") || ($this->session->userdata('auth')['role'] == "delegate_admin")){
 										?>
@@ -152,11 +143,28 @@
 											<a href="<?php echo base_url("page/room_info"); ?>" class="nav-link btn btn-clean" >รายละเอียดห้อง</a>
 										</li>
 										<!--end::Item-->
-										<!--begin::Item-->
-										<li class="nav-item mr-2">
-											<a href="#" class="nav-link btn btn-clean" data-toggle="tab" data-target="#kt_header_tab_booking" role="tab">จองห้อง</a>
-										</li>
-										<!--end::Item-->
+										<!--begin::จองห้อง-->
+										<?php
+											 if(($this->session->userdata('auth')['role'] != "admin") && ($this->session->userdata('auth')['role'] != "delegate_admin")){
+										?>
+											<li class="nav-item mr-2">
+												<a href="#" class="nav-link btn btn-clean" data-toggle="tab" data-target="#kt_header_tab_booking" role="tab">จองห้อง</a>
+											</li>
+										<?php
+											 }
+										?>
+										<!--end::จองห้อง-->
+										<!--begin::จองโดยเจ้าหน้าที่-->
+										<?php
+											 if(($this->session->userdata('auth')['role'] == "admin") || ($this->session->userdata('auth')['role'] == "delegate_admin")){
+										?>
+											<li class="nav-item mr-2">
+												<a href="#" class="nav-link btn btn-clean" data-toggle="tab" data-target="#kt_header_tab_bookingadmin" role="tab">จองโดยเจ้าหน้าที่</a>
+											</li>
+										<?php
+											 }
+										?>
+										<!--end::จองโดยเจ้าหน้าที่-->
 									</ul>
 									<!--begin::Tab Navs-->
 
