@@ -1,11 +1,11 @@
 
 	<head><base href="">
 		<meta charset="utf-8" />
-		<title><?= $title ?> | Room Booking</title>
+		<title><?= $title ?> | ระบบจองห้องมหาวิทยาลัยสวนดุสิต</title>
 		<meta name="author" content="มหาวิทยาลัยสวนดุสิต">
 		<meta name="keywords" content="มหาวิทยาลัยสวนดุสิต, สวนดุสิต">
 		<meta name="robots" content="index, follow">
-		<meta name="description" content="" />
+		<meta name="description" content="ระบบจองห้องมหาวิทยาลัยสวนดุสิต" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
 		<!--begin::Fonts-->
@@ -32,4 +32,14 @@
 		<!--begin::Layout Themes(used by all pages)-->
 		<!--end::Layout Themes-->
 		<link rel="shortcut icon" href="<?php echo base_url('assets/images/logo-sdu-text-th.png'); ?>" />
+
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-BBC0LY6JZJ"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'G-BBC0LY6JZJ');
+		</script>
 	</head>

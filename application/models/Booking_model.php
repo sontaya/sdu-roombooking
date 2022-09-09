@@ -14,6 +14,21 @@ class Booking_model extends CI_Model {
         return (isset($result)) ? $result : FALSE;
     }
 
+    function log($id) {
+       	$sql = "INSERT INTO rb_booking_info_log(
+			id, user_id, booking_org, booking_email, booking_phone, internal_phone, room_id
+			, usage_category, usage_software, participant, objective, booking_date_start, booking_date_end
+			, require_staff, booking_status, booking_status_reason, approved_by, approved_date
+			, created_at, created_by, created_by_ip, modified_at, modified_by, modified_by_ip
+		) SELECT
+			id, user_id, booking_org, booking_email, booking_phone, internal_phone, room_id
+			, usage_category, usage_software, participant, objective, booking_date_start, booking_date_end
+			, require_staff, booking_status, booking_status_reason, approved_by, approved_date
+			, created_at, created_by, created_by_ip, modified_at, modified_by, modified_by_ip
+		 FROM rb_booking_info WHERE id = '".$id."'";
+        $this->db->query($sql);
+    }
+
     function update($id, $data) {
         $this->db->where('id', $id);
         $result = $this->db->update('rb_booking_info', $data);

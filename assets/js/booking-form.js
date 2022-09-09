@@ -95,7 +95,7 @@ jQuery(document).ready(function() {
 		// 	console.log(field.name + ' : ' + field.value);
 		//   });
 
- 
+
 		  var freeroomConditionData = {
 			'room_id': jQuery("#room_id").val(),
 			'free_date_start': jQuery("#booking_date_start").val(),
@@ -135,7 +135,7 @@ jQuery(document).ready(function() {
 			// 	  dataType: 'text',
 			// 	  cache: false,
 			// 	  contentType: false,
-			// 	  processData: false,
+			// 	  processData: false, 
 			// 	  data: form_data,
 			// 	  type: 'post',
 			// 	  success: function (ReturnData)

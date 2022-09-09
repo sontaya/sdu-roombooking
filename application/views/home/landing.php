@@ -192,7 +192,7 @@
 													<!--end::Content-->
 													<!--begin::Button-->
 													<div class="col-sm-4 d-flex align-items-center justify-content-sm-end">
-														<a href="<?php echo base_url('page/set_active_template/HB') ?>" class="btn font-weight-bolder text-uppercase font-size-lg btn-primary py-3 px-6">เริ่มจองห้อง</a>
+														<a href="<?php echo base_url('page/set_active_template/HB') ?>" class="btn font-weight-bolder text-uppercase font-size-lg btn-info py-3 px-6">เริ่มจองห้อง</a>
 													</div>
 													<!--end::Button-->
 												</div>

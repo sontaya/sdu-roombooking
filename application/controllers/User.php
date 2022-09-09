@@ -97,6 +97,7 @@ class User extends MY_Controller
 				'employee_type' => $employee_type,
 				'bio_pic_file' => $bio_pic_file,
 				'role' => null,
+				'manage_app' => null,
 				'manage_room' => null
 			);
 		}else{
@@ -120,6 +121,7 @@ class User extends MY_Controller
 				'employee_type' => $employee_type,
 				'bio_pic_file' => $bio_pic_file,
 				'role' => $user[0]["role"],
+				'manage_app' => json_decode($user[0]["control_app_grant"], true),
 				'manage_room' => json_decode($user[0]["control_room_grant"], true)
 			);
 		}
@@ -278,6 +280,20 @@ class User extends MY_Controller
 			'user_id' => $this->input->post('user_id'),
 			'search_key'=> $this->input->post('search_key'),
 			'external_user' => 'Y'
+		);
+		$user_lists = $this->User_model->list(array('conditions'=>  $conditions));
+
+		header('Content-Type: application/json');
+		echo json_encode($user_lists);
+
+	}
+
+	public function list_internal_json(){
+
+		$conditions = array(
+			'user_id' => $this->input->post('user_id'),
+			'search_key'=> $this->input->post('search_key'),
+			'role' => null,
 		);
 		$user_lists = $this->User_model->list(array('conditions'=>  $conditions));
 

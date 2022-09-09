@@ -31,7 +31,7 @@ class Backoffice extends MY_Controller
 	}
 
 	function form_admin($id = null){
-		$data['title'] = "Booking by Admin";
+		$data['title'] = "จองโดยเจ้าหน้าที่ (Online Admin)";
 
 		$data['cssSrc'] = array();
 
@@ -107,6 +107,9 @@ class Backoffice extends MY_Controller
 		}
 		if($this->input->post('form_mode') == "update"){
 
+			//-- Log before update by admin
+			$this->Booking_model->log($this->input->post('form_id'));
+
 			$data = array(
 				'user_id' => $this->input->post('user_id'),
 				'booking_email' => $this->input->post('booking_email'),
@@ -135,7 +138,7 @@ class Backoffice extends MY_Controller
 
 	function booking_manage(){
 		//
-		$data['title'] = "Booking Manage";
+		$data['title'] = "รายการจองห้อง (Online Admin)";
 
 		$data['jsSrc'] = array(
 			'assets/js/backoffice-init.js',
@@ -197,7 +200,7 @@ class Backoffice extends MY_Controller
 			$room_id = $this->global_data['default_room'];
 		}
 
-		$data['title'] = "calendar view";
+		$data['title'] = "มุมมองปฏิทิน (Online Admin)";
 		$data['cssSrc'] = array(
 			'assets/themes/metronic7/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css?v=7.0.3'
 		);
@@ -315,21 +318,6 @@ class Backoffice extends MY_Controller
 
 		header('Content-Type: application/json');
     	echo json_encode($res);
-
-	}
-
-	function debug(){
-		// $conditions = array(
-		// 	'active' => 'Y',
-		// 	'room_in' => $this->session->userdata('auth')['manage_room']
-		// );
-		// $room_info = $this->Room_model->list(array('conditions'=> $conditions));
-
-		// $rooms = $this->session->userdata('auth')['manage_room'];
-		// echo $rooms[0];
-
-
-
 
 	}
 

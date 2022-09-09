@@ -22,9 +22,17 @@ class Hybrid extends MY_Controller
 		}
 
 		if($this->session->userdata('auth')['role'] == "delegate_admin" or $this->session->userdata('auth')['role'] == "admin"){
-			$this->set_active_menu('500');
+
+			if (in_array("hybrid", $this->session->userdata('auth')['manage_app'])) {
+				$this->set_active_menu('500');
+			}else{
+				$this->set_active_menu('300');
+			}
+
 		}else{
+
 			$this->set_active_menu('300');
+
 		}
 
 	}
@@ -32,7 +40,7 @@ class Hybrid extends MY_Controller
 
 
 	function index(){
-		$data['title'] = "SDU Online learning";
+		$data['title'] = "Hybrid Index";
 		// $data['subheader_title'] = "ยินดีต้อนรับ ".$this->session->userdata('displayname');
 		// $data['subheader_desc'] = "";
 		// $data['active_tab'] = 'dashboard';
@@ -44,11 +52,13 @@ class Hybrid extends MY_Controller
 
 	function view($room_id = null){
 
+		$this->set_active_menu('300');
+
 		if($room_id == null){
 			$room_id = $this->global_data['default_hb_room'];
 		}
 
-		$data['title'] = "Booking view";
+		$data['title'] = "มุมมองปฏิทิน Hybrid";
 		$data['cssSrc'] = array(
 			'assets/themes/metronic7/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css?v=7.0.3'
 		);
@@ -69,7 +79,9 @@ class Hybrid extends MY_Controller
 	}
 
 	function form($id = null){
-		$data['title'] = "Booking form";
+		$this->set_active_menu('300');
+
+		$data['title'] = "จองห้อง Hybrid";
 
 		$data['cssSrc'] = array();
 
@@ -155,7 +167,10 @@ class Hybrid extends MY_Controller
 	}
 
 	public function list(){
-		$data['title'] = "Booking list";
+
+		$this->set_active_menu('300');
+
+		$data['title'] = "รายการจองห้อง Hybrid";
 
 		$data['cssSrc'] = array();
 

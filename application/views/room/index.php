@@ -65,7 +65,12 @@
 												<span class="text-dark-75 font-weight-bolder mr-2">เจ้าหน้าที่ประจำห้อง:</span>
 
 													<?php
-														echo $r1["room_staff"];
+														// echo $r1["room_staff"];
+														// $staffs = get_staff_byroom($r1["id"]);
+
+														// foreach ($staffs as $staff) {
+														// 	echo	$staff["user_fullname"]."<br>";
+														// }
 													?>
 
 											</div>

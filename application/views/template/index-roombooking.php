@@ -74,13 +74,16 @@
 										<!--end::Item-->
 										<?php
 											 if(($this->session->userdata('auth')['role'] == "admin") || ($this->session->userdata('auth')['role'] == "delegate_admin")){
+												 if (in_array("online", $this->session->userdata('auth')['manage_app'])) {
 										?>
+
 											<!--begin::Item-->
 											<li class="nav-item mr-2">
 												<a href="#" class="nav-link py-4 px-6 <?php if($this->session->userdata('menu')['active'] == '500'){ echo "active";} ?>" data-toggle="tab" data-target="#kt_header_tab_admin" role="tab">สำหรับเจ้าหน้าที่</a>
 											</li>
 											<!--end::Item-->
 										<?php
+												 }
 											 }
 										?>
 
@@ -91,32 +94,7 @@
 								<!--begin::Topbar-->
 								<div class="topbar bg-primary">
 
-									<!--begin::User-->
-									<?php
-										if($this->session->userdata('auth')['uid'] != null){
-									?>
-											<div class="topbar-item">
-												<div class="btn btn-icon btn-hover-transparent-white w-auto d-flex align-items-center btn-lg px-2" id="kt_quick_user_toggle">
-													<div class="d-flex flex-column text-right pr-3">
-														<span class="text-white opacity-50 font-weight-bold font-size-sm d-none d-md-inline">
-															<?= $this->session->userdata('auth')['displayname']; ?>
-														</span>
-													</div>
-													<span class="symbol symbol-35">
-														<?php
-															$explode_uid = explode("_",$this->session->userdata('auth')['uid']);
-															$short_uid = substr($explode_uid[0],0,1).substr($explode_uid[1],0,1);
-														?>
-														<span class="symbol-label font-size-h5 font-weight-bold text-white bg-white-o-30">
-															<?php echo strtoupper($short_uid); ?>
-														</span>
-													</span>
-												</div>
-											</div>
-									<?php
-										}
-									?>
-									<!--end::User-->
+									<?php echo $user_profile; ?>
 
 
 								</div>
@@ -286,6 +264,15 @@
 						<div class="d-flex flex-column-fluid">
 							<!--begin::Container-->
 							<div class="container">
+
+								<!--begin::Debug-->
+								<?php
+									if(ENVIRONMENT == "development"){
+										include('_debug.php');
+									}
+								?>
+								<!--end::Debug-->
+
 								<!--begin::Dashboard-->
 
 								<?php echo $content; ?>
@@ -307,13 +294,7 @@
 								<a href="http://www.dusit.ac.th" target="_blank" class="text-dark-75 text-hover-primary">มหาวิทยาลัยสวนดุสิต</a>
 							</div>
 							<!--end::Copyright-->
-							<!--begin::Nav-->
-							<!-- <div class="nav nav-dark order-1 order-md-2">
-								<a href="http://keenthemes.com/metronic" target="_blank" class="nav-link pr-3 pl-0">About</a>
-								<a href="http://keenthemes.com/metronic" target="_blank" class="nav-link px-3">Team</a>
-								<a href="http://keenthemes.com/metronic" target="_blank" class="nav-link pl-3 pr-0">Contact</a>
-							</div> -->
-							<!--end::Nav-->
+
 						</div>
 						<!--end::Container-->
 					</div>
@@ -325,48 +306,9 @@
 		</div>
 		<!--end::Main-->
 		<!-- begin::User Panel-->
-		<div id="kt_quick_user" class="offcanvas offcanvas-right p-10">
-			<!--begin::Header-->
-			<div class="offcanvas-header d-flex align-items-center justify-content-between pb-5">
-				<h3 class="font-weight-bold m-0">User Profile</h3>
-				<a href="#" class="btn btn-xs btn-icon btn-light btn-hover-primary" id="kt_quick_user_close">
-					<i class="ki ki-close icon-xs text-muted"></i>
-				</a>
-			</div>
-			<!--end::Header-->
-			<!--begin::Content-->
-			<div class="offcanvas-content pr-5 mr-n5">
-				<!--begin::Header-->
-				<div class="d-flex align-items-center mt-5">
-					<div class="symbol symbol-100 mr-5">
-						<?php
-							if($this->session->userdata('auth')['bio_pic_file'] == ""){
-								$profile_url = base_url('assets/images/default-profile-avatar.png');
-							}else{
-								$profile_url = "https://personnel.dusit.ac.th/eprofile/main/files/bio_data_file/". $this->session->userdata('auth')['bio_pic_file'];
-							}
-						?>
-						<div class="symbol-label" style="background-image:url('<?php echo $profile_url; ?>'); background-position-y:top;"></div>
-						<!-- <div class="symbol-label" style="background-color:darkgoldenrod"></div> -->
-						<i class="symbol-badge bg-success"></i>
-					</div>
-					<div class="d-flex flex-column">
-						<a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary"><?= $this->session->userdata('auth')['displayname']; ?></a>
-						<div class="text-muted mt-1"><?php echo $this->session->userdata('auth')['name_faculty'] ?></div>
-						<div class="navi mt-2">
-							<a href="<?php echo base_url('user/logout'); ?>" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">Sign Out</a>
-						</div>
-					</div>
-				</div>
-				<!--end::Header-->
-				<!--begin::Separator-->
-				<div class="separator separator-dashed mt-8 mb-5"></div>
-				<!--end::Separator-->
 
+			<?php echo $user_panel; ?>
 
-			</div>
-			<!--end::Content-->
-		</div>
 		<!-- end::User Panel-->
 
 

@@ -24,7 +24,7 @@ class Page extends MY_Controller
 	function home(){
 		$this->set_active_menu('100');
 
-		$data['title'] = "Home";
+		$data['title'] = "หน้าแรก online";
 		$this->data = $data;
 		$this->content = 'home/index-ol';
 		$this->render();
@@ -32,7 +32,7 @@ class Page extends MY_Controller
 
 	function landing(){
 		// $this->set_active_menu('100');
-		$data['title'] = "Landing";
+		$data['title'] = "เลือกประเภทห้อง";
 
 		$data['ol_summary'] = $this->db->query("SELECT COUNT(*) AS count_all
 															,COUNT(CASE WHEN booking_status = 'approved' THEN 1 END) AS count_approved
@@ -88,7 +88,13 @@ class Page extends MY_Controller
 		$this->session->set_userdata('template',$session_template);
 
 		if($template == "OL"){
-			redirect('booking/list');
+
+			if (in_array("online", $this->session->userdata('auth')['manage_app'])) {
+				redirect('backoffice/booking_manage');
+			}else{
+				redirect('booking/list');
+			}
+
 		}
 
 		if($template == "DP"){
@@ -96,7 +102,13 @@ class Page extends MY_Controller
 		}
 
 		if($template == "HB"){
-			redirect('hybrid/list');
+
+			if (in_array("hybrid", $this->session->userdata('auth')['manage_app'])) {
+				redirect('hybridbackoffice/booking_manage');
+			}else{
+				redirect('hybrid/list');
+			}
+
 		}
 
 		// echo $template;
@@ -108,7 +120,7 @@ class Page extends MY_Controller
 
 		$this->set_active_menu('200');
 
-		$data['title'] = "Room info";
+		$data['title'] = "รายละเอียดห้อง Online";
 		$this->data = $data;
 		$this->content = 'room/index';
 		$this->render();

@@ -23,7 +23,14 @@ class Dp extends MY_Controller
 
 
 		if($this->session->userdata('auth')['role'] == "delegate_admin" or $this->session->userdata('auth')['role'] == "admin"){
-			$this->set_active_menu('500');
+
+			if (in_array("dusitplace", $this->session->userdata('auth')['manage_app'])) {
+				$this->set_active_menu('500');
+			}else{
+				$this->set_active_menu('300');
+			}
+
+
 		}else{
 			$this->set_active_menu('300');
 		}

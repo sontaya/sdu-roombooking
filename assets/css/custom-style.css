@@ -9,3 +9,28 @@ label .custom-error{
 label .is-invalid {
 	color: #F64E60;
 }
+
+.table-responsive {
+	min-height: 300px;
+}
+
+@media (max-width: 700px) {
+	.card-columns.custom-columns {
+		column-count: 1;
+	}
+}
+@media (min-width: 700px) {
+	.card-columns.custom-columns {
+		column-count: 2;
+	}
+}
+@media (min-width: 1000px) {
+	.card-columns.custom-columns {
+		column-count: 3;
+	}
+}
+@media (min-width: 1400px) {
+	.card-columns.custom-columns {
+		column-count: 4;
+	}
+}

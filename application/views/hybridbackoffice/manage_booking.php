@@ -173,6 +173,12 @@
 																	</a>
 																</li>
 																<li class="navi-item">
+																	<a href="<?php echo base_url('hybridbackoffice/form_admin/').$booking["id"]; ?>" data-id="<?= $booking["id"] ?>" class="navi-link booking-edit">
+																		<span class="navi-icon"><i class="la la-edit text-primary"></i></span>
+																		<span class="navi-text">Edit</span>
+																	</a>
+																</li>
+																<li class="navi-item">
 																	<a href="javascript:;" onclick="booking_delete('<?php echo $booking['id']; ?>');return false;" data-id="<?php echo $booking['id']; ?>" class="navi-link booking-delete">
 																		<span class="navi-icon"><i class="flaticon-delete-1 text-danger"></i></span>
 																		<span class="navi-text">Delete</span>

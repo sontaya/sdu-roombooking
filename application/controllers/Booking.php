@@ -23,7 +23,13 @@ class Booking extends MY_Controller
 
 
 		if($this->session->userdata('auth')['role'] == "delegate_admin" or $this->session->userdata('auth')['role'] == "admin"){
-			$this->set_active_menu('500');
+
+			if (in_array("online", $this->session->userdata('auth')['manage_app'])) {
+				$this->set_active_menu('500');
+			}else{
+				$this->set_active_menu('300');
+			}
+
 		}else{
 			$this->set_active_menu('300');
 		}
@@ -45,7 +51,10 @@ class Booking extends MY_Controller
 	}
 
 	function view($room_id = "01"){
-		$data['title'] = "Booking view";
+
+		$this->set_active_menu('300');
+
+		$data['title'] = "มุมมองปฏิทิน Online";
 
 		$data['cssSrc'] = array(
 			'assets/themes/metronic7/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css?v=7.0.3'
@@ -67,7 +76,10 @@ class Booking extends MY_Controller
 	}
 
 	function form($id = null){
-		$data['title'] = "Booking form";
+
+		$this->set_active_menu('300');
+
+		$data['title'] = "จองห้อง Online";
 
 		$data['cssSrc'] = array();
 
@@ -163,7 +175,9 @@ class Booking extends MY_Controller
 	}
 
 	public function list(){
-		$data['title'] = "Booking list";
+		$this->set_active_menu('300');
+
+		$data['title'] = "รายการจองห้อง Online";
 
 		$data['cssSrc'] = array();
 
@@ -584,7 +598,7 @@ class Booking extends MY_Controller
 		$date = '2021-09-26T00:00:00+07:00';
 
 		$fixed = date('Y-m-d', strtotime(substr($date,0,10)));
-		echo $fixed;
+
 
 		// $conditions = array(
 		// 	'room_id'=> '01',
@@ -611,6 +625,33 @@ class Booking extends MY_Controller
 		// 	header('Content-Type: application/json');
 		// 	echo json_encode($events);
 		// }
+		$room_target = '01';
+
+		$conditions = array(
+			'role'=> 'delegate_admin',
+		);
+		$user_lists = $this->User_model->list_admin(array('conditions'=> $conditions));
+
+		$users = array();
+		foreach ($user_lists as $user) {
+
+			if(in_array($room_target, json_decode($user['control_room_grant'], true) )){
+
+				$obj = array(
+					'user_id' => $user['user_id'],
+					'user_fullname' => $user['name']." ".$user['surname'],
+					'mobile' => $user['mobile_phone_default'],
+					'control_room' =>  json_decode($user['control_room_grant'], true)
+				);
+				array_push($users, $obj);
+
+			}
+		}
+
+
+		header('Content-Type: application/json');
+		echo json_encode($users);
+
 	}
 
 }

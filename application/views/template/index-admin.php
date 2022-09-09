@@ -55,7 +55,28 @@
 										<img alt="Logo" src="<?= base_url('assets/themes/metronic7/assets/media/logos/logo-letter-9.png'); ?>" class="max-h-35px" />
 									</a>
 									<!--end::Logo-->
+									<!--begin::Tab Navs(for desktop mode)-->
+									<ul class="header-tabs nav align-self-end font-size-lg" role="tablist" id="main-desktop-menu">
+										<!--begin::Item-->
+										<li class="nav-item">
+											<a href="<?php echo base_url("page/home"); ?>" class="nav-link py-4 px-6 <?php if($this->session->userdata('menu')['active'] == '100'){ echo "active";} ?>" >Home</a>
+										</li>
+										<!--end::Item-->
 
+										<?php
+											 if(($this->session->userdata('auth')['role'] == "admin") ){
+										?>
+											<!--begin::Item-->
+											<li class="nav-item mr-2">
+												<a href="#" class="nav-link py-4 px-6 <?php if($this->session->userdata('menu')['active'] == '500'){ echo "active";} ?>" data-toggle="tab" data-target="#kt_header_tab_admin" role="tab">Administrator</a>
+											</li>
+											<!--end::Item-->
+										<?php
+											 }
+										?>
+
+									</ul>
+									<!--begin::Tab Navs-->
 								</div>
 								<!--end::Left-->
 								<!--begin::Topbar-->
@@ -71,7 +92,83 @@
 							<!--end::Container-->
 						</div>
 						<!--end::Top-->
+						<!--begin::Bottom-->
+						<div class="header-bottom">
+							<!--begin::Container-->
+							<div class="container">
+								<!--begin::Header Menu Wrapper-->
+								<div class="header-navs header-navs-left" id="kt_header_navs">
+									<!--begin::Tab Navs(for tablet and mobile modes)-->
+									<ul class="header-tabs p-5 p-lg-0 d-flex d-lg-none nav nav-bold nav-tabs" role="tablist">
+										<!--begin::Item-->
+										<li class="nav-item mr-2">
+											<a href="#" class="nav-link btn btn-clean" data-toggle="tab" data-target="#kt_header_tab_home" role="tab">Home</a>
+										</li>
+										<!--end::Item-->
 
+										<!--begin::Item-->
+										<li class="nav-item mr-2">
+											<a href="#" class="nav-link btn btn-clean" data-toggle="tab" data-target="#kt_header_menu_admin" role="tab">Administrator</a>
+										</li>
+										<!--end::Item-->
+									</ul>
+									<!--begin::Tab Navs-->
+									<!--begin::Tab Content-->
+									<div class="tab-content">
+
+										<!--begin::Tab header_tab_home-->
+										<div class="tab-pane py-5 p-lg-0 <?php if($this->session->userdata('menu')['active'] == '100'){ echo "show active";} ?>" id="kt_header_tab_home">
+											<!--begin::Menu-->
+											<div id="kt_header_menu_home" class="header-menu header-menu-mobile header-menu-layout-default">
+
+
+											</div>
+											<!--end::Menu-->
+										</div>
+										<!--end::Tab header_tab_home-->
+
+
+										<!--begin::Tab header_tab_admin-->
+										<div class="tab-pane p-5 p-lg-0 justify-content-between <?php if($this->session->userdata('menu')['active'] == '500'){ echo "show active";} ?>" id="kt_header_tab_admin">
+
+											<!--begin::Menu-->
+											<div id="kt_header_menu_admin" class="header-menu header-menu-mobile header-menu-layout-default">
+
+												<!--begin::Nav-->
+												<ul class="menu-nav">
+
+													<li class="menu-item" aria-haspopup="true">
+														<a href="<?php echo base_url('admin/list') ?>" class="menu-link ">
+															<span class="menu-text">จัดการผู้ดูแลระบบ</span>
+															<span class="menu-desc"></span>
+															<i class="menu-arrow"></i>
+														</a>
+													</li>
+													<li class="menu-item" aria-haspopup="true">
+														<a href="<?php echo base_url('admin/room_list') ?>" class="menu-link ">
+															<span class="menu-text">จัดการห้อง</span>
+															<span class="menu-desc"></span>
+															<i class="menu-arrow"></i>
+														</a>
+													</li>
+
+
+												</ul>
+												<!--end::Nav-->
+											</div>
+											<!--end::Menu-->
+
+										</div>
+										<!--end::Tab header_tab_admin-->
+
+									</div>
+									<!--end::Tab Content-->
+								</div>
+								<!--end::Header Menu Wrapper-->
+							</div>
+							<!--end::Container-->
+						</div>
+						<!--end::Bottom-->
 					</div>
 					<!--end::Header-->
 					<!--begin::Content-->

@@ -4,9 +4,13 @@
 	<!--begin::Head-->
 	<head>
 		<meta charset="utf-8" />
-		<title>เข้าสู่ระบบ | Room Booking</title>
-		<meta name="description" content="" />
+		<title>เข้าสู่ระบบ | ระบบจองห้องมหาวิทยาลัยสวนดุสิต</title>
+		<meta name="author" content="มหาวิทยาลัยสวนดุสิต">
+		<meta name="keywords" content="มหาวิทยาลัยสวนดุสิต, สวนดุสิต">
+		<meta name="robots" content="index, follow">
+		<meta name="description" content="ระบบจองห้องมหาวิทยาลัยสวนดุสิต" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
 		<!--begin::Fonts-->
 		<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500&display=swap" rel="stylesheet">
 		<!--end::Fonts-->
@@ -21,6 +25,17 @@
 		<!--begin::Layout Themes(used by all pages)-->
 		<!--end::Layout Themes-->
 		<link rel="shortcut icon" href="<?php echo base_url('assets/images/logo-sdu-text-th.png'); ?>" />
+
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-BBC0LY6JZJ"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'G-BBC0LY6JZJ');
+		</script>
+
 	</head>
 	<!--end::Head-->
 	<!--begin::Body-->
@@ -52,7 +67,7 @@
 									<!--begin::Form group-->
 									<div class="form-group">
 										<label class="font-size-h6 font-weight-bolder text-dark">Username</label>
-										<input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg" type="text" id="input_username" name="input_username" autocomplete="off" value="sontaya_yam" />
+										<input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg" type="text" id="input_username" name="input_username" autocomplete="off" value="" />
 									</div>
 									<!--end::Form group-->
 									<!--begin::Form group-->
@@ -60,7 +75,7 @@
 										<div class="d-flex justify-content-between mt-n5">
 											<label class="font-size-h6 font-weight-bolder text-dark pt-5">Password</label>
 										</div>
-										<input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg" type="password" id="input_password" name="input_password" autocomplete="off" value="admin@sdu" />
+										<input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg" type="password" id="input_password" name="input_password" autocomplete="off" value="" />
 									</div>
 									<!--end::Form group-->
 									<!--begin::Action-->

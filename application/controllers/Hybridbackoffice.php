@@ -31,7 +31,7 @@ class Hybridbackoffice extends MY_Controller
 	}
 
 	function form_admin($id = null){
-		$data['title'] = "Booking by Admin";
+		$data['title'] = "จองโดยเจ้าหน้าที่ (Hybrid Admin)";
 
 		$data['cssSrc'] = array();
 
@@ -105,6 +105,9 @@ class Hybridbackoffice extends MY_Controller
 		}
 		if($this->input->post('form_mode') == "update"){
 
+			//-- Log before update by admin
+			$this->Hybridbooking_model->log($this->input->post('form_id'));
+
 			$data = array(
 				'user_id' => $this->input->post('user_id'),
 				'booking_email' => $this->input->post('booking_email'),
@@ -131,7 +134,7 @@ class Hybridbackoffice extends MY_Controller
 
 	function booking_manage(){
 		//
-		$data['title'] = "Booking Manage";
+		$data['title'] = "รายการจองห้อง (Hybrid Admin)";
 
 		$data['jsSrc'] = array(
 			'assets/js/hybrid/hb-backoffice-init.js',

@@ -85,7 +85,7 @@
 											<select class="form-control" id="room_id" name="room_id" data-error="#room_id_Error">
 												<option value="">กรุณาเลือกห้อง</option>
 												<?php
-													$room_info = get_hbroom_all();
+													$room_info = get_hbroom_active();
 													foreach ($room_info as $r) {
 												?>
 													<option value="<?= $r["id"] ?>" <?php if($val_room_id == $r["id"]){echo "selected";} ?>>
