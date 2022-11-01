@@ -12,8 +12,8 @@
 		<script src="<?= base_url('assets/themes/metronic7/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js?v=7.0.3'); ?>"></script>
 		<!--end::Page Vendors-->
 		<!--begin::Page Scripts(used by this page)-->
-		<script src="<?= base_url('assets/js/booking-init-widget.js'); ?>"></script>
-		<script src="<?= base_url('assets/js/my-global.js'); ?>"></script>
+		<script src="<?= base_url('assets/js/booking-init-widget.js?version=1.2'); ?>"></script>
+		<script src="<?= base_url('assets/js/my-global.js?version=1.2'); ?>"></script>
 		<!--end::Page Scripts-->
 
 		<script>
@@ -29,6 +29,6 @@
 
 		<?php if(isset($jsSrc)){ ?>
             <?php foreach($jsSrc as $js): ?>
-                <script src="<?= base_url(); ?><?= $js ?>"></script>
+                <script src="<?= base_url(); ?><?= $js ?>?version=1.3"></script>
             <?php endforeach; ?>
         <?php } ?>

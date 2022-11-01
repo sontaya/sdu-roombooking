@@ -126,25 +126,25 @@ var KTDatatableBooking = function() {
 								<li class="navi-item">\
 									<a href="javascript:;" onclick="booking_view('+ row.id +');return false;" data-id="'+ row.id +'" class="navi-link booking-view">\
 										<span class="navi-icon"><i class="flaticon-eye"></i></span>\
-										<span class="navi-text">View</span>\
+										<span class="navi-text">ดูข้อมูล</span>\
 									</a>\
 								</li>\
 								<li class="navi-item">\
 									<a href="javascript:;" onclick="booking_approve('+ row.id +',\'approved\');return false;" data-id="'+ row.id +'" class="navi-link booking-approve">\
 										<span class="navi-icon"><i class="flaticon2-calendar-5 text-success"></i></span>\
-										<span class="navi-text">Approve</span>\
+										<span class="navi-text">อนุมัติ</span>\
 									</a>\
 								</li>\
 								<li class="navi-item">\
 									<a href="javascript:;" onclick="booking_approve('+ row.id +',\'rejected\');return false;" data-id="'+ row.id +'" class="navi-link booking-reject">\
 										<span class="navi-icon"><i class="flaticon-cancel text-warning"></i></span>\
-										<span class="navi-text">Reject</span>\
+										<span class="navi-text">ไม่อนุมัติ</span>\
 									</a>\
 								</li>\
 								<li class="navi-item">\
 									<a href="javascript:;" onclick="booking_delete('+ row.id +');return false;" data-id="'+ row.id +'" class="navi-link booking-delete">\
 										<span class="navi-icon"><i class="flaticon-delete-1 text-danger"></i></span>\
-										<span class="navi-text">Delete</span>\
+										<span class="navi-text">ลบ</span>\
 									</a>\
 								</li>\
 							</ul>\

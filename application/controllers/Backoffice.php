@@ -169,7 +169,7 @@ class Backoffice extends MY_Controller
 			$criterias = array(
 				'user_role' => $this->session->userdata('auth')['role'],
 				'room_in' => $this->session->userdata('auth')['manage_room'],
-				'room_id' => "",
+				'room_id' => $this->input->post('bm_search_room'),
 				'booking_status' => "",
 				'booking_date_start' => $search_date_start,
 				'booking_date_end' => $search_date_end
@@ -320,6 +320,27 @@ class Backoffice extends MY_Controller
     	echo json_encode($res);
 
 	}
+
+	function booking_cancel(){
+
+		$target_id = $this->input->post('id');
+
+		//-- Log
+		$this->Booking_model->log($target_id);
+
+		$data = array(
+			'booking_status' => $this->input->post('status'),
+			'booking_status_reason' => $this->input->post('status_reason'),
+			'approved_by' => $this->global_data['user_id'],
+			'approved_date' => $this->global_data['timestamp']
+		);
+
+		$res = $this->Booking_model->update($target_id, $data);
+
+		header('Content-Type: application/json');
+    	echo json_encode($res);
+	}
+
 
 
 }

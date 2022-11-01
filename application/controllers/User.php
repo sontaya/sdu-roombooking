@@ -44,6 +44,7 @@ class User extends MY_Controller
 		$citizencode = $this->input->post("citizencode");
 		$name = $this->input->post("name");
 		$surname = $this->input->post("surname");
+		$academic_fullname = $this->input->post("academic_fullname");
 		$employee_type = $this->input->post("employee_type");
 		$staff_type = $this->input->post("staff_type");
 		$staff_type_name = $this->input->post("staff_type_name");
@@ -66,6 +67,7 @@ class User extends MY_Controller
 				'citizencode' => $citizencode,
 				'name' => $name,
 				'surname' => $surname,
+				'academic_fullname' => $academic_fullname,
 				'employee_type' => $employee_type,
 				'staff_type' => $staff_type,
 				'staff_type_name' => $staff_type_name,
@@ -93,6 +95,7 @@ class User extends MY_Controller
 				'displayname' => $name." ".$surname,
 				'name' => $name,
 				'surname' => $surname,
+				'academic_fullname' => $academic_fullname,
 				'name_faculty' => $name_faculty,
 				'employee_type' => $employee_type,
 				'bio_pic_file' => $bio_pic_file,
@@ -117,6 +120,7 @@ class User extends MY_Controller
 				'displayname' => $name." ".$surname,
 				'name' => $name,
 				'surname' => $surname,
+				'academic_fullname' => $academic_fullname,
 				'name_faculty' => $name_faculty,
 				'employee_type' => $employee_type,
 				'bio_pic_file' => $bio_pic_file,
@@ -142,6 +146,7 @@ class User extends MY_Controller
 		$citizencode = $this->input->post("citizencode");
 		$name = $this->input->post("name");
 		$surname = $this->input->post("surname");
+		$academic_fullname = $this->input->post("academic_fullname");
 		$staff_type = $this->input->post("staff_type");
 		$staff_type_name = $this->input->post("staff_type_name");
 		$substaff_type = $this->input->post("substaff_type");
@@ -163,6 +168,7 @@ class User extends MY_Controller
 				'citizencode' => $citizencode,
 				'name' => $name,
 				'surname' => $surname,
+				'academic_fullname' => $academic_fullname,
 				'staff_type' => $staff_type,
 				'staff_type_name' => $staff_type_name,
 				'substaff_type' => $substaff_type,

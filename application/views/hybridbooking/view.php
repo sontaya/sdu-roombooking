@@ -97,8 +97,14 @@
 					</div>
 					<div class="modal-body">
 
+
 						<form class="form" id="FormBookingModal"  method="post" accept-charset="utf-8">
 							<div class="card-body">
+								<div class="row row-for-reason" style="display: none;">
+									<div class="col-lg-12">
+										<div class="alert alert-custom alert-danger" id="md_booking_status_reason"></div>
+									</div>
+								</div>
 								<div class="row">
 										<div class="col-lg-6">
 											<label>ชื่อผู้จอง: <span id="md_booking_name"></span></label>
@@ -106,42 +112,45 @@
 								</div>
 
 								<div class="row">
-											<div class="col-lg-5">
-												<label>อีเมล์: <span id="md_booking_email"></span></label>
-											</div>
-											<div class="col-lg-4">
-												<label>เบอร์โทรศัพท์มือถือ: <span id="md_booking_phone"></span></label>
-											</div>
-											<div class="col-lg-3">
-												<label>เบอร์โทรศัพท์ภายใน: <span id="md_internal_phone"></span></label>
-											</div>
-									</div>
+										<div class="col-lg-5">
+											<label>อีเมล์: <span id="md_booking_email"></span></label>
+										</div>
+										<div class="col-lg-4">
+											<label>เบอร์โทรศัพท์มือถือ: <span id="md_booking_phone"></span></label>
+										</div>
+										<div class="col-lg-3">
+											<label>เบอร์โทรศัพท์ภายใน: <span id="md_internal_phone"></span></label>
+										</div>
+								</div>
 
 								<hr>
 
 								<div class="row">
-										<div class="col-lg-6">
-											<label>ลักษณะการใช้งาน: <span id="md_usage_category"></span> </label>
-										</div>
+									<div class="col-lg-6">
+										<label>ลักษณะการใช้งาน	: <span id="md_usage_category"></span> </label>
+									</div>
 
 								</div>
 
-
-								<div class="row">
+								<div class="row row-for-training">
 									<div class="col-lg-12">
 										<label>วัตถุประสงค์ในการใช้งาน:</label>
 										<div class="alert alert-custom alert-default" id="md_objective"></div>
-
 									</div>
-								</div>
-
-								<div class="row">
-
 									<div class="col-lg-6">
 										<label>จำนวนผู้เข้าร่วม: <span id="md_participant"></span> คน</label>
 									</div>
+								</div>
 
-
+								<div class="row row-for-teaching" >
+									<div class="col-lg-8">
+										<label>ชื่อวิชา: </label>
+										<div class="alert alert-custom alert-default" id="md_subject_name"></div>
+									</div>
+									<div class="col-lg-4">
+										<label>อาจารย์ผู้สอน: <span id="participant_Error" ></span> </label>
+										<div class="alert alert-custom alert-default" id="md_teacher_fullname"></div>
+									</div>
 								</div>
 
 								<div class="row">
@@ -151,8 +160,15 @@
 
 								</div>
 
+							<div class="row">
+								<div class="col-lg-12">
+									<label for="">หมายเหตุ:  </label>
+									<div class="alert alert-custom alert-default" id="md_booking_remark"></div>
+								</div>
+							</div>
 
 							</div>
+
 						</form>
 
 					</div>

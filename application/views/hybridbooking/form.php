@@ -13,35 +13,51 @@
 								if($form_mode == "insert"){
 									$val_id = "";
 									$val_user_id = $this->session->userdata('auth')['hrcode'];
-									$val_booking_name = $this->session->userdata('auth')['displayname'];
+									$val_booking_name = $this->session->userdata('auth')['academic_fullname'];
 									$val_booking_faculty = $this->session->userdata('auth')['name_faculty'];
 									$val_booking_email = $default_contact["email_default"];
 									$val_booking_phone = $default_contact["mobile_phone_default"];
 									$val_internal_phone = $default_contact["internal_phone_default"];
 									$val_room_id = "";
 									$val_usage_category = "";
-									$val_usage_software = "";
+									$val_subject_id = "";
+									$val_subject_code = "";
+									$val_subject_name = "";
+									$val_teacher_id = "";
+									$val_teacher_fullname = "";
+									$val_teacher_flag = "";
+
 									$val_objective = "";
 									$val_participant = "";
 									$val_booking_date_start = "";
 									$val_booking_date_end = "";
-									$val_require_staff = "";
+
+									$val_booking_remark = "";
+
 								}else{
 									$val_id = $booking["id"];
 									$val_user_id = $booking["user_id"];
-									$val_booking_name = $booking["name"]." ".$booking["surname"];
+									$val_booking_name = $booking["academic_fullname"];
 									$val_booking_faculty = $booking["name_faculty"];
 									$val_booking_email = $booking["booking_email"];
 									$val_booking_phone = $booking["booking_phone"];
 									$val_internal_phone = $booking["internal_phone"];
 									$val_room_id = $booking["room_id"];
 									$val_usage_category = $booking["usage_category"];
-									$val_usage_software = $booking["usage_software"];
+									$val_subject_id = $booking["subject_id"];
+									$val_subject_code = $booking["subject_code"];
+									$val_subject_name = $booking["subject_name"];
+									$val_teacher_id = $booking["teacher_id"];
+									$val_teacher_fullname = $booking["teacher_fullname"];
+									$val_teacher_flag = $booking["teacher_flag"];
+
 									$val_objective = $booking["objective"];
 									$val_participant = $booking["participant"];
 									$val_booking_date_start = $booking["booking_date_start"];
 									$val_booking_date_end = $booking["booking_date_end"];
-									$val_require_staff = $booking["require_staff"];
+
+									$val_booking_remark = $booking["booking_remark"];
+
 								}
 							?>
 							<form class="form" id="FormBooking" action="<?php echo base_url('hybrid/form_store'); ?>" method="post" accept-charset="utf-8">
@@ -49,13 +65,13 @@
 
 									<div class="form-group row">
 											<div class="col-lg-6">
-												<label>ชื่อผู้จอง:</label>
-												<input type="text" class="form-control" placeholder="" id="booking_name" name="booking_name" value="<?= $val_booking_name ?>" disabled="disabled" />
+												<label>ชื่อผู้จอง: <span id="booking_phone_Error" ></span></label>
+												<input type="text" class="form-control custom-readonly" readonly  id="booking_name" name="booking_name" value="<?= $val_booking_name ?>"  />
 												<input type="hidden" name="user_id" id="user_id" value="<?= $val_user_id ?>">
 											</div>
 											<div class="col-lg-6">
 												<label>หน่วยงาน:</label>
-												<input type="text" class="form-control" placeholder="" id="booking_faculty" name="booking_faculty" value="<?= $val_booking_faculty ?>" disabled="disabled" />
+												<input type="text" class="form-control custom-readonly" readonly  id="booking_faculty" name="booking_faculty" value="<?= $val_booking_faculty ?>"  />
 											</div>
 
 									</div>
@@ -114,7 +130,57 @@
 
 									</div>
 
-									<div class="form-group row">
+									<?php
+										if($form_mode == "update" && $val_usage_category =="1"){
+											$row_style1_value = "";
+										}else{
+											$row_style1_value = "style='display: none;'";
+										}
+									?>
+
+									<div class="form-group row row-for-teaching" <?= $row_style1_value ?>  >
+										<div class="col-lg-6">
+											<label>ชื่อวิชา: <span id="subject_name_Error" ></span></label>
+											<div class="input-group">
+												<input type="text" class="form-control custom-readonly" id="subject_name" name="subject_name" readonly
+														value="<?= $val_subject_name; ?>" data-error="#subject_name_Error" />
+												<input type="hidden" id="subject_id" name="subject_id" value="<?= $val_subject_id; ?>" />
+												<input type="hidden" id="subject_code" name="subject_code" value="<?= $val_subject_code; ?>" />
+												<div class="input-group-append">
+													<a href="javascript:;"  class="btn btn-light-success search-subject">
+														<i class="flaticon-book"></i>
+													</a>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-6">
+											<label>อาจารย์ผู้สอน: <span id="teacher_fullname_Error" ></span> </label>
+											<label class="checkbox">
+												<input type="checkbox" name="teacher_flag" id="teacher_flag" value="Y" <?php if($val_teacher_flag == "Y"){echo "checked";} ?> /> ข้อมูลเดียวกับผู้จอง
+												<span></span>
+											</label>
+											<div class="input-group">
+												<input type="text" class="form-control custom-readonly" id="teacher_fullname" name="teacher_fullname" readonly
+														value="<?= $val_teacher_fullname; ?>" data-error="#teacher_fullname_Error" />
+												<input type="hidden" id="teacher_id" name="teacher_id" value="<?= $val_teacher_id; ?>" />
+												<div class="input-group-append">
+													<a href="javascript:;"  class="btn btn-light-success search-teacher">
+														<i class="flaticon2-user"></i>
+													</a>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<?php
+										if($form_mode == "update" && $val_usage_category =="2"){
+											$row_style2_value = "";
+										}else{
+											$row_style2_value = "style='display: none;'";
+										}
+									?>
+
+									<div class="form-group row row-for-training" <?= $row_style2_value ?>  >
 										<div class="col-lg-10">
 											<label>ชื่อกิจกรรม: <span id="objective_Error" ></span></label>
 											<input type="text" class="form-control" placeholder="" id="objective" name="objective"
@@ -159,7 +225,16 @@
 
 									</div>
 
+									<div class="form-group row " >
+											<div class="col-lg-10">
+												<label>หมายเหตุ: <span id="booking_remark_Error" ></span></label>
+												<input type="text" class="form-control" placeholder="" id="booking_remark" name="booking_remark"
+													value="<?= $val_booking_remark; ?>" data-error="#booking_remark_Error" />
+											</div>
+									</div>
 								</div>
+
+
 								<div class="card-footer">
 									<div class="row">
 										<div class="col-lg-6">
@@ -178,3 +253,7 @@
 				<!--end::Entry-->
 			</div>
 		<!--end::Content-->
+
+<?php
+	include("_inc_hybrid_modal.php");
+?>

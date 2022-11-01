@@ -120,7 +120,7 @@
 
 												</th>
 												<td class="align-middle"><?= $booking["room_name"] ?></td>
-												<td class="align-middle"><?= $booking["name"] ?>&nbsp;<?= $booking["surname"] ?></td>
+												<td class="align-middle"><?= $booking["academic_fullname"] ?></td>
 												<td class="align-middle"><?= $booking["usage_format"] ?></td>
 												<td class="align-middle"><?= get_thai_datetime($booking["booking_date_start"],1,true); ?></td>
 												<td class="align-middle"><?= get_thai_datetime($booking["booking_date_end"],1,true); ?></td>
@@ -142,7 +142,7 @@
 														}
 													?>
 													<span class="label label-inline <?php echo $label_class; ?> font-weight-bold">
-														<?= $booking["booking_status"] ?>
+														<?= $booking["booking_status_desc"] ?>
 													</span>
 
 													<div class="dropdown dropdown-inline">
@@ -156,7 +156,7 @@
 																<li class="navi-item">
 																	<a href="javascript:;" onclick="booking_view('<?php echo $booking['id']; ?>');return false;" data-id="<?php echo $booking['id'] ?>" class="navi-link booking-view">
 																		<span class="navi-icon"><i class="flaticon-eye"></i></span>
-																		<span class="navi-text">View</span>
+																		<span class="navi-text">ดูข้อมูล</span>
 																	</a>
 																</li>
 
@@ -164,26 +164,26 @@
 																	<li class="navi-item">
 																		<a href="javascript:;" onclick="booking_approve('<?php echo $booking['id']; ?>','approved');return false;" data-id="<?php echo $booking['id']; ?>" class="navi-link booking-approve">
 																			<span class="navi-icon"><i class="flaticon2-calendar-5 text-success"></i></span>
-																			<span class="navi-text">Approve</span>
+																			<span class="navi-text">อนุมัติ</span>
 																		</a>
 																	</li>
 																<?php } ?>
 																<li class="navi-item">
 																	<a href="javascript:;" data-id="<?php echo $booking['id']; ?>" class="navi-link booking-reject">
 																		<span class="navi-icon"><i class="flaticon-cancel text-warning"></i></span>
-																		<span class="navi-text">Reject</span>
+																		<span class="navi-text">ไม่อนุมัติ</span>
 																	</a>
 																</li>
 																<li class="navi-item">
 																	<a href="<?php echo base_url('dpbackoffice/form_admin/').$booking["id"]; ?>" data-id="<?= $booking["id"] ?>" class="navi-link booking-edit">
 																		<span class="navi-icon"><i class="la la-edit text-primary"></i></span>
-																		<span class="navi-text">Edit</span>
+																		<span class="navi-text">แก้ไข</span>
 																	</a>
 																</li>
 																<li class="navi-item">
 																	<a href="javascript:;" onclick="booking_delete('<?php echo $booking['id']; ?>');return false;" data-id="<?php echo $booking['id']; ?>" class="navi-link booking-delete">
 																		<span class="navi-icon"><i class="flaticon-delete-1 text-danger"></i></span>
-																		<span class="navi-text">Delete</span>
+																		<span class="navi-text">ลบ</span>
 																	</a>
 																</li>
 

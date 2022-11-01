@@ -57,7 +57,7 @@ class Booking_model extends CI_Model {
 			$this->db->limit($params['limit']);
 		}
 
-	  	$this->db->select('b.*, rm.room_tag, rm.name as room_name, rm.shortname as room_shortname , u.name, u.surname, u.name_faculty, u.name_department, u.line_sub, u.line_iat, u.line_exp,
+	  	$this->db->select('b.*, rm.room_tag, rm.name as room_name, rm.shortname as room_shortname , u.name, u.surname, u.academic_fullname, u.name_faculty, u.name_department, u.line_sub, u.line_iat, u.line_exp,
 	  			(
 					case
 						when b.usage_category = "1" then "ออนไลน์ - การสอน (Live)"
@@ -71,6 +71,7 @@ class Booking_model extends CI_Model {
 						when b.booking_status = "approved" then "อนุมัติ"
 						when b.booking_status = "rejected" then "ไม่อนุมัติ"
 						when b.booking_status = "pending" then "รอการอนุมัติ"
+						when b.booking_status = "canceled" then "ยกเลิกโดยผู้จอง"
 						else ""
 					end
 				) as booking_status_desc,
@@ -110,6 +111,9 @@ class Booking_model extends CI_Model {
 			}
 		}
 
+		if (!empty($params['conditions']['export_target'])){
+			$this->db->where_in('b.id', $params['conditions']['export_target']);
+		}
 
       	if (!empty($params['conditions']['not_user_id'])){
 
@@ -118,9 +122,13 @@ class Booking_model extends CI_Model {
 
       	if (!empty($params['conditions']['booking_date_start'])){
 
+
+			if(date2_formatdb($params['conditions']['booking_date_start']) === date2_formatdb($params['conditions']['booking_date_end'])){
+				$this->db->where('date(b.booking_date_start) = ', date2_formatdb($params['conditions']['booking_date_start']));
+			}else{
 				$this->db->where('b.booking_date_start >= ', date2_formatdb($params['conditions']['booking_date_start']));
 				$this->db->where('b.booking_date_end <= ', date2_formatdb($params['conditions']['booking_date_end']));
-
+			}
 				// $this->db->where('b.booking_date_start BETWEEN "'. date('Y-m-d', strtotime($params['conditions']['booking_date_start'])). '" and "'. date('Y-m-d', strtotime($params['conditions']['booking_date_end'])).'"');
 				// $this->db->or_where('b.booking_date_end BETWEEN "'. date('Y-m-d', strtotime($params['conditions']['booking_date_start'])). '" and "'. date('Y-m-d', strtotime($params['conditions']['booking_date_end'])).'"');
 
@@ -150,7 +158,7 @@ class Booking_model extends CI_Model {
 			$this->db->limit($params['limit']);
 		}
 
-	  	$this->db->select('b.*, rm.room_tag, rm.name as room_name, rm.shortname as room_shortname , u.name, u.surname, u.name_faculty, u.name_department, u.line_sub, u.line_iat, u.line_exp,
+	  	$this->db->select('b.*, rm.room_tag, rm.name as room_name, rm.shortname as room_shortname , u.name, u.surname, u.academic_fullname, u.name_faculty, u.name_department, u.line_sub, u.line_iat, u.line_exp,
 	  			(
 					case
 						when b.usage_category = "1" then "ออนไลน์ - การสอน (Live)"
@@ -164,6 +172,7 @@ class Booking_model extends CI_Model {
 						when b.booking_status = "approved" then "อนุมัติ"
 						when b.booking_status = "rejected" then "ไม่อนุมัติ"
 						when b.booking_status = "pending" then "รอการอนุมัติ"
+						when b.booking_status = "canceled" then "ยกเลิกโดยผู้จอง"
 						else ""
 					end
 				) as booking_status_desc,
@@ -200,8 +209,14 @@ class Booking_model extends CI_Model {
 			}
 
 			if (!empty($params['conditions']['booking_date_start'])){
-					$this->db->where('b.booking_date_start >= ', date2_formatdb($params['conditions']['booking_date_start']));
-					$this->db->where('b.booking_date_end <= ', date2_formatdb($params['conditions']['booking_date_end']));
+					// $this->db->where('b.booking_date_start >= ', date2_formatdb($params['conditions']['booking_date_start']));
+					// $this->db->where('b.booking_date_end <= ', date2_formatdb($params['conditions']['booking_date_end']));
+					if(date2_formatdb($params['conditions']['booking_date_start']) === date2_formatdb($params['conditions']['booking_date_end'])){
+						$this->db->where('date(b.booking_date_start) = ', date2_formatdb($params['conditions']['booking_date_start']));
+					}else{
+						$this->db->where('b.booking_date_start >= ', date2_formatdb($params['conditions']['booking_date_start']));
+						$this->db->where('b.booking_date_end <= ', date2_formatdb($params['conditions']['booking_date_end']));
+					}
 			}
 
 
@@ -287,6 +302,15 @@ class Booking_model extends CI_Model {
 
     }
 
+	public function dashboard_summary($params = array())
+	{
+		// SELECT COUNT(*) AS count_all
+		// 	,COUNT(CASE WHEN booking_status = 'approved' THEN 1 END) AS count_approved
+		// 	,COUNT(CASE WHEN booking_status = 'pending' THEN 1 END) AS count_pending
+		// 	,COUNT(CASE WHEN booking_status = 'rejected' THEN 1 END) AS count_rejected
+		// FROM rb_booking_info
+		// WHERE user_id = '". $this->global_data['user_id'] ."'
+	}
 
 }
 

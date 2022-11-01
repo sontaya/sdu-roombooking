@@ -29,7 +29,7 @@
 								}else{
 									$val_id = $booking["id"];
 									$val_user_id = $booking["user_id"];
-									$val_booking_name = $booking["name"]." ".$booking["surname"];
+									$val_booking_name = $booking["academic_fullname"];
 									$val_booking_faculty = $booking["name_faculty"];
 									$val_booking_email = $booking["booking_email"];
 									$val_booking_phone = $booking["booking_phone"];

@@ -38,11 +38,13 @@ class Hybridbooking_model extends CI_Model {
 		$sql = "INSERT INTO hb_booking_info_log(
 					id, user_id, booking_org, booking_email, booking_phone, internal_phone, room_id, usage_category
 					, usage_software, participant, objective, booking_date_start, booking_date_end, require_staff
+					, subject_id, subject_code, subject_name, teacher_id, teacher_fullname, teacher_flag, booking_remark
 					, booking_status, booking_status_reason, approved_by, approved_date, created_at, created_by
 					, created_by_ip, modified_at, modified_by, modified_by_ip
 				) SELECT
 					id, user_id, booking_org, booking_email, booking_phone, internal_phone, room_id, usage_category
 					, usage_software, participant, objective, booking_date_start, booking_date_end, require_staff
+					, subject_id, subject_code, subject_name, teacher_id, teacher_fullname, teacher_flag, booking_remark
 					, booking_status, booking_status_reason, approved_by, approved_date, created_at, created_by
 					, created_by_ip, modified_at, modified_by, modified_by_ip
 				FROM hb_booking_info WHERE id = '".$id."'";
@@ -57,7 +59,7 @@ class Hybridbooking_model extends CI_Model {
 			$this->db->limit($params['limit']);
 		}
 
-	  	$this->db->select('b.*, rm.room_tag, rm.name as room_name, rm.shortname as room_shortname , u.name, u.surname, u.name_faculty, u.name_department, u.line_sub, u.line_iat, u.line_exp,
+	  	$this->db->select('b.*, rm.room_tag, rm.name as room_name, rm.shortname as room_shortname , u.name, u.surname, u.academic_fullname, u.name_faculty, u.name_department, u.line_sub, u.line_iat, u.line_exp,
 	  			(
 					case
 						when b.usage_category = "1" then "จัดการเรียนการสอน"
@@ -70,6 +72,7 @@ class Hybridbooking_model extends CI_Model {
 						when b.booking_status = "approved" then "อนุมัติ"
 						when b.booking_status = "rejected" then "ไม่อนุมัติ"
 						when b.booking_status = "pending" then "รอการอนุมัติ"
+						when b.booking_status = "canceled" then "ยกเลิกโดยผู้จอง"
 						else ""
 					end
 				) as booking_status_desc
@@ -102,6 +105,10 @@ class Hybridbooking_model extends CI_Model {
 			$this->db->where_in('b.active', $params['conditions']['active_in']);
 		}
 
+		if (!empty($params['conditions']['export_target'])){
+			$this->db->where_in('b.id', $params['conditions']['export_target']);
+		}
+
       	if (!empty($params['conditions']['not_user_id'])){
 
 			$this->db->where_not_in('b.user_id', $params['conditions']['not_user_id']);
@@ -109,8 +116,12 @@ class Hybridbooking_model extends CI_Model {
 
       	if (!empty($params['conditions']['booking_date_start'])){
 
+			if(date2_formatdb($params['conditions']['booking_date_start']) === date2_formatdb($params['conditions']['booking_date_end'])){
+				$this->db->where('date(b.booking_date_start) = ', date2_formatdb($params['conditions']['booking_date_start']));
+			}else{
 				$this->db->where('b.booking_date_start >= ', date2_formatdb($params['conditions']['booking_date_start']));
 				$this->db->where('b.booking_date_end <= ', date2_formatdb($params['conditions']['booking_date_end']));
+			}
 
 				// $this->db->where('b.booking_date_start BETWEEN "'. date('Y-m-d', strtotime($params['conditions']['booking_date_start'])). '" and "'. date('Y-m-d', strtotime($params['conditions']['booking_date_end'])).'"');
 				// $this->db->or_where('b.booking_date_end BETWEEN "'. date('Y-m-d', strtotime($params['conditions']['booking_date_start'])). '" and "'. date('Y-m-d', strtotime($params['conditions']['booking_date_end'])).'"');
@@ -141,7 +152,7 @@ class Hybridbooking_model extends CI_Model {
 			$this->db->limit($params['limit']);
 		}
 
-	  	$this->db->select('b.*, rm.room_tag, rm.name as room_name, rm.shortname as room_shortname , u.name, u.surname, u.name_faculty, u.name_department, u.line_sub, u.line_iat, u.line_exp,
+	  	$this->db->select('b.*, rm.room_tag, rm.name as room_name, rm.shortname as room_shortname , u.name, u.surname, u.academic_fullname, u.name_faculty, u.name_department, u.line_sub, u.line_iat, u.line_exp,
 	  			(
 					case
 						when b.usage_category = "1" then "จัดการเรียนการสอน"
@@ -154,6 +165,7 @@ class Hybridbooking_model extends CI_Model {
 						when b.booking_status = "approved" then "อนุมัติ"
 						when b.booking_status = "rejected" then "ไม่อนุมัติ"
 						when b.booking_status = "pending" then "รอการอนุมัติ"
+						when b.booking_status = "canceled" then "ยกเลิกโดยผู้จอง"
 						else ""
 					end
 				) as booking_status_desc
@@ -181,20 +193,27 @@ class Hybridbooking_model extends CI_Model {
 
 			if (!empty($params['conditions']['booking_date_start'])){
 				$this->db->group_start();
-						$this->db->or_group_start();
+						// $this->db->or_group_start();
+						// 	$this->db->where('b.booking_date_start >= ', date2_formatdb($params['conditions']['booking_date_start']));
+						// 	$this->db->where('b.booking_date_end <= ', date2_formatdb($params['conditions']['booking_date_end']));
+						// $this->db->group_end();
+
+						// $this->db->or_group_start();
+						// 	$this->db->where('b.booking_date_start >= ', date2_formatdb($params['conditions']['booking_date_start']));
+						// 	$this->db->where('b.booking_date_end >= ', date2_formatdb($params['conditions']['booking_date_end']));
+						// $this->db->group_end();
+
+						// $this->db->or_group_start();
+						// 	$this->db->where('b.booking_date_start <= ', date2_formatdb($params['conditions']['booking_date_start']));
+						// 	$this->db->where('b.booking_date_end >= ', date2_formatdb($params['conditions']['booking_date_end']));
+						// $this->db->group_end();
+						if(date2_formatdb($params['conditions']['booking_date_start']) === date2_formatdb($params['conditions']['booking_date_end'])){
+							$this->db->where('date(b.booking_date_start) = ', date2_formatdb($params['conditions']['booking_date_start']));
+						}else{
 							$this->db->where('b.booking_date_start >= ', date2_formatdb($params['conditions']['booking_date_start']));
 							$this->db->where('b.booking_date_end <= ', date2_formatdb($params['conditions']['booking_date_end']));
-						$this->db->group_end();
+						}
 
-						$this->db->or_group_start();
-							$this->db->where('b.booking_date_start >= ', date2_formatdb($params['conditions']['booking_date_start']));
-							$this->db->where('b.booking_date_end >= ', date2_formatdb($params['conditions']['booking_date_end']));
-						$this->db->group_end();
-
-						$this->db->or_group_start();
-							$this->db->where('b.booking_date_start <= ', date2_formatdb($params['conditions']['booking_date_start']));
-							$this->db->where('b.booking_date_end >= ', date2_formatdb($params['conditions']['booking_date_end']));
-						$this->db->group_end();
 				$this->db->group_end();
 			}
 

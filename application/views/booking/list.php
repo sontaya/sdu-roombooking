@@ -44,6 +44,7 @@
 													<option value="pending" <?php if($criterias["booking_status"] == "pending"){ echo "selected"; } ?>>ขออนุมัติ</option>
 													<option value="approved" <?php if($criterias["booking_status"] == "approved"){ echo "selected"; } ?>>อนุมัติ</option>
 													<option value="rejected" <?php if($criterias["booking_status"] == "rejected"){ echo "selected"; } ?>>ไม่อนุมัติ</option>
+													<option value="canceled" <?php if($criterias["booking_status"] == "canceled"){ echo "selected"; } ?>>ยกเลิกโดยผู้จอง</option>
 												</select>
 
 										</div>
@@ -100,11 +101,11 @@
 										<tr>
 											<th scope="col">#</th>
 											<th scope="col">ชื่อห้อง</th>
+											<th scope="col">ข้อมูลผู้จอง</th>
 											<th scope="col">ลักษณะการใช้งาน</th>
-											<th scope="col">ซอฟต์แวร์ที่ใช้งาน</th>
 											<th scope="col">วันที่เริ่มต้น</th>
 											<th scope="col">วันที่สิ้นสุด</th>
-											<th scope="col">ACTIONS</th>
+											<th scope="col" class="text-right">ACTIONS</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -121,8 +122,8 @@
 
 												</th>
 												<td class="align-middle"><?= $booking["room_name"] ?></td>
+												<td class="align-middle"><?= $booking["academic_fullname"] ?></td>
 												<td class="align-middle"><?= $booking["usage_category_desc"] ?></td>
-												<td class="align-middle"><?= $booking["usage_software_desc"] ?></td>
 												<td class="align-middle"><?= get_thai_datetime($booking["booking_date_start"],1,true); ?></td>
 												<td class="align-middle"><?= get_thai_datetime($booking["booking_date_end"],1,true); ?></td>
 												<td class="text-right">
@@ -138,11 +139,41 @@
 															case 'rejected':
 																$label_class = "label-light-danger";
 																break;
+															case 'canceled':
+																$label_class = "label-light-dark-75";
+																break;
+
+														}
+														switch ($booking['usage_software']) {
+															case 'DingTalk':
+																$target_logo = "dingtalk.png";
+																break;
+															case 'Meet':
+																$target_logo = "meet.png";
+																break;
+															case 'Team':
+																$target_logo = "teams.png";
+																break;
+															case 'WebEx':
+																$target_logo = "webex.png";
+																break;
+															case 'Zoom':
+																$target_logo = "zoom.png";
+																break;
+															default:
+																$target_logo = "";
 
 														}
 													?>
+													<?php
+														if($target_logo != ""){
+													?>
+															<img alt="meeting_logo" src="<?= base_url('assets/images/app_logo/').$target_logo; ?>" class="max-h-25px" />
+													<?php
+														}
+													?>
 													<span class="label label-inline <?php echo $label_class; ?> font-weight-bold">
-														<?= $booking["booking_status"] ?>
+														<?= $booking["booking_status_desc"] ?>
 													</span>
 
 													<div class="dropdown dropdown-inline">
@@ -156,20 +187,36 @@
 																<li class="navi-item">
 																<a href="javascript:;" onclick="booking_view('<?php echo $booking['id']; ?>');return false;" data-id="<?php echo $booking['id'] ?>" class="navi-link booking-view">
 																		<span class="navi-icon"><i class="flaticon-eye"></i></span>
-																		<span class="navi-text">View</span>
+																		<span class="navi-text">ดูข้อมูล</span>
 																	</a>
 																</li>
+																<?php
+																	if( $booking['booking_status'] != 'rejected'
+																		and $booking['booking_status'] != 'canceled'
+																		and $this->session->userdata('auth')['hrcode']==$booking['user_id']
+																	){
+																?>
+																	<li class="navi-item">
+																		<a href="javascript:;" data-id="<?= $booking["id"] ?>" class="navi-link booking-cancel">
+																			<span class="navi-icon"><i class="flaticon2-cancel text-light-dark"></i></span>
+																			<span class="navi-text">ยกเลิกโดยผู้จอง</span>
+																		</a>
+																	</li>
+																<?php
+																	}
+																?>
 
 																<?php
 																	if($booking['booking_status'] != 'approved'
 																		and $booking['booking_status'] != 'rejected'
+																		and $booking['booking_status'] != 'canceled'
 																		and $this->session->userdata('auth')['hrcode']=$booking['user_id']
 																	){
 																?>
 																	<li class="navi-item">
 																		<a href="<?php echo base_url('booking/form/').$booking["id"]; ?>" data-id="<?= $booking["id"] ?>" class="navi-link booking-edit">
 																			<span class="navi-icon"><i class="la la-edit text-primary"></i></span>
-																			<span class="navi-text">Edit</span>
+																			<span class="navi-text">แก้ไข</span>
 																		</a>
 																	</li>
 																<?php
@@ -178,13 +225,14 @@
 																<?php
 																	if($booking['booking_status'] != 'approved'
 																		and $booking['booking_status'] != 'rejected'
+																		and $booking['booking_status'] != 'canceled'
 																		and $this->session->userdata('auth')['hrcode']=$booking['user_id']
 																	){
 																?>
 																	<li class="navi-item">
 																		<a href="javascript:;" data-id="<?= $booking["id"] ?>" class="navi-link booking-delete">
 																			<span class="navi-icon"><i class="la la-trash text-danger"></i></span>
-																			<span class="navi-text">Delete</span>
+																			<span class="navi-text">ลบ</span>
 																		</a>
 																	</li>
 																<?php
@@ -219,79 +267,8 @@
 		<!--end::Content-->
 
 
-		<div class="modal fade" id="bookingInfoModal" tabindex="-1" role="dialog" aria-labelledby="bookingInfoModal" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
 
-							<h5 class="modal-title" id="exampleModalLabel">
-								<span class="flaticon-technology-2 icon-xl mr-2 "></span>รายละเอียดการจองห้อง
-								<span id="md_room_name"></span>
-							</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<i aria-hidden="true" class="ki ki-close"></i>
-							</button>
-						</div>
-						<div class="modal-body">
+	<?php
+		include("_inc_modal.php");
+	?>
 
-								<div class="card-body">
-									<div class="row">
-											<div class="col-lg-6">
-												<label>ชื่อผู้จอง: <span id="md_booking_name"></span></label>
-											</div>
-									</div>
-
-									<div class="row">
-											<div class="col-lg-5">
-												<label>อีเมล์: <span id="md_booking_email"></span></label>
-											</div>
-											<div class="col-lg-4">
-												<label>เบอร์โทรศัพท์มือถือ: <span id="md_booking_phone"></span></label>
-											</div>
-											<div class="col-lg-3">
-												<label>เบอร์โทรศัพท์ภายใน: <span id="md_internal_phone"></span></label>
-											</div>
-									</div>
-
-									<hr>
-
-									<div class="row">
-										<div class="col-lg-6">
-											<label>ลักษณะการใช้งาน: <span id="md_usage_category"></span> </label>
-										</div>
-										<div class="col-lg-6">
-											<label>ซอฟต์แวร์ที่ใช้งาน: <span id="md_usage_software"></span> </label>
-										</div>
-									</div>
-
-									<div class="row">
-										<div class="col-lg-12">
-											<label>วัตถุประสงค์ในการใช้งาน:</label>
-											<div class="alert alert-custom alert-default" id="md_objective"></div>
-
-										</div>
-									</div>
-
-									<div class="row">
-
-										<div class="col-lg-6">
-											<label>จำนวนผู้เข้าร่วม: <span id="md_participant"></span> คน</label>
-										</div>
-										<div class="col-lg-6">
-											<label>เจ้าหน้าที่ประจำห้อง: <span id="md_require_staff"></span></label>
-										</div>
-
-									</div>
-
-									<div class="row">
-										<div class="col-lg-12">
-											<label for="">ช่วงเวลาที่ต้องการจอง: <span id="md_booking_date_range"></span> </label>
-										</div>
-									</div>
-
-								</div>
-
-						</div>
-					</div>
-				</div>
-		</div>

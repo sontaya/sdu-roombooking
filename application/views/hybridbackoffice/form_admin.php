@@ -20,29 +20,43 @@
 									$val_internal_phone = "";
 									$val_room_id = "";
 									$val_usage_category = "";
+									$val_subject_id = "";
+									$val_subject_code = "";
+									$val_subject_name = "";
+									$val_teacher_id = "";
+									$val_teacher_fullname = "";
+									$val_teacher_flag = "";
 
 									$val_objective = "";
 									$val_participant = "";
 									$val_booking_date_start = "";
 									$val_booking_date_end = "";
 
+									$val_booking_remark = "";
 									$val_booking_status ="approved";
 								}else{
 									$val_id = $booking["id"];
 									$val_user_id = $booking["user_id"];
-									$val_booking_name = $booking["name"]." ".$booking["surname"];
+									$val_booking_name = $booking["academic_fullname"];
 									$val_booking_faculty = $booking["name_faculty"];
 									$val_booking_email = $booking["booking_email"];
 									$val_booking_phone = $booking["booking_phone"];
 									$val_internal_phone = $booking["internal_phone"];
 									$val_room_id = $booking["room_id"];
 									$val_usage_category = $booking["usage_category"];
+									$val_subject_id = $booking["subject_id"];
+									$val_subject_code = $booking["subject_code"];
+									$val_subject_name = $booking["subject_name"];
+									$val_teacher_id = $booking["teacher_id"];
+									$val_teacher_fullname = $booking["teacher_fullname"];
+									$val_teacher_flag = $booking["teacher_flag"];
 
 									$val_objective = $booking["objective"];
 									$val_participant = $booking["participant"];
 									$val_booking_date_start = $booking["booking_date_start"];
 									$val_booking_date_end = $booking["booking_date_end"];
 
+									$val_booking_remark = $booking["booking_remark"];
 									$val_booking_status = $booking["booking_status"];
 
 								}
@@ -52,13 +66,13 @@
 
 									<div class="form-group row">
 											<div class="col-lg-5">
-												<label>ชื่อผู้จอง:</label>
-												<input type="text" class="form-control" placeholder="" id="booking_name" name="booking_name" value="<?= $val_booking_name ?>" disabled="disabled" />
+												<label>ชื่อผู้จอง: <span id="booking_name_Error" ></span></label>
+												<input type="text" class="form-control custom-readonly" readonly id="booking_name" name="booking_name" value="<?= $val_booking_name ?>" data-error="#booking_name_Error" />
 												<input type="hidden" name="user_id" id="user_id" value="<?= $val_user_id ?>">
 											</div>
 											<div class="col-lg-5">
 												<label>หน่วยงาน:</label>
-												<input type="text" class="form-control" placeholder="" id="booking_faculty" name="booking_faculty" value="<?= $val_booking_faculty ?>" disabled="disabled" />
+												<input type="text" class="form-control custom-readonly" readonly id="booking_faculty" name="booking_faculty" value="<?= $val_booking_faculty ?>"  />
 											</div>
 											<div class="col-lg-2">
 
@@ -135,7 +149,57 @@
 
 									</div>
 
-									<div class="form-group row">
+									<?php
+										if($form_mode == "update" && $val_usage_category =="1"){
+											$row_style1_value = "";
+										}else{
+											$row_style1_value = "style='display: none;'";
+										}
+									?>
+
+									<div class="form-group row row-for-teaching" <?= $row_style1_value ?>  >
+										<div class="col-lg-6">
+											<label>ชื่อวิชา: <span id="subject_name_Error" ></span></label>
+											<div class="input-group">
+												<input type="text" class="form-control custom-readonly" id="subject_name" name="subject_name" readonly
+													value="<?= $val_subject_name; ?>" data-error="#subject_name_Error" />
+												<input type="hidden" id="subject_id" name="subject_id" value="<?= $val_subject_id; ?>" />
+												<input type="hidden" id="subject_code" name="subject_code" value="<?= $val_subject_code; ?>" />
+												<div class="input-group-append">
+													<a href="javascript:;"  class="btn btn-light-success search-subject">
+														<i class="flaticon-book"></i>
+													</a>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-6">
+											<label>อาจารย์ผู้สอน: <span id="teacher_fullname_Error" ></span> </label>
+											<label class="checkbox">
+												<input type="checkbox" name="teacher_flag" id="teacher_flag" value="Y" <?php if($val_teacher_flag == "Y"){echo "checked";} ?> /> ข้อมูลเดียวกับผู้จอง
+												<span></span>
+											</label>
+											<div class="input-group">
+												<input type="text" class="form-control custom-readonly" id="teacher_fullname" name="teacher_fullname" readonly
+													value="<?= $val_teacher_fullname; ?>" data-error="#teacher_fullname_Error"  />
+												<input type="hidden" id="teacher_id" name="teacher_id" value="<?= $val_teacher_id; ?>" />
+												<div class="input-group-append">
+													<a href="javascript:;"  class="btn btn-light-success search-teacher">
+														<i class="flaticon2-user"></i>
+													</a>
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+									<?php
+										if($form_mode == "update" && $val_usage_category =="2"){
+											$row_style2_value = "";
+										}else{
+											$row_style2_value = "style='display: none;'";
+										}
+									?>
+									<div class="form-group row row-for-training" <?= $row_style2_value ?>  >
 										<div class="col-lg-10">
 											<label>ชื่อกิจกรรม: <span id="objective_Error" ></span></label>
 											<input type="text" class="form-control" placeholder="" id="objective" name="objective"
@@ -148,6 +212,7 @@
 										</div>
 
 									</div>
+
 
 									<div class="form-group row">
 										<div class="col-lg-4 col-md-9 col-sm-12">
@@ -178,7 +243,13 @@
 											</div>
 										</div>
 
-
+									</div>
+									<div class="form-group row " >
+										<div class="col-lg-10">
+											<label>หมายเหตุ: <span id="booking_remark_Error" ></span></label>
+											<input type="text" class="form-control" placeholder="" id="booking_remark" name="booking_remark"
+												value="<?= $val_booking_remark; ?>" data-error="#booking_remark_Error" />
+										</div>
 									</div>
 
 									<div class="form-group row">
@@ -194,6 +265,9 @@
 												<label class="radio radio-solid">
 												<input type="radio" name="booking_status" value="rejected"  <?php if($val_booking_status == "rejected"){echo "checked";} ?>/>ไม่อนุมัติ
 												<span></span></label>
+												<label class="radio radio-solid">
+												<input type="radio" name="booking_status" value="canceled"  <?php if($val_booking_status == "canceled"){echo "checked";} ?>/>ยกเลิกโดยผู้จอง
+												<span></span></label>
 											</div>
 
 										</div>
@@ -205,6 +279,7 @@
 										<div class="col-lg-6">
 											<button type="submit" class="btn btn-primary mr-2">บันทึก</button>
 											<button type="reset" class="btn btn-secondary">ยกเลิก</button>
+											<input type="hidden" name="teacher_code" id="teacher_code" value="<?= $teacher_code; ?>">
 											<input type="hidden" name="form_mode" id="form_mode" value="<?= $form_mode; ?>">
 											<input type="hidden" name="form_id" id="form_id" value="<?= $val_id; ?>">
 										</div>
@@ -221,67 +296,6 @@
 
 
 
-<div class="modal fade" id="bookingSearchModal" tabindex="-1" role="dialog" aria-labelledby="bookingInfoModal" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-
-					<h5 class="modal-title" id="exampleModalLabel">
-						<span class="flaticon-user icon-xl mr-2 "></span>ค้นหาบุคลากร
-					</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<i aria-hidden="true" class="ki ki-close"></i>
-					</button>
-				</div>
-				<div class="modal-body">
-					<form class="form" method="POST">
-
-						<div class="form-group row">
-							<div class="col-lg-9">
-								<label>ค้นหา:</label>
-								<input type="text" class="form-control" placeholder="" id="md_searchkey" name="md_searchkey" value=""  />
-							</div>
-							<div class="col-lg-3">
-								<button type="button" class="btn btn-light-success font-weight-bold mt-8" name="md_search_button" id="md_search_button">
-									<span class="navi-icon mr-2">
-										<span class="svg-icon">
-											<!--begin::Svg Icon | path:assets/media/svg/icons/General/User.svg-->
-											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-													<polygon points="0 0 24 0 24 24 0 24"></polygon>
-													<path d="M12,11 C9.790861,11 8,9.209139 8,7 C8,4.790861 9.790861,3 12,3 C14.209139,3 16,4.790861 16,7 C16,9.209139 14.209139,11 12,11 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"></path>
-													<path d="M3.00065168,20.1992055 C3.38825852,15.4265159 7.26191235,13 11.9833413,13 C16.7712164,13 20.7048837,15.2931929 20.9979143,20.2 C21.0095879,20.3954741 20.9979143,21 20.2466999,21 C16.541124,21 11.0347247,21 3.72750223,21 C3.47671215,21 2.97953825,20.45918 3.00065168,20.1992055 Z" fill="#000000" fill-rule="nonzero"></path>
-												</g>
-											</svg>
-											<!--end::Svg Icon-->
-										</span>
-									</span>
-									<span class="navi-text font-size-lg">ค้นหารายชื่อ</span>
-								</button>
-							</div>
-
-						</div>
-
-						<div class="table-responsive">
-							<table class="table table-hover" id="modal-search-result" style="display:none">
-								<thead>
-									<tr>
-										<th scope="col">#</th>
-										<th scope="col">ชื่อ-นามสกุล</th>
-										<th scope="col">สังกัด</th>
-										<th scope="col">ACTIONS</th>
-									</tr>
-								</thead>
-								<tbody>
-
-								</tbody>
-							</table>
-						</div>
-
-
-					</form>
-
-				</div>
-			</div>
-		</div>
-</div>
+<?php
+	include("_inc_hybridbackoffice_modal.php");
+?>

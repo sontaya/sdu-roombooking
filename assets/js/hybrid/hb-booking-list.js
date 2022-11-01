@@ -29,38 +29,6 @@ jQuery(document).ready(function() {
 		});
 
 
-
-
-
-
-	jQuery('.booking-edit').click(function(){
-
-
-		console.log('[debug] .booking-edit:click ' + jQuery(this).data('id'));
-
-		var id = jQuery(this).data('id');
-
-		// var deleteTargetURL = BASE_URL + 'backoffice/donation_delete/'+id;
-
-
-		// 	Swal.fire({
-		// 		title: "Are you sure?",
-		// 		text: "Delete",
-		// 		icon: "warning",
-		// 		showCancelButton: true,
-		// 		confirmButtonText: "Yes, delete it!"
-		// 	}).then(function(result) {
-		// 		if (result.value) {
-		// 			jQuery.get(deleteTargetURL , function (data) {
-		// 				location.reload();
-		// 			});
-		// 		}
-		// 	});
-
-
-
-	});
-
 	jQuery('.booking-delete').click(function(){
 
 		console.log('[debug] .booking-delete:click ' + jQuery(this).data('id'));
@@ -100,7 +68,11 @@ jQuery(document).ready(function() {
 
 
 	});
+
+
 });
+
+
 
 function booking_view(id){
 	console.log('[debug] function booking_view() ' + id);
@@ -112,14 +84,35 @@ function booking_view(id){
 
 		console.log(data);
 
-		jQuery("#md_booking_name").html(data[0].name + " " + data[0].surname);
+		jQuery("#md_booking_name").html(data[0].academic_fullname);
 		jQuery("#md_room_name").html(data[0].room_name);
 		jQuery("#md_booking_email").html(data[0].booking_email);
 		jQuery("#md_booking_phone").html(data[0].booking_phone);
 		jQuery("#md_internal_phone").html(data[0].internal_phone);
 		jQuery("#md_usage_category").html(data[0].usage_category_desc);
+		jQuery("#md_booking_remark").html(data[0].booking_remark);
+
 		jQuery("#md_objective").html(data[0].objective);
 		jQuery("#md_participant").html(data[0].participant);
+
+		jQuery("#md_subject_name").html(data[0].subject_code +" - "+data[0].subject_name);
+		jQuery("#md_teacher_fullname").html(data[0].teacher_fullname);
+
+		if(data[0].usage_category == 2){
+			jQuery(".row-for-teaching").hide();
+		}
+
+		if(data[0].usage_category == 1){
+			jQuery(".row-for-training").hide();
+		}
+
+		if(data[0].booking_status == "rejected" || data[0].booking_status == "canceled" ){
+			jQuery(".row-for-reason").show();
+			jQuery("#md_booking_status_reason").html(data[0].booking_status_desc + " : " + data[0].booking_status_reason);
+		}else{
+			jQuery(".row-for-reason").hide();
+			jQuery("#md_booking_status_reason").html("");
+		}
 
 		jQuery("#md_booking_date_range").html(data[0].booking_date_start+ " ถึง " + data[0].booking_date_end);
 		jQuery("#md_reason").val(data[0].booking_status_reason);

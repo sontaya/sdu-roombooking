@@ -165,6 +165,7 @@ var KTLogin = function() {
 													'citizencode' : resLogin.citizencode,
 													'name' : resLogin.name,
 													'surname' : resLogin.surname,
+													'academic_fullname' : profile.ACADEMIC_FULLNAME_TH,
 													'staff_type' : profile.STAFF_TYPE,
 													'staff_type_name' : profile.STAFF_TYPE_NAME,
 													'substaff_type' : profile.SUBSTAFF_TYPE,

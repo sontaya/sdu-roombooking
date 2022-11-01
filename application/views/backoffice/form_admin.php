@@ -30,7 +30,7 @@
 								}else{
 									$val_id = $booking["id"];
 									$val_user_id = $booking["user_id"];
-									$val_booking_name = $booking["name"]." ".$booking["surname"];
+									$val_booking_name = $booking["academic_fullname"];
 									$val_booking_faculty = $booking["name_faculty"];
 									$val_booking_email = $booking["booking_email"];
 									$val_booking_phone = $booking["booking_phone"];
@@ -232,6 +232,9 @@
 												<span></span></label>
 												<label class="radio radio-solid">
 												<input type="radio" name="booking_status" value="rejected"  <?php if($val_booking_status == "rejected"){echo "checked";} ?>/>ไม่อนุมัติ
+												<span></span></label>
+												<label class="radio radio-solid">
+												<input type="radio" name="booking_status" value="canceled"  <?php if($val_booking_status == "canceled"){echo "checked";} ?>/>ยกเลิกโดยผู้จอง
 												<span></span></label>
 											</div>
 

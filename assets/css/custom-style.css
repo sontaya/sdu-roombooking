@@ -10,6 +10,11 @@ label .is-invalid {
 	color: #F64E60;
 }
 
+.custom-readonly{
+	background-color: #F3F6F9 !important;
+    opacity: 1 !important;
+}
+
 .table-responsive {
 	min-height: 300px;
 }

@@ -143,7 +143,7 @@
 														}
 													?>
 													<span class="label label-inline <?php echo $label_class; ?> font-weight-bold">
-														<?= $booking["booking_status"] ?>
+														<?= $booking["booking_status_desc"] ?>
 													</span>
 
 													<div class="dropdown dropdown-inline">
@@ -157,7 +157,7 @@
 																<li class="navi-item">
 																<a href="javascript:;" onclick="booking_view('<?php echo $booking['id']; ?>');return false;" data-id="<?php echo $booking['id'] ?>" class="navi-link booking-view">
 																		<span class="navi-icon"><i class="flaticon-eye"></i></span>
-																		<span class="navi-text">View</span>
+																		<span class="navi-text">ดูข้อมูล</span>
 																	</a>
 																</li>
 
@@ -167,13 +167,13 @@
 																	<li class="navi-item">
 																		<a href="<?php echo base_url('dp/form/').$booking["id"]; ?>" data-id="<?= $booking["id"] ?>" class="navi-link booking-edit">
 																			<span class="navi-icon"><i class="la la-edit text-primary"></i></span>
-																			<span class="navi-text">Edit</span>
+																			<span class="navi-text">แก้ไข</span>
 																		</a>
 																	</li>
 																	<li class="navi-item">
 																		<a href="javascript:;" data-id="<?= $booking["id"] ?>" class="navi-link booking-delete">
 																			<span class="navi-icon"><i class="la la-trash text-danger"></i></span>
-																			<span class="navi-text">Delete</span>
+																			<span class="navi-text">ลบ</span>
 																		</a>
 																	</li>
 																<?php

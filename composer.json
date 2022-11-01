@@ -12,7 +12,8 @@
 	},
 	"require": {
 		"php": ">=5.3.7",
-		"linecorp/line-bot-sdk": "^6.2"
+		"linecorp/line-bot-sdk": "^6.2",
+		"phpoffice/phpspreadsheet": "^1.9"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"

@@ -34,6 +34,7 @@
 		<link rel="shortcut icon" href="<?php echo base_url('assets/images/logo-sdu-text-th.png'); ?>" />
 
 		<!-- Google tag (gtag.js) -->
+		<!--
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-BBC0LY6JZJ"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
@@ -42,4 +43,5 @@
 
 			gtag('config', 'G-BBC0LY6JZJ');
 		</script>
+		-->
 	</head>

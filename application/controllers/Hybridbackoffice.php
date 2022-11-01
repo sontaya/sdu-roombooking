@@ -10,6 +10,7 @@ class Hybridbackoffice extends MY_Controller
 
 		$this->load->model('Hybridbooking_model');
 		$this->load->model('Hybridroom_model');
+		$this->load->model('Subject_model');
 		// $this->load->library('encryption');
 
         if(! $this->session->userdata('auth')['uid'])
@@ -83,12 +84,20 @@ class Hybridbackoffice extends MY_Controller
 				'user_id' => $this->input->post('user_id'),
 				'booking_email' => $this->input->post('booking_email'),
 				'booking_phone' => $this->input->post('booking_phone'),
+				'internal_phone' => $this->input->post('internal_phone'),
 				'room_id' => $this->input->post('room_id'),
 				'participant' => $this->input->post('participant'),
 				'usage_category' => $this->input->post('usage_category'),
+				'subject_id' => $this->input->post('subject_id'),
+				'subject_code' => $this->input->post('subject_code'),
+				'subject_name' => $this->input->post('subject_name'),
+				'teacher_id' => $this->input->post('teacher_id'),
+				'teacher_fullname' => $this->input->post('teacher_fullname'),
+				'teacher_flag' => $this->input->post('teacher_flag'),
 				'objective' => $this->input->post('objective'),
 				'booking_date_start' => $this->input->post('booking_date_start'),
 				'booking_date_end' => $this->input->post('booking_date_end'),
+				'booking_remark' => $this->input->post('booking_remark'),
 				'booking_status' => $this->input->post('booking_status'),
 				'approved_by' => $this->global_data['user_id'],
 				'approved_date' => $this->global_data['timestamp'],
@@ -112,12 +121,20 @@ class Hybridbackoffice extends MY_Controller
 				'user_id' => $this->input->post('user_id'),
 				'booking_email' => $this->input->post('booking_email'),
 				'booking_phone' => $this->input->post('booking_phone'),
+				'internal_phone' => $this->input->post('internal_phone'),
 				'room_id' => $this->input->post('room_id'),
 				'participant' => $this->input->post('participant'),
 				'usage_category' => $this->input->post('usage_category'),
+				'subject_id' => $this->input->post('subject_id'),
+				'subject_code' => $this->input->post('subject_code'),
+				'subject_name' => $this->input->post('subject_name'),
+				'teacher_id' => $this->input->post('teacher_id'),
+				'teacher_fullname' => $this->input->post('teacher_fullname'),
+				'teacher_flag' => $this->input->post('teacher_flag'),
 				'objective' => $this->input->post('objective'),
 				'booking_date_start' => $this->input->post('booking_date_start'),
 				'booking_date_end' => $this->input->post('booking_date_end'),
+				'booking_remark' => $this->input->post('booking_remark'),
 				'booking_status' => $this->input->post('booking_status'),
 				'modified_at' => $this->global_data['timestamp'],
 				'modified_by' =>  $this->session->userdata('auth')['displayname'],
@@ -165,7 +182,7 @@ class Hybridbackoffice extends MY_Controller
 			$criterias = array(
 				'user_role' => $this->session->userdata('auth')['role'],
 				'room_in' => $this->session->userdata('auth')['manage_room'],
-				'room_id' => "",
+				'room_id' => $this->input->post('bm_search_room'),
 				'booking_status' => "",
 				'booking_date_start' => $search_date_start,
 				'booking_date_end' => $search_date_end
@@ -276,6 +293,30 @@ class Hybridbackoffice extends MY_Controller
 	function booking_approve(){
 
 		$target_id = $this->input->post('id');
+
+		//-- Log
+		$this->Hybridbooking_model->log($target_id);
+
+		$data = array(
+			'booking_status' => $this->input->post('status'),
+			'booking_status_reason' => $this->input->post('status_reason'),
+			'approved_by' => $this->global_data['user_id'],
+			'approved_date' => $this->global_data['timestamp']
+		);
+
+		$res = $this->Hybridbooking_model->update($target_id, $data);
+
+		header('Content-Type: application/json');
+    	echo json_encode($res);
+	}
+
+	function booking_cancel(){
+
+		$target_id = $this->input->post('id');
+
+		//-- Log
+		$this->Hybridbooking_model->log($target_id);
+
 		$data = array(
 			'booking_status' => $this->input->post('status'),
 			'booking_status_reason' => $this->input->post('status_reason'),
@@ -292,6 +333,9 @@ class Hybridbackoffice extends MY_Controller
 	function booking_delete(){
 
 		$target_id = $this->input->post('id');
+
+		//-- Log
+		$this->Hybridbooking_model->log($target_id);
 
 		$res = $this->Hybridbooking_model->delete($target_id);
 
@@ -310,5 +354,16 @@ class Hybridbackoffice extends MY_Controller
     	echo json_encode($res);
 
 	}
+
+	function debug(){
+		$conditions = array(
+			'search_key' => ''
+		);
+		$res = $this->Subject_model->list(array('conditions'=>$conditions));
+
+		header('Content-Type: application/json');
+		echo json_encode($res);
+	}
+
 
 }

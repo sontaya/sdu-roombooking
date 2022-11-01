@@ -124,9 +124,16 @@ class Hybrid extends MY_Controller
 				'room_id' => $this->input->post('room_id'),
 				'participant' => $this->input->post('participant'),
 				'usage_category' => $this->input->post('usage_category'),
+				'subject_id' => $this->input->post('subject_id'),
+				'subject_code' => $this->input->post('subject_code'),
+				'subject_name' => $this->input->post('subject_name'),
+				'teacher_id' => $this->input->post('teacher_id'),
+				'teacher_fullname' => $this->input->post('teacher_fullname'),
+				'teacher_flag' => $this->input->post('teacher_flag'),
 				'objective' => $this->input->post('objective'),
 				'booking_date_start' => $this->input->post('booking_date_start'),
 				'booking_date_end' => $this->input->post('booking_date_end'),
+				'booking_remark' => $this->input->post('booking_remark'),
 				'booking_status' => 'pending',
 				'created_at' => $this->global_data['timestamp'],
 				'created_by' =>  $this->session->userdata('auth')['displayname'],
@@ -149,9 +156,16 @@ class Hybrid extends MY_Controller
 				'room_id' => $this->input->post('room_id'),
 				'participant' => $this->input->post('participant'),
 				'usage_category' => $this->input->post('usage_category'),
+				'subject_id' => $this->input->post('subject_id'),
+				'subject_code' => $this->input->post('subject_code'),
+				'subject_name' => $this->input->post('subject_name'),
+				'teacher_id' => $this->input->post('teacher_id'),
+				'teacher_fullname' => $this->input->post('teacher_fullname'),
+				'teacher_flag' => $this->input->post('teacher_flag'),
 				'objective' => $this->input->post('objective'),
 				'booking_date_start' => $this->input->post('booking_date_start'),
 				'booking_date_end' => $this->input->post('booking_date_end'),
+				'booking_remark' => $this->input->post('booking_remark'),
 				'booking_status' => 'pending',
 				'modified_at' => $this->global_data['timestamp'],
 				'modified_by' =>  $this->session->userdata('auth')['displayname'],
@@ -175,6 +189,7 @@ class Hybrid extends MY_Controller
 		$data['cssSrc'] = array();
 
 		$data['jsSrc'] = array(
+			'assets/js/hybrid/hb-init.js',
 			'assets/js/hybrid/hb-booking-list.js'
 		);
 
@@ -304,7 +319,7 @@ class Hybrid extends MY_Controller
 				$dateend = new DateTime($booking["booking_date_end"]);
 				$obj = array(
 					"id"=> $booking["id"],
-					"title"=> $booking["booking_org"]."-".$booking["objective"],
+					"title"=> $booking["booking_org"]."-".$booking["usage_category_desc"]." ".$booking["objective"]."".$booking["subject_name"]." ".$booking["booking_remark"],
 					"start"=> $datestart->format(DateTime::ATOM),
 					"end"=> $dateend->format(DateTime::ATOM)
 				);
@@ -341,7 +356,7 @@ class Hybrid extends MY_Controller
 				$dateend = new DateTime($booking["booking_date_end"]);
 				$obj = array(
 					"id"=> $booking["id"],
-					"title"=> $booking["booking_org"]."-".$booking["objective"],
+					"title"=> $booking["booking_org"]."-".$booking["usage_category_desc"]." ".$booking["objective"]."".$booking["subject_name"]." ".$booking["booking_remark"],
 					"start"=> $datestart->format(DateTime::ATOM),
 					"end"=> $dateend->format(DateTime::ATOM)
 				);
@@ -384,7 +399,7 @@ class Hybrid extends MY_Controller
 				$dateend = new DateTime($booking["booking_date_end"]);
 				$obj = array(
 					"id"=> $booking["id"],
-					"title"=> $booking["booking_org"]."-".$booking["objective"],
+					"title"=> $booking["booking_org"]."-".$booking["usage_category_desc"]." ".$booking["objective"]."".$booking["subject_name"]." ".$booking["booking_remark"],
 					"start"=> $datestart->format(DateTime::ATOM),
 					"end"=> $dateend->format(DateTime::ATOM)
 				);
@@ -423,7 +438,7 @@ class Hybrid extends MY_Controller
 				$dateend = new DateTime($booking["booking_date_end"]);
 				$obj = array(
 					"id"=> $booking["id"],
-					"title"=> $booking["booking_org"]."-".$booking["objective"],
+					"title"=> $booking["booking_org"]."-".$booking["usage_category_desc"]." ".$booking["objective"]."".$booking["subject_name"]." ".$booking["booking_remark"],
 					"start"=> $datestart->format(DateTime::ATOM),
 					"end"=> $dateend->format(DateTime::ATOM)
 				);
@@ -468,7 +483,7 @@ class Hybrid extends MY_Controller
 				$dateend = new DateTime($booking["booking_date_end"]);
 				$obj = array(
 					"id"=> $booking["id"],
-					"title"=> $booking["booking_org"]."-".$booking["objective"],
+					"title"=> $booking["booking_org"]."-".$booking["usage_category_desc"]." ".$booking["objective"]."".$booking["subject_name"]." ".$booking["booking_remark"],
 					"start"=> $datestart->format(DateTime::ATOM),
 					"end"=> $dateend->format(DateTime::ATOM)
 				);
@@ -527,7 +542,6 @@ class Hybrid extends MY_Controller
 
 		// echo '<pre>'. print_r($block, true).'</pre>';
 	}
-
 
 	function home(){
 		$this->set_active_menu('100');
