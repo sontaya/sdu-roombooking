@@ -309,8 +309,7 @@ class Hybridbackoffice extends MY_Controller
 		header('Content-Type: application/json');
     	echo json_encode($res);
 	}
-
-	function booking_cancel(){
+	function booking_reject(){
 
 		$target_id = $this->input->post('id');
 
@@ -322,6 +321,27 @@ class Hybridbackoffice extends MY_Controller
 			'booking_status_reason' => $this->input->post('status_reason'),
 			'approved_by' => $this->global_data['user_id'],
 			'approved_date' => $this->global_data['timestamp']
+		);
+
+		$res = $this->Hybridbooking_model->update($target_id, $data);
+
+		header('Content-Type: application/json');
+    	echo json_encode($res);
+	}
+
+	function booking_cancel(){
+
+		$target_id = $this->input->post('id');
+
+		//-- Log
+		$this->Hybridbooking_model->log($target_id);
+
+		$data = array(
+			'booking_status' => $this->input->post('status'),
+			'booking_status_reason' => $this->input->post('status_reason'),
+			'canceled_at' => $this->global_data['timestamp'],
+			'canceled_by' => $this->global_data['user_id'],
+			'canceled_by_ip' => $this->global_data['client_ip']
 		);
 
 		$res = $this->Hybridbooking_model->update($target_id, $data);

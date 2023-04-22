@@ -69,7 +69,7 @@ jQuery(document).ready(function() {
 			confirmButtonText: 'ยกเลิกรายการจอง',
 			preConfirm: (targetReason) => {
 				// console.log(targetReason);
-				booking_approve(targetID,'canceled',targetReason);
+				booking_cancel(targetID,'canceled',targetReason);
 			},
 		});
 

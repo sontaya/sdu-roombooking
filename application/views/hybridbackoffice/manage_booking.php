@@ -43,6 +43,7 @@
 													<option value="pending" <?php if($criterias["booking_status"] == "pending"){ echo "selected"; } ?>>ขออนุมัติ</option>
 													<option value="approved" <?php if($criterias["booking_status"] == "approved"){ echo "selected"; } ?>>อนุมัติ</option>
 													<option value="rejected" <?php if($criterias["booking_status"] == "rejected"){ echo "selected"; } ?>>ไม่อนุมัติ</option>
+													<option value="canceled" <?php if($criterias["booking_status"] == "canceled"){ echo "selected"; } ?>>ยกเลิกโดยผู้จอง</option>
 												</select>
 
 										</div>

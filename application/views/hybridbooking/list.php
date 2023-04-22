@@ -164,9 +164,11 @@
 																</a>
 															</li>
 															<?php
-																if( $booking['booking_status'] != 'rejected'
+																if(
+																	// and $booking['booking_status'] != 'rejected'
+																	$this->session->userdata('auth')['hrcode']==$booking['user_id']
 																	and $booking['booking_status'] != 'canceled'
-																	and $this->session->userdata('auth')['hrcode']==$booking['user_id']
+																	and $booking['booking_status'] != 'pending'
 																){
 															?>
 																<li class="navi-item">
