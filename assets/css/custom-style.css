@@ -19,6 +19,12 @@ label .is-invalid {
 	min-height: 300px;
 }
 
+hr.all-owner{
+	border-top: 1px dashed #ECF0F3;
+	margin-top: 0.1rem;
+    margin-bottom: 0.1rem;
+}
+
 @media (max-width: 700px) {
 	.card-columns.custom-columns {
 		column-count: 1;

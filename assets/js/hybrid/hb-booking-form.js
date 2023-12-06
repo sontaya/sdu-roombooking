@@ -188,7 +188,7 @@ jQuery(document).ready(function() {
 			data: apiFormData,
 			success: function (resProfile){
 
-				// console.log(resProfile);
+				console.log(resProfile);
 
 				var profiles = resProfile["profile"];
 
@@ -199,7 +199,7 @@ jQuery(document).ready(function() {
 					var $tr = jQuery('<tr>').append(
 
 						jQuery('<td class="text-left">').text("#"),
-						jQuery('<td class="text-left">').text(row.FULLNAME_THA),
+						jQuery('<td class="text-left">').text(row.ACADEMIC_FULLNAME_TH),
 						jQuery('<td class="text-left">').text(row.NAME_FACULTY),
 						jQuery('<td class="text-center">').html("<a href=\"javascript:;\"  onclick=\"modal_teacher_selected('"+row.CODE_PERSON+"')\"  class=\"btn btn-light-success modal-teacher-selected\">เลือก​</a>")
 					);

@@ -49,12 +49,7 @@ function booking_cancel(id,status,reason=""){
 		success: function (res){
 			// console.log(res);
 			booking_line_notify(id);
-			location.reload();
-
-			// setTimeout(function(){
-			// 	toastr['success']("ทำรายการเรียบร้อย", "Booking notification");
-			// 	location.reload();
-			// },2000);
+			// location.reload();
 		}
 	});
 
@@ -62,15 +57,15 @@ function booking_cancel(id,status,reason=""){
 
 function booking_line_notify(id){
 
-	console.log('[debug] function booking_line_notify()');
+	console.log('[debug] function booking_line_notify(' + id + ')');
 
 	var formData = {
 		'booking_info_id': id,
 	}
-	console.log(formData);
+	// console.log(formData);
 
 	$.ajax({
-		url:  BASE_URL + "lineapi/bot_notify_user",
+		url:  BASE_URL + "lineapi/bot_notify_hybrid",
 		type: 'POST',
 		dataType: 'json',
 		data: formData,

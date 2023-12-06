@@ -154,7 +154,7 @@
 											</th>
 											<th scope="col">#</th>
 											<th scope="col">ชื่อห้อง</th>
-											<th scope="col">ข้อมูลผู้จอง</th>
+											<th scope="col">ข้อมูลผู้จอง/ผู้สอน</th>
 											<th scope="col">ลักษณะการใช้งาน</th>
 											<th scope="col">วันที่เริ่มต้น</th>
 											<th scope="col">วันที่สิ้นสุด</th>
@@ -167,6 +167,13 @@
 											$i = 0;
 											foreach ($booking_lists as $booking) {
 												$i++;
+												if($booking["user_id"]==$booking["teacher_id"] and $booking["usage_category"]=="1"){
+													$all_owner =  $booking["academic_fullname"];
+												}elseif($booking["user_id"]!=$booking["teacher_id"] and $booking["usage_category"]=="1"){
+													$all_owner =  $booking["academic_fullname"] ."<hr class='all-owner' />".$booking["teacher_fullname"];
+												}else{
+													$all_owner =  $booking["academic_fullname"];
+												}
 										?>
 											<tr>
 												<td >
@@ -183,7 +190,7 @@
 
 												</td>
 												<td class="align-middle"><?= $booking["room_shortname"] ?></td>
-												<td class="align-middle"><?= $booking["academic_fullname"] ?></td>
+												<td class="align-middle"><?= $all_owner ?></td>
 												<td class="align-middle"><?= $booking["usage_category_desc"] ?></td>
 												<td class="align-middle"><?= get_thai_datetime($booking["booking_date_start"],1,true); ?></td>
 												<td class="align-middle"><?= get_thai_datetime($booking["booking_date_end"],1,true); ?></td>
