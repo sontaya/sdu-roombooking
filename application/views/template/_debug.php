@@ -16,6 +16,13 @@
 				?>
 			</pre>
 		</div>
+		<div class="col-md">
+			<pre>
+				<?php
+					print_r($this->session->userdata('template'));
+				?>
+			</pre>
+		</div>
 	</div>
 
 	<div class="border-bottom border-white opacity-20 mb-5"></div>

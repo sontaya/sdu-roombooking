@@ -10,6 +10,7 @@ class Lineapi extends MY_Controller
 		parent::__construct();
 		$this->load->library('linelogin');
 		$this->load->model('Booking_model');
+		$this->load->model('Hybridbooking_model');
 		$this->load->model('User_model');
 
 	}
@@ -80,10 +81,19 @@ class Lineapi extends MY_Controller
 				if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 					// ข้อความที่ส่งกลับ มาจาก ข้อความที่ส่งมา
 					// ร่วมกับ USER ID ของไลน์ที่เราต้องการใช้ในการตอบกลับ
-					$messages = array(
-						'type' => 'text',
-						'text' => 'Reply message : '.$event['message']['text']."\nUser ID : ".$event['source']['userId'],
-					);
+					if(trim($event['message']['text']) == "id"){
+						$messages = array(
+							'type' => 'text',
+							'text' => 'User ID : '.$event['source']['userId'],
+						);
+					}else{
+						$messages = array(
+							'type' => 'text',
+							'text' => 'roombooking-bot:ใช้สำหรับรับข้อมูลจากระบบเท่านั้น',
+						);
+					}
+
+
 					$post = json_encode(array(
 						'replyToken' => $event['replyToken'],
 						'messages' => array($messages),
@@ -181,7 +191,78 @@ class Lineapi extends MY_Controller
 				$result = curl_exec($ch);
 				echo $result;
 
+
 			}
+		}
+
+
+
+
+	}
+
+	public function bot_notify_hybrid(){
+
+		$booking_info_id = $this->input->post('booking_info_id');
+
+		if(LINE_NOTIFY == 'ON'){
+			$conditions = array(
+				'id' => $booking_info_id
+			);
+			$info = $this->Hybridbooking_model->list(array('conditions'=>$conditions))[0];
+
+
+			// if($info["line_sub"] != ""){
+			// 	$target_users = array(
+			// 							'Uf4bf280bb39513328a3fbea4dcfdbd7a'
+			// 	);
+			// }else{
+			// 	$user_line_id = $info["line_sub"];
+			// 	$target_users = array(
+			// 		'Uf4bf280bb39513328a3fbea4dcfdbd7a',
+			// 		$user_line_id
+			// 	);
+			// }
+
+				$target_users = array(
+					'Uf4bf280bb39513328a3fbea4dcfdbd7a','Ue59e7786517b70a9f82501bf1a9d3cf3'
+				);
+
+				if($info["booking_status"] == "rejected" or $info["booking_status"] == "canceled"){
+					$reason = "(". $info["booking_status_reason"] .")";
+				}else{
+					$reason = "";
+				}
+
+
+				$user_message = "รายการจองห้อง: ".$info["room_name"]."\n".
+									"กิจกรรม: " .$info["objective"]."\n".
+									"วันที่ เวลา: ".get_thai_datetime($info["booking_date_start"],1,true)." ถึง ". get_thai_datetime($info["booking_date_end"],1,true)."\n".
+									"สถานะการจอง: ". $info["booking_status_desc"] . $reason;
+				// ข้อความที่ต้องการส่ง
+				$messages = array(
+					'type' => 'text',
+					'text' => $user_message,
+				);
+				$post = json_encode(array(
+					'to' => $target_users,
+					'messages' => array($messages),
+				));
+				// URL ของบริการ Replies สำหรับการตอบกลับด้วยข้อความอัตโนมัติ
+				$url = 'https://api.line.me/v2/bot/message/multicast';
+				$headers = array('Content-Type: application/json', 'Authorization: Bearer '.LINE_MESSAGE_ACCESS_TOKEN);
+				$ch = curl_init($url);
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+				curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+				// $result = curl_exec($ch);
+				// echo $result;
+
+				print_r($info);
+
+
+
 		}
 
 
@@ -266,7 +347,14 @@ class Lineapi extends MY_Controller
 		// echo $obj->id_token;
 
 		// echo $this->session->userdata('auth')['hrcode'];
-		echo $this->global_data['user_id'];
+		// echo $this->global_data['user_id'];
+
+		$conditions = array(
+			'id' => '4354'
+		);
+		$info = $this->Hybridbooking_model->list(array('conditions'=>$conditions))[0];
+		header('Content-Type: application/json');
+		echo json_encode($info);
 
 	}
 
