@@ -58,6 +58,14 @@ class Page extends MY_Controller
 														WHERE user_id = '". $this->global_data['user_id'] ."'
 							")->result();
 
+		$data['mt_summary'] = $this->db->query("SELECT COUNT(*) AS count_all
+															,COUNT(CASE WHEN booking_status = 'approved' THEN 1 END) AS count_approved
+															,COUNT(CASE WHEN booking_status = 'pending' THEN 1 END) AS count_pending
+															,COUNT(CASE WHEN booking_status = 'rejected' THEN 1 END) AS count_rejected
+														FROM mt_booking_info
+														WHERE user_id = '". $this->global_data['user_id'] ."'
+							")->result();
+
 		$this->data = $data;
 		$this->content = 'home/landing';
 		$this->render_nomenu();
@@ -74,6 +82,12 @@ class Page extends MY_Controller
 				break;
 			case 'HB':
 				$default_room = '301';
+				break;
+			case 'MT':
+				$default_room = '401';
+				break;
+			case 'SP':
+				$default_room = '501';
 				break;
 			default:
 				$default_room = '01';
@@ -107,6 +121,26 @@ class Page extends MY_Controller
 				redirect('hybridbackoffice/booking_manage');
 			}else{
 				redirect('hybrid/list');
+			}
+
+		}
+
+		if($template == "MT"){
+
+			if (in_array("meeting", $this->session->userdata('auth')['manage_app'])) {
+				redirect('meetingbackoffice/booking_manage');
+			}else{
+				redirect('meeting/list');
+			}
+
+		}
+
+		if($template == "SP"){
+
+			if (in_array("space", $this->session->userdata('auth')['manage_app'])) {
+				redirect('spacebackoffice/booking_manage');
+			}else{
+				redirect('space/list');
 			}
 
 		}

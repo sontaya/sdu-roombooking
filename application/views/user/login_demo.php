@@ -24,28 +24,21 @@
 
 			$("#btnsend").click(function(){
 				var apiFormData = {
-					'code_person': $("#hrcode").val()
+					'search_key': $("#hrcode").val()
 				}
 				console.log(apiFormData);
 
 				jQuery.ajax({
-
-					url:  "https://personnel.dusit.ac.th/app/api/get_profile",
-					headers: {
-						'Access-Control-Allow-Origin': '*',
-						'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImRhdGFjZW50ZXIifQ.P1rIezruul_arAeU4XzwMRs3Zic2G2P2PI50pFhapMQ',
-						// 'Content-Type': 'application/x-www-form-urlencoded',
-					},
-					crossDomain: true,
+					url: '/api/get_personnel_profile', // Your CodeIgniter route
 					type: 'POST',
-					datatype: 'application/json',
+					dataType: 'json',
 					data: apiFormData,
-					success: function (resProfile){
+					success: function(response) {
 
 
 						console.log("api->get_personnel_profile : [success]");
 
-						var profile = resProfile['profile'][0];
+						var profile = response.data['profile'][0];
 						// alert(profile);
 						console.log(profile);
 

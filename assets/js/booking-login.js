@@ -137,68 +137,72 @@ var KTLogin = function() {
 								}else{
 
 									//--::Begin Store Session Personnel group
-									var apiFormData = {
-										'code_person': resLogin.hrcode
-									}
-									jQuery.ajax({
-										url:  "https://personnel.dusit.ac.th/app/api/get_personnel_profile",
-										header:{
-											'Access-Control-Allow-Origin': '*',
-											'Access-Control-Allow-Methods' : 'GET, POST, OPTIONS, PUT, DELETE',
-										},
-										type: 'POST',
-										dataType: 'json',
-										data: apiFormData,
-										success: function (resProfile){
+										const apiFormData = {
+											'search_key': resLogin.hrcode
+										}
 
+										jQuery.ajax({
+											url: '/api/get_personnel_profile', // Your CodeIgniter route
+											type: 'POST',
+											dataType: 'json',
+											data: apiFormData,
+											success: function(response) {
+												if (response.status === 'success') {
 
-											console.log("api->get_personnel_profile : [success]");
+													console.log("api->get_personnel_profile : [success]");
 
-											var profile = resProfile['profile'][0];
-											console.log(profile);
+													var profile = response.data['profile'][0];
+													console.log(profile);
 
-											//--::Begin Store Session Personnel group
-												var FormLoginData = {
+												//--::Begin Store Session Personnel group
+													var FormLoginData = {
 
-													'uid' : resLogin.uid,
-													'user_id' : resLogin.hrcode,
-													'citizencode' : resLogin.citizencode,
-													'name' : resLogin.name,
-													'surname' : resLogin.surname,
-													'academic_fullname' : profile.ACADEMIC_FULLNAME_TH,
-													'staff_type' : profile.STAFF_TYPE,
-													'staff_type_name' : profile.STAFF_TYPE_NAME,
-													'substaff_type' : profile.SUBSTAFF_TYPE,
-													'substaff_type_name' : profile.SUBSTAFF_TYPE_NAME,
-													'code_faculty' : profile.CODE_FACULTY,
-													'name_faculty' : profile.NAME_FACULTY,
-													'code_department' : profile.CODE_DEPARTMENT,
-													'name_department' : profile.NAME_DEPARTMENT,
-													'code_site' : profile.CODE_SITE,
-													'name_site' : profile.NAME_SITE,
-													'bio_pic_file' : profile.BIO_PIC_FILE
-
-												}
-												jQuery.ajax({
-													url:  BASE_URL + "user/do_login_session",
-													type: 'POST',
-													dataType: 'json',
-													data: FormLoginData,
-													success: function (resSession){
-
-														console.log("user/do_login_session : [success]");
-														console.log(resSession);
-														console.log(BASE_URL);
-														window.location.href = BASE_URL + 'page/landing';
+														'uid' : resLogin.uid,
+														'user_id' : resLogin.hrcode,
+														'citizencode' : resLogin.citizencode,
+														'name' : resLogin.name,
+														'surname' : resLogin.surname,
+														'academic_fullname' : profile.ACADEMIC_FULLNAME_TH,
+														'staff_type' : profile.STAFF_TYPE,
+														'staff_type_name' : profile.STAFF_TYPE_NAME,
+														'substaff_type' : profile.SUBSTAFF_TYPE,
+														'substaff_type_name' : profile.SUBSTAFF_TYPE_NAME,
+														'code_faculty' : profile.CODE_FACULTY,
+														'name_faculty' : profile.NAME_FACULTY,
+														'code_department' : profile.CODE_DEPARTMENT,
+														'name_department' : profile.NAME_DEPARTMENT,
+														'code_site' : profile.CODE_SITE,
+														'name_site' : profile.NAME_SITE,
+														'bio_pic_file' : profile.BIO_PIC_FILE
 
 													}
-												});
-											//--::End Store Session
+													jQuery.ajax({
+														url:  BASE_URL + "user/do_login_session",
+														type: 'POST',
+														dataType: 'json',
+														data: FormLoginData,
+														success: function (resSession){
+
+															console.log("user/do_login_session : [success]");
+															console.log(resSession);
+															console.log(BASE_URL);
+															window.location.href = BASE_URL + 'page/landing';
+
+														}
+													});
+												//--::End Store Session
 
 
-
-										}
-									});
+												} else {
+													// Handle error response
+													console.error('API Error:', response.message);
+													alert('Error loading faculty data');
+												}
+											},
+											error: function(xhr, status, error) {
+												console.error('Error:', error);
+											}
+										});
 
 								}
 								//--::End check employeetype
@@ -234,6 +238,7 @@ jQuery(document).ready(function() {
 
 function rest_personnel_token()
 {
+	console.log("func: res_personnel_token")
 	var apiFormData = {
 		'username': 'datacenter',
 		'password' : 'admin@sdu'
@@ -251,8 +256,8 @@ function rest_personnel_token()
 		data: apiFormData,
 		success: function (res){
 
-			// console.log(res);
-			resToken = res.token;
+			console.log(res);
+			// resToken = res.token;
 		}
 	});
 }

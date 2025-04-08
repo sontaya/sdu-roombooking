@@ -101,7 +101,7 @@ class Meeting extends MY_Controller
 			$data['booking'] = $this->Mtbooking_model->list(array('conditions'=>  $conditions))[0];
 			$data['form_mode'] = "update";
 
-		}else{
+		}else{ 
 
 			$data['default_contact'] = $this->User_model->list(array('conditions'=>array('user_id'=>$this->global_data['user_id'])))[0];
 			$data['form_mode'] = "insert";

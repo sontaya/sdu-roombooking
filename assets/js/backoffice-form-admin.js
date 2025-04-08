@@ -94,28 +94,20 @@ jQuery(document).ready(function() {
 			'search_key': jQuery("#md_searchkey").val()
 		}
 		jQuery.ajax({
-			url:  "https://personnel.dusit.ac.th/app/api/get_personnel_profile",
-			header:{
-				'Access-Control-Allow-Origin': '*',
-				'Access-Control-Allow-Methods' : 'GET, POST, OPTIONS',
-			},
+			url: '/api/get_personnel_profile', // Your CodeIgniter route
 			type: 'POST',
 			dataType: 'json',
 			data: apiFormData,
-			success: function (resProfile){
+			success: function(response) {
 
-				// console.log(resProfile);
-
-				var profiles = resProfile["profile"];
-
-				// console.log("api->get_personnel_profile : [success]");
+				var profiles =response.data['profile'];
 
 				jQuery.each(profiles, function(i, row){
 
 					var $tr = jQuery('<tr>').append(
 
 						jQuery('<td class="text-left">').text("#"),
-						jQuery('<td class="text-left">').text(row.FULLNAME_THA),
+						jQuery('<td class="text-left">').text(row.ACADEMIC_FULLNAME_TH),
 						jQuery('<td class="text-left">').text(row.NAME_FACULTY),
 						jQuery('<td class="text-center">').html("<a href=\"javascript:;\"  onclick=\"modal_selected('"+row.CODE_PERSON+"')\"  class=\"btn btn-light-success modal-selected\">เลือก​</a>")
 					);
@@ -143,20 +135,15 @@ function modal_selected(hrcode){
 	console.log('[debug] .modal-selected:click ' + hrcode);
 
 	var apiFormData = {
-		'code_person': hrcode
+		'search_key': hrcode
 	}
 	jQuery.ajax({
-		url:  "https://personnel.dusit.ac.th/app/api/get_personnel_profile",
-		header:{
-			'Access-Control-Allow-Origin': '*',
-			'Access-Control-Allow-Methods' : 'GET, POST, OPTIONS',
-		},
+		url: '/api/get_personnel_profile', // Your CodeIgniter route
 		type: 'POST',
 		dataType: 'json',
 		data: apiFormData,
-		success: function (resProfile){
-
-			var profile = resProfile["profile"][0];
+		success: function(response) {
+			var profile = response.data['profile'][0];
 			console.log(profile);
 
 
@@ -168,6 +155,7 @@ function modal_selected(hrcode){
 					'citizencode' : profile.CITIZEN_CODE,
 					'name' : profile.FIRST_NAME_THA,
 					'surname' : profile.LAST_NAME_THA,
+					'academic_fullname' : profile.ACADEMIC_FULLNAME_TH,
 					'staff_type' : profile.STAFF_TYPE,
 					'staff_type_name' : profile.STAFF_TYPE_NAME,
 					'substaff_type' : profile.SUBSTAFF_TYPE,
@@ -197,7 +185,7 @@ function modal_selected(hrcode){
 
 
 
-			jQuery("#booking_name").val(profile.FULLNAME_THA);
+			jQuery("#booking_name").val(profile.ACADEMIC_FULLNAME_TH);
 			jQuery("#booking_faculty").val(profile.NAME_FACULTY);
 			jQuery("#user_id").val(profile.CODE_PERSON);
 			jQuery("#bookingSearchModal").modal('toggle');

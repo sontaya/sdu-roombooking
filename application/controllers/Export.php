@@ -13,6 +13,7 @@ class Export extends MY_Controller
         $this->load->library('Pdf');
 
 		$this->load->model('Booking_model');
+		$this->load->model('Mtbooking_model');
     }
 
 
@@ -248,6 +249,119 @@ class Export extends MY_Controller
 			'export_target' => $export_target
 		);
 		$responses = $this->Booking_model->list(array('conditions'=> $criterias));
+
+		$this->session->set_userdata('export_target',null);
+		// header('Content-Type: application/json');
+		// echo json_encode($responses);
+
+		$spreadsheet = new Spreadsheet();
+		$sheet = $spreadsheet->getActiveSheet();
+
+
+		// $sheet->getStyle('A:A')
+		//       ->getNumberFormat()
+		//       ->applyFromArray(['formatCode' => PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_GENERAL]);
+
+		$sheet->getStyle('A:A')
+			  ->getNumberFormat()
+			  ->setFormatCode('#');
+
+		$sheet->getStyle('L:L')
+				->getNumberFormat()
+				->setFormatCode(PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DATETIME);
+
+		$sheet->getStyle('M:M')
+				->getNumberFormat()
+				->setFormatCode(PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DATETIME);
+
+		$sheet->getStyle('N:N')
+				->getNumberFormat()
+				->setFormatCode(PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DATETIME);
+
+		$sheet->getColumnDimension('A')->setAutoSize(true);
+		$sheet->getColumnDimension('B')->setAutoSize(true);
+		$sheet->getColumnDimension('C')->setAutoSize(true);
+		$sheet->getColumnDimension('D')->setAutoSize(true);
+		$sheet->getColumnDimension('E')->setAutoSize(true);
+		$sheet->getColumnDimension('F')->setAutoSize(true);
+		$sheet->getColumnDimension('G')->setAutoSize(true);
+		$sheet->getColumnDimension('H')->setAutoSize(true);
+		$sheet->getColumnDimension('I')->setAutoSize(true);
+		$sheet->getColumnDimension('J')->setAutoSize(true);
+		$sheet->getColumnDimension('K')->setAutoSize(true);
+		$sheet->getColumnDimension('L')->setAutoSize(true);
+		$sheet->getColumnDimension('M')->setAutoSize(true);
+		$sheet->getColumnDimension('N')->setAutoSize(true);
+		$sheet->getColumnDimension('O')->setAutoSize(true);
+
+
+
+		// $sheet->getColumnDimension('A')->setWidth(20);
+
+
+		$sheet->setTitle('รายการจองห้อง');
+
+		$rowCaption = [
+						  'ชื่อย่อ', 'ชื่อห้อง','ตำแหน่งที่ตั้ง','ข้อมูลผู้จอง','เบอร์โทรศัพท์มือถือ','เบอร์โทรศัพท์ภายใน'
+						  ,'ลักษณะการใช้งาน', 'ซอฟต์แวร์ที่ใช้งาน','วัตถุประสงค์การใช้งาน'
+						  ,'จำนวนผู้เข้าร่วม', 'เจ้าหน้าที่ประจำห้อง'
+						  ,'วันที่เริ่มต้น','วันที่สิ้นสุด','วันที่ทำรายการ'
+						  ,'สถานะ'
+						];
+
+		$sheet->fromArray($rowCaption, NULL, 'A1');
+
+		$rowCount = 2;
+		foreach ($responses as $res) {
+
+		  $sheet->setCellVAlue('A'.$rowCount, $res['room_tag']);
+		  $sheet->setCellVAlue('B'.$rowCount, $res['room_name']);
+		  $sheet->setCellVAlue('C'.$rowCount, $res['room_shortname']);
+		  $sheet->setCellVAlue('D'.$rowCount, $res['name'].' '.$res['surname']);
+		  $sheet->setCellVAlue('E'.$rowCount, $res['booking_phone']);
+		  $sheet->setCellVAlue('F'.$rowCount, $res['internal_phone']);
+		  $sheet->setCellVAlue('G'.$rowCount, $res['usage_category_desc']);
+		  $sheet->setCellVAlue('H'.$rowCount, $res['usage_software_desc']);
+		  $sheet->setCellVAlue('I'.$rowCount, $res['objective']);
+		  $sheet->setCellVAlue('J'.$rowCount, $res['participant']);
+		  $sheet->setCellVAlue('K'.$rowCount, $res['require_staff']);
+
+		  $excelDateValueColL = \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($res['booking_date_start'] );
+		  $sheet->setCellVAlue('L'.$rowCount, $excelDateValueColL);
+
+		  $excelDateValueColM = \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($res['booking_date_end'] );
+		  $sheet->setCellVAlue('M'.$rowCount, $excelDateValueColM);
+
+		  $excelDateValueColN = \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($res['created_at'] );
+		  $sheet->setCellVAlue('N'.$rowCount, $excelDateValueColN);
+
+		//   $sheet->setCellVAlue('M'.$rowCount, $res['booking_date_end']);
+		//   $sheet->setCellVAlue('N'.$rowCount, $res['created_at']);
+		  $sheet->setCellVAlue('O'.$rowCount, $res['booking_status_desc']);
+
+		  $rowCount++;
+		}
+
+		$writer = new Xlsx($spreadsheet);
+
+		$filename = 'ol-report-'.time();
+
+		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"');
+		header('Cache-Control: max-age=0');
+
+		$writer->save('php://output'); // download file
+
+	}
+
+	public function meeting_xlsx(){
+
+
+		$export_target = $this->session->userdata('export_target');
+		$criterias = array(
+			'export_target' => $export_target
+		);
+		$responses = $this->Mtbooking_model->list(array('conditions'=> $criterias));
 
 		$this->session->set_userdata('export_target',null);
 		// header('Content-Type: application/json');

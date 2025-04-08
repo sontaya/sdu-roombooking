@@ -239,6 +239,41 @@
 															}
 														?>
 													</div>
+													<div class="separator separator-dashed mb-10"></div>
+													<div class="row">
+														<div class="col-xl-12">
+
+															<div class="alert alert-custom alert-notice alert-teal-info fade show" role="alert">
+																<div class="alert-icon"><i class="flaticon-technology-2 icon-xl"></i></div>
+																<div class="alert-text">Meeting</div>
+															</div>
+
+														</div>
+													</div>
+													<div class="form-group row">
+
+
+														<?php
+															foreach ($room_meeting_info as $mt) {
+                                                                if ($room_grants != "") {
+                                                                    if (in_array($mt["id"], $room_grants)) {
+                                                                        $room_checked = "checked='checked'";
+                                                                    } else {
+                                                                        $room_checked = "";
+                                                                    }
+                                                                }
+														?>
+															<div class="col-md-4 col-xs-12">
+																<div class="checkbox-single mb-2">
+																	<label class="checkbox checkbox-info">
+																		<input type="checkbox" name="room_hybrid[]" value="<?= $mt["id"] ?>" <?= $room_checked ?> /><?= $mt["shortname"] ?>
+																	<span></span></label>
+																</div>
+															</div>
+														<?php
+															}
+														?>
+													</div>
 												</div>
 												<!--end::Tab-->
 											</div>

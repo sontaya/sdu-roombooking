@@ -15,10 +15,14 @@ class MY_Controller extends CI_Controller
 			$default_room = $rooms[0];
 			$default_hb_room = $rooms[0];
 			$default_dp_room = $rooms[0];
+			$default_mt_room = $rooms[0];
+			$default_sp_room = $rooms[0];
 		}else{
 			$default_room = "01";
 			$default_hb_room = "301";
 			$default_dp_room = "201";
+			$default_mt_room = "401";
+			$default_sp_room = "501";
 		}
 
 		$this->global_data = array(
@@ -26,7 +30,8 @@ class MY_Controller extends CI_Controller
 			'client_ip' => get_client_ip(),
 			'user_id' => $this->session->userdata('auth')['hrcode'],
 			'default_room' => $default_room,
-			'default_hb_room' => $default_hb_room
+			'default_hb_room' => $default_hb_room,
+			'default_sp_room' => $default_sp_room
 		);
 	}
 
@@ -86,6 +91,27 @@ class MY_Controller extends CI_Controller
 		$this->aTemplate['content'] = $this->load->view($this->content, $this->data, true);
 		$this->aTemplate['footer'] = $this->load->view('template/footer', $this->data, true);
 		$this->load->view('template/index-hb', $this->aTemplate);
+    }
+
+	public function render_mt()
+	{
+		$this->aTemplate['header'] = $this->load->view('template/header', $this->data, true);
+		$this->aTemplate['user_profile'] = $this->load->view('template/user_profile', $this->data, true);
+		$this->aTemplate['user_panel'] = $this->load->view('template/user_panel', $this->data, true);
+		$this->aTemplate['content'] = $this->load->view($this->content, $this->data, true);
+		$this->aTemplate['footer'] = $this->load->view('template/footer', $this->data, true);
+		$this->load->view('template/index-mt', $this->aTemplate);
+    }
+
+
+	public function render_sp()
+	{
+		$this->aTemplate['header'] = $this->load->view('template/header', $this->data, true);
+		$this->aTemplate['user_profile'] = $this->load->view('template/user_profile', $this->data, true);
+		$this->aTemplate['user_panel'] = $this->load->view('template/user_panel', $this->data, true);
+		$this->aTemplate['content'] = $this->load->view($this->content, $this->data, true);
+		$this->aTemplate['footer'] = $this->load->view('template/footer', $this->data, true);
+		$this->load->view('template/index-sp', $this->aTemplate);
     }
 
 }

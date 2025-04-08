@@ -157,6 +157,7 @@ function booking_view(id){
 
 		jQuery("#md_booking_name").html(data[0].academic_fullname);
 		jQuery("#md_room_name").html(data[0].room_name);
+		jQuery("#md_booking_department").html(data[0].name_faculty + ' (' +data[0].name_department + ')' );
 		jQuery("#md_booking_email").html(data[0].booking_email);
 		jQuery("#md_booking_phone").html(data[0].booking_phone);
 		jQuery("#md_internal_phone").html(data[0].internal_phone);

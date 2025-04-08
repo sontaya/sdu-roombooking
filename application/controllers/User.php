@@ -96,6 +96,7 @@ class User extends MY_Controller
 				'name' => $name,
 				'surname' => $surname,
 				'academic_fullname' => $academic_fullname,
+				'code_faculty' => $code_faculty,
 				'name_faculty' => $name_faculty,
 				'employee_type' => $employee_type,
 				'bio_pic_file' => $bio_pic_file,
@@ -105,6 +106,20 @@ class User extends MY_Controller
 			);
 		}else{
 			$userdata = array(
+				'name' => $name,
+				'surname' => $surname,
+				'academic_fullname' => $academic_fullname,
+				'employee_type' => $employee_type,
+				'staff_type' => $staff_type,
+				'staff_type_name' => $staff_type_name,
+				'substaff_type' => $substaff_type,
+				'substaff_type_name' => $substaff_type_name,
+				'code_faculty' => $code_faculty,
+				'name_faculty' => $name_faculty,
+				'code_department' => $code_department,
+				'name_department' => $name_department,
+				'code_site' => $code_site,
+				'name_site' => $name_site,
 				'lastlogin' => $timestamp,
 				'lastip' => $client_ip
 			);
@@ -121,10 +136,12 @@ class User extends MY_Controller
 				'name' => $name,
 				'surname' => $surname,
 				'academic_fullname' => $academic_fullname,
+				'code_faculty' => $code_faculty,
 				'name_faculty' => $name_faculty,
 				'employee_type' => $employee_type,
 				'bio_pic_file' => $bio_pic_file,
 				'role' => $user[0]["role"],
+				'staff_arit' => $user[0]["staff_arit_grant"],
 				'manage_app' => json_decode($user[0]["control_app_grant"], true),
 				'manage_room' => json_decode($user[0]["control_room_grant"], true)
 			);

@@ -26,7 +26,11 @@
 										<label>ชื่อผู้จอง: <span id="md_booking_name"></span></label>
 									</div>
 							</div>
-
+							<div class="row">
+									<div class="col-lg-12">
+										<label>หน่วยงาน: <span id="md_booking_department"></span></label>
+									</div>
+							</div>
 							<div class="row">
 									<div class="col-lg-5">
 										<label>อีเมล์: <span id="md_booking_email"></span></label>

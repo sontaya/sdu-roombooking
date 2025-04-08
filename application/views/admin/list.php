@@ -95,8 +95,9 @@
 												<span class="symbol-label font-size-h3 font-weight-boldest">
 													<?php
 														$explode_uid_admin = explode("_", $admin['uid']);
-							$short_uid_admin = substr($explode_uid_admin[0], 0, 1).substr($explode_uid_admin[1], 0, 1);
-							echo strtoupper($short_uid_admin); ?>
+														$short_uid_admin = substr($explode_uid_admin[0], 0, 1).substr($explode_uid_admin[1], 0, 1);
+														echo strtoupper($short_uid_admin);
+													?>
 
 												</span>
 											</div>
@@ -115,21 +116,26 @@
 									<!--begin::Desc-->
 									<?php
 										$rooms = get_room_grant($admin["user_id"]);
-							if ($rooms != false) {
-								foreach ($rooms as $rg) {
-									if ($rg["room_group"] == "OL") {
-										$room_label_class = "btn-light-success";
-									}
-									if ($rg["room_group"] == "HB") {
-										$room_label_class = "btn-light-info";
-									} ?>
+										if ($rooms != false) {
+											foreach ($rooms as $rg) {
+												if ($rg["room_group"] == "OL") {
+													$room_label_class = "btn-light-success";
+												}
+												if ($rg["room_group"] == "HB") {
+													$room_label_class = "btn-light-info";
+												}
+												if ($rg["room_group"] == "MT") {
+													$room_label_class = "btn-light-teal";
+												}
+									?>
 
-											<a href="#" class="btn btn-sm btn-icon <?= $room_label_class ?> mr-2 mb-2" >
-												<?= $rg["room_tag"] ?>
-											</a>
+														<a href="#" class="btn btn-sm btn-icon <?= $room_label_class ?> mr-2 mb-2" >
+															<?= $rg["room_tag"] ?>
+														</a>
 									<?php
-								}
-							} ?>
+											}
+										}
+									?>
 									<!--end::Desc-->
 									<!--begin::Info-->
 									<div class="mb-4 mt-2">

@@ -103,52 +103,64 @@
 									</div>
 									<div class="col-lg-6">
 										<!--begin::Callout-->
-										<div class="card card-custom p-6">
+										<div class="card card-custom p-6 mb-8 mb-lg-0">
 											<div class="card-body">
 												<div class="row">
 													<!--begin::Content-->
 													<div class="col-sm-8">
-														<h2 class="text-dark mb-4">The Suan Dusit Place</h2>
-														<h5 class="text-dark-50">ห้องประชุมสัมมนาและห้องจัดเลี้ยง </h5>
+														<h2 class="text-dark mb-4">Meeting Room</h2>
+														<h5 class="text-dark-50">สำหรับใช้ในการจองห้องประชุม</h5>
 													</div>
 													<!--end::Content-->
 													<!--begin::Button-->
 													<div class="col-sm-4 d-flex align-items-center justify-content-sm-end">
-														<a href="<?php echo base_url('page/set_active_template/DP') ?>" class="btn font-weight-bolder text-uppercase font-size-lg btn-success py-3 px-6">เริ่มจองห้อง</a>
+														<a href="<?php echo base_url('page/set_active_template/MT') ?>" class="btn font-weight-bolder text-uppercase font-size-lg btn-teal py-3 px-6 ">เริ่มจองห้อง</a>
 													</div>
 													<!--end::Button-->
 												</div>
+
 												<div class="separator separator-dashed mt-2 mb-2"></div>
-
 												<div class="row row-paddingless mb-4 mt-5">
-
+													<!--begin::Item-->
 													<div class="col">
 														<div class="d-flex align-items-center mr-2">
+															<!--begin::Symbol-->
 															<div class="symbol symbol-45 symbol-light-success mr-4 flex-shrink-0">
 																<div class="symbol-label">
 																	<span class="navi-icon"><i class="flaticon2-calendar-5 text-success icon-lg"></i></span>
+
 																</div>
 															</div>
+															<!--end::Symbol-->
+															<!--begin::Title-->
 															<div>
-																<div class="font-size-h4 text-success font-weight-bolder"><?php echo $dp_summary[0]->count_approved; ?> รายการ</div>
+																<div class="font-size-h4 text-success font-weight-bolder"><?php echo $mt_summary[0]->count_approved; ?> รายการ</div>
 																<div class="font-size-sm text-muted font-weight-bold mt-1">Success</div>
 															</div>
+															<!--end::Title-->
 														</div>
 													</div>
+													<!--end::Item-->
+													<!--begin::Item-->
 													<div class="col">
 														<div class="d-flex align-items-center mr-2">
+															<!--begin::Symbol-->
 															<div class="symbol symbol-45 symbol-light-primary mr-4 flex-shrink-0">
 																<div class="symbol-label">
 																	<span class="navi-icon"><i class="flaticon2-hourglass-1 text-primary icon-lg"></i></span>
 																</div>
 															</div>
-
+															<!--end::Symbol-->
+															<!--begin::Title-->
 															<div>
-																<div class="font-size-h4 text-primary font-weight-bolder"><?php echo $dp_summary[0]->count_pending; ?> รายการ</div>
+																<div class="font-size-h4 text-primary font-weight-bolder"><?php echo $mt_summary[0]->count_pending; ?> รายการ</div>
 																<div class="font-size-sm text-muted font-weight-bold mt-1">Pending</div>
 															</div>
+															<!--end::Title-->
 														</div>
 													</div>
+													<!--end::Item-->
+													<!--begin::Item-->
 													<div class="col">
 														<div class="d-flex align-items-center mr-2">
 															<!--begin::Symbol-->
@@ -160,7 +172,7 @@
 															<!--end::Symbol-->
 															<!--begin::Title-->
 															<div>
-																<div class="font-size-h4 text-warning font-weight-bolder"><?php echo $dp_summary[0]->count_rejected; ?> รายการ</div>
+																<div class="font-size-h4 text-warning font-weight-bolder"><?php echo $mt_summary[0]->count_rejected; ?> รายการ</div>
 																<div class="font-size-sm text-muted font-weight-bold mt-1">Rejected</div>
 															</div>
 															<!--end::Title-->
@@ -168,11 +180,7 @@
 													</div>
 													<!--end::Item-->
 												</div>
-												<div class="row">
-													<div class="col">
-														<!-- <p class="text-danger text-center font-size-lg">--- เปิดการใช้งานเร็วๆนี้ ---</p> -->
-													</div>
-												</div>
+
 											</div>
 										</div>
 										<!--end::Callout-->
@@ -263,8 +271,264 @@
 										</div>
 										<!--end::Callout-->
 									</div>
+									<div class="col-lg-6">
+										<!--begin::Callout-->
+										<div class="card card-custom p-6">
+											<div class="card-body">
+												<div class="row">
+													<!--begin::Content-->
+													<div class="col-sm-8">
+														<h2 class="text-dark mb-4">The Suan Dusit Place</h2>
+														<h5 class="text-dark-50">ห้องประชุมสัมมนาและห้องจัดเลี้ยง </h5>
+													</div>
+													<!--end::Content-->
+													<!--begin::Button-->
+													<div class="col-sm-4 d-flex align-items-center justify-content-sm-end">
+														<a href="<?php echo base_url('page/set_active_template/DP') ?>" class="btn font-weight-bolder text-uppercase font-size-lg btn-success py-3 px-6">เริ่มจองห้อง</a>
+													</div>
+													<!--end::Button-->
+												</div>
+												<div class="separator separator-dashed mt-2 mb-2"></div>
 
+												<div class="row row-paddingless mb-4 mt-5">
+
+													<div class="col">
+														<div class="d-flex align-items-center mr-2">
+															<div class="symbol symbol-45 symbol-light-success mr-4 flex-shrink-0">
+																<div class="symbol-label">
+																	<span class="navi-icon"><i class="flaticon2-calendar-5 text-success icon-lg"></i></span>
+																</div>
+															</div>
+															<div>
+																<div class="font-size-h4 text-success font-weight-bolder"><?php echo $dp_summary[0]->count_approved; ?> รายการ</div>
+																<div class="font-size-sm text-muted font-weight-bold mt-1">Success</div>
+															</div>
+														</div>
+													</div>
+													<div class="col">
+														<div class="d-flex align-items-center mr-2">
+															<div class="symbol symbol-45 symbol-light-primary mr-4 flex-shrink-0">
+																<div class="symbol-label">
+																	<span class="navi-icon"><i class="flaticon2-hourglass-1 text-primary icon-lg"></i></span>
+																</div>
+															</div>
+
+															<div>
+																<div class="font-size-h4 text-primary font-weight-bolder"><?php echo $dp_summary[0]->count_pending; ?> รายการ</div>
+																<div class="font-size-sm text-muted font-weight-bold mt-1">Pending</div>
+															</div>
+														</div>
+													</div>
+													<div class="col">
+														<div class="d-flex align-items-center mr-2">
+															<!--begin::Symbol-->
+															<div class="symbol symbol-45 symbol-light-warning mr-4 flex-shrink-0">
+																<div class="symbol-label">
+																	<span class="navi-icon"><i class="flaticon-cancel text-warning"></i></span>
+																</div>
+															</div>
+															<!--end::Symbol-->
+															<!--begin::Title-->
+															<div>
+																<div class="font-size-h4 text-warning font-weight-bolder"><?php echo $dp_summary[0]->count_rejected; ?> รายการ</div>
+																<div class="font-size-sm text-muted font-weight-bold mt-1">Rejected</div>
+															</div>
+															<!--end::Title-->
+														</div>
+													</div>
+													<!--end::Item-->
+												</div>
+												<div class="row">
+													<div class="col">
+														<!-- <p class="text-danger text-center font-size-lg">--- เปิดการใช้งานเร็วๆนี้ ---</p> -->
+													</div>
+												</div>
+											</div>
+										</div>
+										<!--end::Callout-->
+									</div>
 							</div>
+
+							<?php
+								if (($this->session->userdata('auth')['role'] == "admin") || ($this->session->userdata('auth')['role'] == "delegate_admin") || (in_array("space", $this->session->userdata('auth')['manage_app']) )) {
+							?>
+									<div class="row mt-4">
+											<div class="col-lg-6">
+												<!--begin::Callout-->
+												<div class="card card-custom p-6 mb-8 mb-lg-0">
+													<div class="card-body">
+														<div class="row">
+															<!--begin::Content-->
+															<div class="col-sm-8">
+																<h2 class="text-dark mb-4">Activity Space</h2>
+																<h5 class="text-dark-50">สำหรับใช้ในการจัดกิจกรรม</h5>
+															</div>
+															<!--end::Content-->
+															<!--begin::Button-->
+															<div class="col-sm-4 d-flex align-items-center justify-content-sm-end">
+																<a href="<?php echo base_url('page/set_active_template/SP') ?>" class="btn font-weight-bolder text-uppercase font-size-lg btn-success py-3 px-6">เริ่มจองห้อง</a>
+															</div>
+															<!--end::Button-->
+														</div>
+
+														<div class="separator separator-dashed mt-2 mb-2"></div>
+														<div class="row row-paddingless mb-4 mt-5">
+															<!--begin::Item-->
+															<div class="col">
+																<div class="d-flex align-items-center mr-2">
+																	<!--begin::Symbol-->
+																	<div class="symbol symbol-45 symbol-light-success mr-4 flex-shrink-0">
+																		<div class="symbol-label">
+																			<span class="navi-icon"><i class="flaticon2-calendar-5 text-success icon-lg"></i></span>
+
+																		</div>
+																	</div>
+																	<!--end::Symbol-->
+																	<!--begin::Title-->
+																	<div>
+																		<div class="font-size-h4 text-success font-weight-bolder"><?php echo $hb_summary[0]->count_approved; ?> รายการ</div>
+																		<div class="font-size-sm text-muted font-weight-bold mt-1">Success</div>
+																	</div>
+																	<!--end::Title-->
+																</div>
+															</div>
+															<!--end::Item-->
+															<!--begin::Item-->
+															<div class="col">
+																<div class="d-flex align-items-center mr-2">
+																	<!--begin::Symbol-->
+																	<div class="symbol symbol-45 symbol-light-primary mr-4 flex-shrink-0">
+																		<div class="symbol-label">
+																			<span class="navi-icon"><i class="flaticon2-hourglass-1 text-primary icon-lg"></i></span>
+																		</div>
+																	</div>
+																	<!--end::Symbol-->
+																	<!--begin::Title-->
+																	<div>
+																		<div class="font-size-h4 text-primary font-weight-bolder"><?php echo $hb_summary[0]->count_pending; ?> รายการ</div>
+																		<div class="font-size-sm text-muted font-weight-bold mt-1">Pending</div>
+																	</div>
+																	<!--end::Title-->
+																</div>
+															</div>
+															<!--end::Item-->
+															<!--begin::Item-->
+															<div class="col">
+																<div class="d-flex align-items-center mr-2">
+																	<!--begin::Symbol-->
+																	<div class="symbol symbol-45 symbol-light-warning mr-4 flex-shrink-0">
+																		<div class="symbol-label">
+																			<span class="navi-icon"><i class="flaticon-cancel text-warning"></i></span>
+																		</div>
+																	</div>
+																	<!--end::Symbol-->
+																	<!--begin::Title-->
+																	<div>
+																		<div class="font-size-h4 text-warning font-weight-bolder"><?php echo $hb_summary[0]->count_rejected; ?> รายการ</div>
+																		<div class="font-size-sm text-muted font-weight-bold mt-1">Rejected</div>
+																	</div>
+																	<!--end::Title-->
+																</div>
+															</div>
+															<!--end::Item-->
+														</div>
+
+													</div>
+												</div>
+												<!--end::Callout-->
+											</div>
+									</div>
+							<?
+
+								}elseif($this->session->userdata('auth')['staff_arit'] == "Y"){
+							?>
+									<div class="row mt-4">
+											<div class="col-lg-6">
+												<!--begin::Callout-->
+												<div class="card card-custom p-6 mb-8 mb-lg-0">
+													<div class="card-body">
+														<div class="row">
+															<!--begin::Content-->
+															<div class="col-sm-8">
+																<h2 class="text-dark mb-4">Activity Space</h2>
+																<h5 class="text-dark-50">สำหรับใช้ในการจัดกิจกรรม</h5>
+															</div>
+															<!--end::Content-->
+															<!--begin::Button-->
+															<div class="col-sm-4 d-flex align-items-center justify-content-sm-end">
+																<a href="<?php echo base_url('page/set_active_template/SP') ?>" class="btn font-weight-bolder text-uppercase font-size-lg btn-success py-3 px-6">เริ่มจองห้อง</a>
+															</div>
+															<!--end::Button-->
+														</div>
+
+														<div class="separator separator-dashed mt-2 mb-2"></div>
+														<div class="row row-paddingless mb-4 mt-5">
+															<!--begin::Item-->
+															<div class="col">
+																<div class="d-flex align-items-center mr-2">
+																	<!--begin::Symbol-->
+																	<div class="symbol symbol-45 symbol-light-success mr-4 flex-shrink-0">
+																		<div class="symbol-label">
+																			<span class="navi-icon"><i class="flaticon2-calendar-5 text-success icon-lg"></i></span>
+
+																		</div>
+																	</div>
+																	<!--end::Symbol-->
+																	<!--begin::Title-->
+																	<div>
+																		<div class="font-size-h4 text-success font-weight-bolder"><?php echo $hb_summary[0]->count_approved; ?> รายการ</div>
+																		<div class="font-size-sm text-muted font-weight-bold mt-1">Success</div>
+																	</div>
+																	<!--end::Title-->
+																</div>
+															</div>
+															<!--end::Item-->
+															<!--begin::Item-->
+															<div class="col">
+																<div class="d-flex align-items-center mr-2">
+																	<!--begin::Symbol-->
+																	<div class="symbol symbol-45 symbol-light-primary mr-4 flex-shrink-0">
+																		<div class="symbol-label">
+																			<span class="navi-icon"><i class="flaticon2-hourglass-1 text-primary icon-lg"></i></span>
+																		</div>
+																	</div>
+																	<!--end::Symbol-->
+																	<!--begin::Title-->
+																	<div>
+																		<div class="font-size-h4 text-primary font-weight-bolder"><?php echo $hb_summary[0]->count_pending; ?> รายการ</div>
+																		<div class="font-size-sm text-muted font-weight-bold mt-1">Pending</div>
+																	</div>
+																	<!--end::Title-->
+																</div>
+															</div>
+															<!--end::Item-->
+															<!--begin::Item-->
+															<div class="col">
+																<div class="d-flex align-items-center mr-2">
+																	<!--begin::Symbol-->
+																	<div class="symbol symbol-45 symbol-light-warning mr-4 flex-shrink-0">
+																		<div class="symbol-label">
+																			<span class="navi-icon"><i class="flaticon-cancel text-warning"></i></span>
+																		</div>
+																	</div>
+																	<!--end::Symbol-->
+																	<!--begin::Title-->
+																	<div>
+																		<div class="font-size-h4 text-warning font-weight-bolder"><?php echo $hb_summary[0]->count_rejected; ?> รายการ</div>
+																		<div class="font-size-sm text-muted font-weight-bold mt-1">Rejected</div>
+																	</div>
+																	<!--end::Title-->
+																</div>
+															</div>
+															<!--end::Item-->
+														</div>
+
+													</div>
+												</div>
+												<!--end::Callout-->
+											</div>
+									</div>
+							<? } ?>
 
 						</div>
 						<!--end::Section-->

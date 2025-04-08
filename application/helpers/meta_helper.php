@@ -146,3 +146,39 @@
 
     }
 
+	function get_mtroom_all(){
+
+		// Get a reference to the controller object
+		$CI = get_instance();
+
+		// You may need to load the model if it hasn't been pre-loaded
+		$CI->load->model('Mtroom_model');
+
+		$conditions = array(
+			'active_in' => array('Y','C')
+		);
+		// $data['rooms'] = $this->db->get('room_master')->result_array();
+		$rooms = $CI->Mtroom_model->list(array('conditions'=>  $conditions));
+
+		return $rooms;
+
+    }
+
+	function get_mtroom_active(){
+
+		// Get a reference to the controller object
+		$CI = get_instance();
+
+		// You may need to load the model if it hasn't been pre-loaded
+		$CI->load->model('Mtroom_model');
+
+		$conditions = array(
+			'active_in' => array('Y')
+		);
+		// $data['rooms'] = $this->db->get('room_master')->result_array();
+		$rooms = $CI->Mtroom_model->list(array('conditions'=>  $conditions));
+
+		return $rooms;
+
+    }
+

@@ -13,7 +13,7 @@
 								if($form_mode == "insert"){
 									$val_id = "";
 									$val_user_id = $this->session->userdata('auth')['hrcode'];
-									$val_booking_name = $this->session->userdata('auth')['displayname'];
+									$val_booking_name = $this->session->userdata('auth')['academic_fullname'];
 									$val_booking_faculty = $this->session->userdata('auth')['name_faculty'];
 									$val_booking_email = $default_contact["email_default"];
 									$val_booking_phone = $default_contact["mobile_phone_default"];

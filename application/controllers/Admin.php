@@ -15,6 +15,7 @@ class Admin extends MY_Controller
 		$this->load->model('User_model');
 		$this->load->model('Room_model');
 		$this->load->model('Hybridroom_model');
+		$this->load->model('Mtroom_model');
 
         if(! $this->session->userdata('auth')['uid'])
         {
@@ -93,6 +94,7 @@ class Admin extends MY_Controller
 		$ol_master_conditions = array();
 		$data['room_online_info'] = $this->Room_model->list(array('conditions'=> $ol_master_conditions));
 		$data['room_hybrid_info'] = $this->Hybridroom_model->list(array('conditions'=> array()));
+		$data['room_meeting_info'] = $this->Mtroom_model->list(array('conditions'=> array()));
 
 
 		$this->data = $data;
@@ -122,9 +124,11 @@ class Admin extends MY_Controller
 
 		$app_online_array = array();
 		$app_hybrid_array = array();
+		$app_meeting_array = array();
 
 		$room_online_array = array();
 		$room_hybrid_array = array();
+		$room_meeting_array = array();
 
 		if($this->input->post('room_online') == ""){
 			$room_online = "";
@@ -144,8 +148,17 @@ class Admin extends MY_Controller
 			$app_hybrid_array = array("hybrid");
 		}
 
-		$room_grant_all = array_merge($room_online_array, $room_hybrid_array);
-		$control_app_all = array_merge($app_online_array, $app_hybrid_array);
+		if($this->input->post('room_meeting') == ""){
+			$room_meeting = "";
+			$app_meeting_array = array();
+		}else{
+			$room_meeting = implode(",",$this->input->post('room_meeting'));
+			$room_meeting_array = $this->input->post('room_meeting');
+			$app_meeting_array = array("meeting");
+		}
+
+		$room_grant_all = array_merge($room_online_array, $room_hybrid_array, $room_meeting_array);
+		$control_app_all = array_merge($app_online_array, $app_hybrid_array, $app_meeting_array);
 
 		// echo json_encode( $room_grant_all);
 
